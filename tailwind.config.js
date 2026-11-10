@@ -29,8 +29,9 @@ export default {
         }
       },
       fontFamily: {
+        syne: ['Syne', 'sans-serif'],
+        display: ['Syne', '"Cormorant Garamond"', 'Playfair Display', 'serif'],
         serif: ['"Cormorant Garamond"', 'Playfair Display', 'Georgia', 'serif'],
-        display: ['"Cormorant Garamond"', 'Playfair Display', 'serif'],
         sans: ['Inter', '"DM Sans"', '-apple-system', 'BlinkMacSystemFont', 'sans-serif'],
       },
       letterSpacing: {

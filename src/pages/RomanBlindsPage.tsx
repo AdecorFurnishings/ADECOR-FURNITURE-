@@ -13,11 +13,11 @@ export const RomanBlindsPage: React.FC = () => {
           <Layers className="w-3.5 h-3.5 text-[#C5A880]" />
           <span className="label-caps text-[10px] tracking-luxury">Roman Blind Shades Catalog</span>
         </div>
-        <h1 className="font-editorial text-5xl sm:text-6xl lg:text-7xl text-[#1E1D1B] font-light tracking-tight">
-          12 Signature Roman Blind Geometries
+        <h1 className="font-syne text-5xl sm:text-6xl lg:text-7xl text-[#1E1D1B] font-bold uppercase tracking-tight">
+          12 Roman Blind Geometries
         </h1>
-        <p className="mt-4 max-w-2xl mx-auto text-base sm:text-lg text-[#5E5C57] font-light leading-relaxed">
-          From the structured simplicity of Flat and Back-Slat to the theatrical romance of Austrian and Shirred Balloon folds. Custom crafted to your exact window reveal in Chennai.
+        <p className="mt-4 max-w-xl mx-auto text-base sm:text-lg text-[#5E5C57] font-light leading-relaxed">
+          From the clean lines of Flat and Back-Slat to the theatrical romance of Austrian folds. Tailored to millimeter precision in Chennai.
         </p>
       </div>
 

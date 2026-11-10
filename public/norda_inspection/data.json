@@ -1,0 +1,159 @@
+{
+  "title": "NORDA — Quiet comfort for slow homes",
+  "headings": [
+    "QUIET\nCOMFORT",
+    "DISCOVER OUR LATEST\nARRIVALS TODAY",
+    "RAVN OAK STOOL",
+    "KAJA PAPER PENDANT",
+    "HILDE LINEN CUSHION",
+    "TOVE CERAMIC BOWL",
+    "EXPLORE EVERY PRODUCT CATEGORY",
+    "EXPLORE PIECES\nEVERYONE LOVES MOST",
+    "HALDEN LOUNGE CHAIR",
+    "LUNE WOOL THROW",
+    "ORLA TABLE LAMP",
+    "BETTER LIVING\nSTARTS RIGHT HERE",
+    "LOVED PIECES, TRUSTED\nBY HAPPY HOMES",
+    "OWN LESS, CHOOSE BETTER,\nLOVE IT LONGER"
+  ],
+  "fonts": [
+    "Anton",
+    "Anton",
+    "Anton",
+    "DM Mono",
+    "DM Mono",
+    "DM Mono",
+    "DM Mono",
+    "Instrument Sans",
+    "Instrument Sans",
+    "Instrument Sans",
+    "Instrument Sans",
+    "Instrument Sans",
+    "Instrument Sans"
+  ],
+  "images": [
+    {
+      "src": "https://demo.codeandchill.store/norda/photos/norda/avatar-1.jpg",
+      "alt": "",
+      "width": 192,
+      "height": 192
+    },
+    {
+      "src": "https://demo.codeandchill.store/norda/photos/norda/avatar-2.jpg",
+      "alt": "",
+      "width": 192,
+      "height": 192
+    },
+    {
+      "src": "https://demo.codeandchill.store/norda/photos/norda/avatar-3.jpg",
+      "alt": "",
+      "width": 192,
+      "height": 192
+    },
+    {
+      "src": "https://demo.codeandchill.store/norda/photos/norda/hero-chair.webp",
+      "alt": "Halden lounge chair in cream bouclé on oak legs",
+      "width": 923,
+      "height": 923
+    },
+    {
+      "src": "https://demo.codeandchill.store/norda/photos/norda/lamp.webp",
+      "alt": "Orla table lamp with a pleated linen shade",
+      "width": 1100,
+      "height": 1100
+    },
+    {
+      "src": "https://demo.codeandchill.store/norda/photos/norda/vase.webp",
+      "alt": "Sten stoneware vase in speckled sand glaze",
+      "width": 997,
+      "height": 997
+    },
+    {
+      "src": "https://demo.codeandchill.store/norda/photos/norda/throw.webp",
+      "alt": "Lune wool throw folded, in oat and moss stripes",
+      "width": 973,
+      "height": 973
+    },
+    {
+      "src": "https://demo.codeandchill.store/norda/photos/norda/table.webp",
+      "alt": "Bo round side table in solid ash",
+      "width": 891,
+      "height": 891
+    },
+    {
+      "src": "https://demo.codeandchill.store/norda/photos/norda/hero-chair.webp",
+      "alt": "",
+      "width": 923,
+      "height": 923
+    },
+    {
+      "src": "https://demo.codeandchill.store/norda/photos/norda/lamp.webp",
+      "alt": "",
+      "width": 1100,
+      "height": 1100
+    },
+    {
+      "src": "https://demo.codeandchill.store/norda/photos/norda/vase.webp",
+      "alt": "",
+      "width": 997,
+      "height": 997
+    },
+    {
+      "src": "https://demo.codeandchill.store/norda/photos/norda/throw.webp",
+      "alt": "",
+      "width": 973,
+      "height": 973
+    },
+    {
+      "src": "https://demo.codeandchill.store/norda/photos/norda/table.webp",
+      "alt": "",
+      "width": 891,
+      "height": 891
+    },
+    {
+      "src": "https://demo.codeandchill.store/norda/photos/norda/stool.webp",
+      "alt": "Ravn three-legged stool in oiled oak",
+      "width": 885,
+      "height": 885
+    },
+    {
+      "src": "https://demo.codeandchill.store/norda/photos/norda/pendant.webp",
+      "alt": "Kaja pleated paper pendant lamp",
+      "width": 1100,
+      "height": 1100
+    },
+    {
+      "src": "https://demo.codeandchill.store/norda/photos/norda/cushion.webp",
+      "alt": "Hilde stonewashed linen cushion in moss",
+      "width": 931,
+      "height": 931
+    },
+    {
+      "src": "https://demo.codeandchill.store/norda/photos/norda/bowl.webp",
+      "alt": "Tove hand-thrown ceramic bowl in matte clay",
+      "width": 941,
+      "height": 941
+    },
+    {
+      "src": "https://demo.codeandchill.store/norda/photos/norda/hero-chair.webp",
+      "alt": "",
+      "width": 923,
+      "height": 923
+    },
+    {
+      "src": "https://demo.codeandchill.store/norda/photos/norda/lamp.webp",
+      "alt": "",
+      "width": 1100,
+      "height": 1100
+    },
+    {
+      "src": "https://demo.codeandchill.store/norda/photos/norda/table.webp",
+      "alt": "",
+      "width": 891,
+      "height": 891
+    }
+  ],
+  "bg": "rgb(238, 234, 227)",
+  "color": "rgb(30, 35, 30)",
+  "fontFamily": "\"Instrument Sans\", system-ui, sans-serif"
+}

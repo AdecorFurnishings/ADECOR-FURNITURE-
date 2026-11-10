@@ -30,11 +30,11 @@ export const GalleryPage: React.FC = () => {
           <Sparkles className="w-3.5 h-3.5 text-[#C5A880]" />
           <span className="label-caps text-[10px] tracking-luxury">Portfolio of Completed Works</span>
         </div>
-        <h1 className="font-editorial text-5xl sm:text-6xl lg:text-7xl text-[#1E1D1B] font-light tracking-tight">
-          A-Decor Interior Gallery
+        <h1 className="font-syne text-5xl sm:text-6xl lg:text-7xl text-[#1E1D1B] font-bold uppercase tracking-tight">
+          Interior Gallery
         </h1>
-        <p className="mt-4 max-w-2xl mx-auto text-base sm:text-lg text-[#5E5C57] font-light leading-relaxed">
-          Explore bespoke draperies, acoustic panels, master headboards, and reupholstered suites delivered across Chennai and Tamil Nadu.
+        <p className="mt-4 max-w-xl mx-auto text-base sm:text-lg text-[#5E5C57] font-light leading-relaxed">
+          Bespoke draperies, acoustic panels, master headboards, and reupholstered suites delivered across Chennai.
         </p>
 
         {/* Filter Pills */}

@@ -24,11 +24,11 @@ export const RomanBlindInteractive: React.FC = () => {
             <span className="label-caps text-[10px] tracking-luxury">Craftsmanship in Motion</span>
           </div>
 
-          <h2 className="font-editorial text-4xl sm:text-5xl lg:text-6xl text-[#1E1D1B] font-light tracking-tight">
+          <h2 className="font-syne text-4xl sm:text-5xl lg:text-6xl text-[#1E1D1B] font-bold uppercase tracking-tight">
             Roman Blind Folding Studio
           </h2>
           <p className="mt-4 text-[#5E5C57] text-base sm:text-lg font-light leading-relaxed">
-            From classic hobbled cascades to motorized whisper-quiet automation. Pull the cord to inspect fold stacking physics across all 12 styles from our Nandanam showroom catalog.
+            From classic hobbled cascades to motorized electric lift. Pull the cord to inspect fold stacking physics across all 12 styles.
           </p>
         </div>
 

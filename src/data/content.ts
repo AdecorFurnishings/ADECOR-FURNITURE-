@@ -103,29 +103,29 @@ export const SITE_CONTENT = {
   },
 
   about: {
-    heroTitle: "Crafting Timeless Sanctuaries Since 2004",
-    leadParagraph: "A-Decor offers both classic and innovative design solutions for the home and office. Our aim is to help you put together the kind of environment in which you feel both comfortable and inspired.",
-    bodyParagraph1: "Our service provision encompasses all aspects of interior design, from curtains, cushions, general soft furnishings, blinds, rugs, shutters to furniture and accessories.",
-    bodyParagraph2: "We launched in 2004 in Nandanam, a prime location of Chennai and are able to offer an on-site design consultation and measuring service focused on your requirements anywhere in Tamil Nadu and the surrounding area.",
+    heroTitle: "Bespoke Interiors Since 2004",
+    leadParagraph: "A-Decor crafts classic and innovative interior furnishings for homes and offices. We create environments where you feel effortlessly comfortable and inspired.",
+    bodyParagraph1: "Our expertise spans bespoke curtains, soft furnishings, motorized blinds, rugs, acoustic wall panels, and master furniture reupholstery.",
+    bodyParagraph2: "Founded in Nandanam, Chennai. We offer complimentary on-site design consultation and laser measuring across all of Tamil Nadu.",
     values: [
       {
-        title: "Bespoke Precision",
-        desc: "Every drape, slat, panel, and stitch is calibrated to millimeter tolerance for your architectural space."
+        title: "Millimeter Precision",
+        desc: "Tailored to your exact architectural window reveals."
       },
       {
-        title: "Statewide Consultation",
-        desc: "Complimentary on-site measuring and design advisory throughout Chennai, Coimbatore, and all of Tamil Nadu."
+        title: "Statewide Visits",
+        desc: "On-site fabric curation across Chennai & Tamil Nadu."
       },
       {
-        title: "Artisanal Integrity",
-        desc: "Over two decades of trusted patronage with India's leading hotel chains, hospitals, and luxury residences."
+        title: "Trusted Legacy",
+        desc: "Over 20 years of craftsmanship for premier homes & luxury hotels."
       }
     ],
     stats: [
-      { value: "20+", label: "Years of Craft", sub: "Established 2004" },
-      { value: "12,500+", label: "Bespoke Drapes & Blinds", sub: "Handcrafted in Chennai" },
+      { value: "20+", label: "Years of Craft", sub: "Est. 2004 in Nandanam" },
+      { value: "12,500+", label: "Installations", sub: "Chennai & Tamil Nadu" },
       { value: "100%", label: "On-Site Measuring", sub: "Anywhere in Tamil Nadu" },
-      { value: "9+", label: "Marquee Enterprise Clients", sub: "Hilton, Apollo, TVS & More" }
+      { value: "9+", label: "Marquee Clients", sub: "Hilton, Apollo, TVS & More" }
     ]
   },
 
@@ -134,60 +134,60 @@ export const SITE_CONTENT = {
       id: "curtains",
       name: "Bespoke Curtains",
       tagline: "Architectural Drapes & 13 Custom Pleat Silhouettes",
-      description: "From cascading ripple folds to regal double and triple pinch pleats, our custom curtains elevate acoustic warmth, natural light filtration, and grandeur.",
-      features: ["13 signature pleat styles", "Acoustic thermal lining & blackout options", "Motorized Somfy / Tuya smart rails", "Hand-finished hems & weighted corners"],
-      image: "/images/services/curtains.jpg",
+      description: "From cascading ripple folds to regal double and triple pinch pleats, crafted with acoustic lining and whisper-quiet motorization.",
+      features: ["13 signature pleats", "Acoustic & blackout linings", "Somfy & Tuya smart motorization", "Hand-finished weighted hems"],
+      image: "/images/hd/curtains_sheer.jpg",
       badge: "Signature Craft"
     },
     {
       id: "blinds",
       name: "Roman & Motorized Blinds",
-      tagline: "12 Tailored Stack Styles & Automated Control",
-      description: "Precision-engineered Roman shades in hobbled, waterfall, flat, and balloon iterations. Available in manual cordless or whisper-quiet smart automation.",
-      features: ["12 distinct Roman folding geometries", "Solar control & dual-screen light filtering", "Whisper-quiet motorized integration", "Over 400 imported linen and jacquard textures"],
-      image: "/images/services/blinds.jpg",
+      tagline: "12 Tailored Stack Styles & Whisper-Quiet Automation",
+      description: "Precision-engineered Roman shades in hobbled, waterfall, flat, and balloon folds with remote and smart app control.",
+      features: ["12 distinct folding geometries", "Solar glare & dual-light filtering", "Whisper-quiet electric lift", "Over 400 imported fabrics"],
+      image: "/images/hd/roman_blinds.jpg",
       badge: "Popular"
     },
     {
       id: "sofa-refurbishing",
       name: "Sofa Refurbishing & Re-Upholstery",
-      tagline: "Revive Your Heirloom Furniture with Master Craftsmanship",
-      description: "Give your cherished sofas and armchairs a second life. We strip to the core frame, fortify joints, inject high-density memory foam, and tailor world-class fabrics.",
-      features: ["Complimentary inspection & pick-up in Chennai", "High-density 40+ density ergonomic foam rebuild", "Leatherette, Italian leather & stain-resistant velvet", "4-step meticulous artisan turnaround"],
-      image: "/images/sofa/sofa_after.jpg",
+      tagline: "Revive Cherished Furniture with Master Craftsmanship",
+      description: "Save your solid teak frame. We dismantle to the skeleton, fortify joints, inject 40+ density ergonomic foam, and wrap in luxury velvet or leather.",
+      features: ["Free on-site inspection in Chennai", "40+ density ergonomic foam rebuild", "Italian velvet, bouclé & leather", "Free pick-up and delivery"],
+      image: "/images/hd/sofa_luxury.jpg",
       badge: "New Service"
     },
     {
       id: "wall-panels",
       name: "Acoustic & Fabric Wall Panels",
-      tagline: "Architectural Texture, Acoustic Solitude & Luxury",
-      description: "Custom upholstered geometric and channel wall panelling. Perfect for master suites, home theatres, boardroom acoustics, and luxury feature walls.",
-      features: ["Class-A sound absorption options", "Bespoke rectangular, diamond and organic channels", "Integrated LED perimeter shadow gaps", "Flame-retardant upholstery fabrics"],
-      image: "/images/services/wall_panel.jpg"
+      tagline: "Architectural Texture & Soundproof Luxury",
+      description: "Geometric and channel padded wall panelling for master bedrooms, home theatres, and executive boardrooms.",
+      features: ["Class-A sound absorption", "Geometric & rectangular channels", "Perimeter LED shadow gaps", "Flame-retardant upholstery"],
+      image: "/images/hd/wall_panel.jpg"
     },
     {
       id: "designer-headboards",
       name: "Designer Headboards",
-      tagline: "Sculptural Master Bedroom Centerpieces",
-      description: "Deep button-tufted, fluted, and geometric upholstered headboards built to custom bedroom ceiling heights with matching bedside pedestals.",
-      features: ["Floor-to-ceiling architectural profiles", "Deep diamond tufting & wingback silhouettes", "Integrated reading light recesses & USB ports", "Velvet, linen, bouclé, and vegan leather finishes"],
-      image: "/images/services/designer_headboards.jpg"
+      tagline: "Sculptural Bedroom Centerpieces",
+      description: "Floor-to-ceiling upholstered headboards with deep diamond tufting, fluting, and integrated reading light niches.",
+      features: ["Architectural ceiling heights", "Deep diamond & wingback tufting", "Integrated USB & light recesses", "Velvet, linen, bouclé & leather"],
+      image: "/images/hd/headboard_suite.jpg"
     },
     {
       id: "wallpaper",
       name: "Designer Wallpaper",
-      tagline: "3D Optical Murals, Textured Grasscloth & Metallic Foils",
-      description: "Breathtaking imported wall coverings ranging from trompe-l'œil 3D geometries to organic hand-woven Japanese grasscloth and subtle metallic patinas.",
-      features: ["Seamless installation without visible joins", "Washable, scrub-resistant vinyl surfaces", "Custom size-to-wall scenic mural printing", "Anti-fungal and moisture-resistant adhesives"],
-      image: "/images/services/wallpaper.jpg"
+      tagline: "3D Optical Murals & Hand-Woven Textures",
+      description: "Imported textured wall coverings, architectural 3D perspective murals, and hand-woven Japanese grasscloth.",
+      features: ["Seamless installation", "Scrub-resistant washable vinyl", "Bespoke size-to-wall printing", "Moisture-resistant adhesives"],
+      image: "/images/hd/wallpaper_art.jpg"
     },
     {
       id: "flooring",
       name: "Hardwood & Luxury Flooring",
-      tagline: "Engineered Wood, Parquet & Premium Luxury Plank",
-      description: "Warm, enduring foundations for gracious living. Authentic oak parquet, herringbone patterns, and durable high-traffic luxury vinyl planks.",
-      features: ["Waterproof core click-lock systems", "Natural oiled & UV-lacquered real timber veneers", "Commercial AC4/AC5 abrasion durability", "Acoustic underlayment for silent steps"],
-      image: "/images/services/flooring.jpg"
+      tagline: "Engineered Oak, Parquet & Chevron Planks",
+      description: "Authentic oak parquet, herringbone designs, and durable acoustic waterproof luxury planks.",
+      features: ["Waterproof click-lock systems", "Natural oiled European oak", "Commercial AC4/AC5 durability", "Silent acoustic underlayment"],
+      image: "/images/hd/flooring_oak.jpg"
     }
   ] as ServiceItem[],
 
@@ -195,109 +195,109 @@ export const SITE_CONTENT = {
     {
       id: "hobbled",
       name: "Hobbled",
-      description: "Cascading, gentle loops of fabric remain soft and billowed even when the shade is fully drawn down, creating opulent, dimensional texture.",
+      description: "Cascading, gentle loops of fabric remain soft and billowed even when drawn down.",
       image: "/images/blinds/hobbled.jpg",
-      bestFor: "Master living rooms and formal dining areas",
-      fabricRecommendation: "Textured damask, medium-weight jacquards",
+      bestFor: "Living rooms & dining salons",
+      fabricRecommendation: "Textured damask & rich jacquards",
       stackStyle: "Deep cascading pleat bundle"
     },
     {
       id: "back-slat",
       name: "Back Slat",
-      description: "Features horizontal structural battens sewn on the backside, leaving a perfectly unblemished front face with crisp architectural horizontal folds.",
+      description: "Concealed rear battens create an unblemished front face with crisp horizontal folds.",
       image: "/images/blinds/back_slat.jpg",
-      bestFor: "Striped patterns and modern minimalist windows",
-      fabricRecommendation: "Crisp cotton-linen blends and vertical stripes",
-      stackStyle: "Tight, tailored horizontal stacking"
+      bestFor: "Minimalist and striped windows",
+      fabricRecommendation: "Crisp linen & vertical stripes",
+      stackStyle: "Tailored horizontal stacking"
     },
     {
       id: "waterfall",
       name: "Waterfall",
-      description: "The fabric cascades smoothly from the front of the headrail, concealing hardware entirely and descending in flowing horizontal tiers.",
+      description: "Cascades forward from the headrail, concealing hardware in descending tiers.",
       image: "/images/blinds/waterfall.jpg",
-      bestFor: "Ceiling-recessed and high-window installations",
-      fabricRecommendation: "Loomed textured stripes and earth-toned weaves",
-      stackStyle: "Forward-projecting smooth cascade"
+      bestFor: "Ceiling-recessed windows",
+      fabricRecommendation: "Loomed textured weaves",
+      stackStyle: "Smooth forward cascade"
     },
     {
       id: "front-slat",
       name: "Front Slat",
-      description: "Exposes tailored horizontal slat pockets on the front fabric surface, offering a graphic, structured rhythm that accentuates window proportions.",
+      description: "Graphic horizontal slat pockets sewn on the front face for architectural rhythm.",
       image: "/images/blinds/front_slat.jpg",
-      bestFor: "Contemporary lofts and office executive suites",
-      fabricRecommendation: "Structured canvas, micro-weave linens",
-      stackStyle: "Crisp defined tiered fold"
+      bestFor: "Contemporary lofts & studios",
+      fabricRecommendation: "Structured canvas & linens",
+      stackStyle: "Defined tiered fold"
     },
     {
       id: "relaxed",
       name: "Relaxed",
-      description: "Unstructured at the center, the bottom hem sways into a graceful, gentle scoop curve for an effortlessly breezy European look.",
+      description: "Unstructured center allows the hem to sway into a graceful European curve.",
       image: "/images/blinds/relaxed.jpg",
-      bestFor: "Bedrooms, country villas, and reading nooks",
-      fabricRecommendation: "Soft washed linen, cotton slub, duck-egg blue",
+      bestFor: "Bedrooms & reading nooks",
+      fabricRecommendation: "Soft washed linen & cotton slub",
       stackStyle: "Gentle center-draped curve"
     },
     {
       id: "motorized",
       name: "Motorized",
-      description: "State-of-the-art automated electric blind mechanism with whisper-quiet tubular motor, remote control, and smartphone app synchronization.",
+      description: "Whisper-quiet automated electric lift with smartphone and voice control.",
       image: "/images/blinds/motorized.jpg",
-      bestFor: "Double-height atrium windows and smart automation suites",
-      fabricRecommendation: "High-spec acoustic weave and blackout fabrics",
-      stackStyle: "Effortless one-touch automated lift"
+      bestFor: "Double-height & smart homes",
+      fabricRecommendation: "Acoustic weave & blackout",
+      stackStyle: "One-touch automated lift"
     },
     {
       id: "flat",
       name: "Flat",
-      description: "A seamless single panel of fabric lies completely smooth without horizontal seams when lowered, highlighting intricate prints and embroideries.",
+      description: "Seamless single panel lies completely smooth when lowered, showcasing intricate motifs.",
       image: "/images/blinds/flat.jpg",
-      bestFor: "Large graphic patterns, floral prints and damask motifs",
-      fabricRecommendation: "Embroidered silks, rich jacquards",
-      stackStyle: "Clean bottom-up accordion stack"
+      bestFor: "Graphic prints & florals",
+      fabricRecommendation: "Embroidered silks & jacquards",
+      stackStyle: "Clean accordion stack"
     },
     {
       id: "slouched",
       name: "Slouched",
-      description: "Gathers loosely and casually at the hemline with an intentional, relaxed pooling of fabric that exudes tactile softness.",
+      description: "Gathers casually at the hemline with an intentional, tactile pooling of fabric.",
       image: "/images/blinds/slouched.jpg",
-      bestFor: "Casual coastal lounges and serene morning rooms",
-      fabricRecommendation: "Rich camel wool blends, heavy linens",
-      stackStyle: "Casual gathered base stack"
+      bestFor: "Coastal villas & morning rooms",
+      fabricRecommendation: "Camel wool & heavy linens",
+      stackStyle: "Casual gathered base"
     },
     {
       id: "butterfly",
       name: "Butterfly",
-      description: "A theatrical double-winged contour where the bottom sweeps outward from two vertical pinch points like unfurled butterfly wings.",
+      description: "Theatrical double-winged contour that sweeps outward from dual pinch points.",
       image: "/images/blinds/butterfly.jpg",
-      bestFor: "Romantic dressing rooms, vanity spaces, and boudoirs",
-      fabricRecommendation: "Crisp taffeta, silk blend shantung",
-      stackStyle: "Flared dual-wing scalloped hem"
+      bestFor: "Vanities & dressing boudoirs",
+      fabricRecommendation: "Crisp taffeta & shantung",
+      stackStyle: "Flared dual-wing hem"
     },
     {
       id: "box-pleat-balloon",
       name: "Box Pleat Balloon",
-      description: "Crisp tailored inverted box pleats along the top header create structured billowed pouches at the hem, balancing geometry and volume.",
+      description: "Inverted box pleats at the top release into billowed pouches along the hemline.",
       image: "/images/blinds/box_pleat_balloon.jpg",
-      bestFor: "Classical heritage estates and formal salon windows",
-      fabricRecommendation: "Gold brocade, structured satin",
+      bestFor: "Heritage estates & salons",
+      fabricRecommendation: "Gold brocade & satin",
       stackStyle: "Sculptural balloon scallops"
     },
     {
       id: "austrian",
       name: "Austrian",
-      description: "Richer and more theatrical than a balloon, featuring continuous vertical shirring that creates multiple rows of dramatic scalloped swags.",
+      description: "Continuous vertical shirring creates dramatic rows of ruched scalloped swags.",
       image: "/images/blinds/austrian.jpg",
-      bestFor: "Grand staircases, luxury suites, and theatrical interiors",
-      fabricRecommendation: "Sheer organza, fine voiles, champagne satin",
+      bestFor: "Staircases & luxury suites",
+      fabricRecommendation: "Sheer organza & fine voiles",
       stackStyle: "Ruched cascading swags"
     },
     {
       id: "shirred-balloon",
       name: "Shirred Balloon",
-      description: "A gathered pencil-pleat top header releases generous gathers into a puffy, cloud-like gathered balloon hemline with romantic fullness.",
+      description: "Pencil-pleat heading releases generous gathers into a puffy cloud-like hemline.",
       image: "/images/blinds/shirred_balloon.jpg",
-      bestFor: "Traditional nursery, heritage colonial interiors",
-      fabricRecommendation: "Lustrous gold silk, polished chintz",
+      bestFor: "Classic colonial residences",
+      fabricRecommendation: "Lustrous gold silk & chintz",
       stackStyle: "Cloud-like puffed hemline"
     }
   ] as RomanBlindStyle[],
@@ -307,118 +307,118 @@ export const SITE_CONTENT = {
       id: "double-pinch-pleat",
       name: "Double Pinch Pleat",
       fullness: "2.0x Fullness",
-      description: "Two folds pinched firmly together at the base of the heading. Elegant, refined, and slightly less formal than a triple pinch.",
+      description: "Two folds pinched firmly together at the heading base. Elegant and versatile.",
       image: "/images/curtains/double_pinch_pleat.jpg",
       aesthetic: "Timeless contemporary luxury",
-      hardware: "Poles with rings or concealed curtain tracks"
+      hardware: "Poles with rings or concealed tracks"
     },
     {
       id: "triple-pinch-pleat",
       name: "Triple Pinch Pleat",
       fullness: "2.5x - 3.0x Fullness",
-      description: "The gold standard of classical drapery. Three crisp folds gathered at the base create deep, sculptural fabric columns down to the floor.",
+      description: "The classic luxury gold standard. Deep fabric columns from ceiling to floor.",
       image: "/images/curtains/triple_pinch_pleat.jpg",
-      aesthetic: "Formal, grand, stately hotel elegance",
-      hardware: "Decorative brass/wrought iron drapery poles"
+      aesthetic: "Formal, grand hotel elegance",
+      hardware: "Decorative brass or iron drapery poles"
     },
     {
       id: "ripple-fold",
       name: "Ripple Fold",
       fullness: "1.8x - 2.2x Fullness",
-      description: "Continuous S-curve waves that glide effortlessly on specialized architectural tracks with zero bunching or distortion.",
+      description: "Continuous fluid S-curve waves that glide effortlessly with zero bunching.",
       image: "/images/curtains/ripple_fold.jpg",
-      aesthetic: "Modern architectural and minimalist luxury",
-      hardware: "Ceiling-recessed ripple fold track system"
+      aesthetic: "Modern architectural minimalism",
+      hardware: "Ceiling-recessed ripple fold track"
     },
     {
       id: "fan-fold-pleat",
       name: "Fan Fold Pleat",
       fullness: "2.2x Fullness",
-      description: "Pleats that flare gently like an open paper fan at the header, imparting geometric precision and rhythmic verticality.",
+      description: "Pleats flare like an open paper fan, imparting geometric vertical rhythm.",
       image: "/images/curtains/fan_fold_pleat.jpg",
-      aesthetic: "Transitional and neo-classical homes",
+      aesthetic: "Transitional and neo-classical",
       hardware: "Track or pole mounting"
     },
     {
       id: "goblet-pleat",
       name: "Goblet Pleat",
       fullness: "2.5x Fullness",
-      description: "A cylindrical wine-goblet shape formed at the heading, stuffed with wadding to hold its grand three-dimensional form permanently.",
+      description: "Cylindrical wine-goblet headers stuffed to hold their grand 3D form.",
       image: "/images/curtains/goblet_pleat.jpg",
-      aesthetic: "Stately dining rooms and period properties",
+      aesthetic: "Stately dining and period rooms",
       hardware: "Heavy decorative curtain rods"
     },
     {
       id: "inverted-box-pleat",
       name: "Inverted Box Pleat",
       fullness: "2.0x Fullness",
-      description: "Folds meet in the back, creating a crisp, flat front panel with hidden fullness that stacks compactly when pulled open.",
+      description: "Folds meet in the rear, creating a flat front with compact stack-back.",
       image: "/images/curtains/inverted_box_pleat.jpg",
-      aesthetic: "Clean, tailored, structured architectural look",
-      hardware: "Hidden ceiling tracks or modern slim rods"
+      aesthetic: "Tailored architectural clean look",
+      hardware: "Hidden ceiling tracks or slim rods"
     },
     {
       id: "tailored-pleat",
       name: "Tailored Pleat",
       fullness: "2.0x Fullness",
-      description: "Pinching occurs at the very top edge of the drape rather than lower down, creating clean vertical falls without flair.",
+      description: "Pinching occurs at the very top edge, yielding sleek vertical falls.",
       image: "/images/curtains/tailored_pleat.jpg",
-      aesthetic: "Sleek metropolitan interior styling",
-      hardware: "Concealed tracks and flush ceiling pelmets"
+      aesthetic: "Metropolitan interior styling",
+      hardware: "Flush ceiling pelmets & tracks"
     },
     {
       id: "pinch-pleat",
       name: "Pinch Pleat",
       fullness: "2.2x Fullness",
-      description: "Deep, classic single or multi-finger pleats that stack neatly and provide consistent drape spacing from ceiling to hem.",
+      description: "Deep classic gathers delivering consistent drape spacing ceiling to hem.",
       image: "/images/curtains/pinch_pleat.jpg",
-      aesthetic: "Traditional and versatile residential drapery",
+      aesthetic: "Traditional residential drapery",
       hardware: "Standard curtain rods or tracks"
     },
     {
       id: "inverted-pleat",
       name: "Inverted Pleat",
       fullness: "1.8x Fullness",
-      description: "Pleats sewn on the reverse face so the front shows flat, sleek panels that stack very tightly inside narrow window returns.",
+      description: "Reverse-sewn pleats that stack tightly inside narrow window returns.",
       image: "/images/curtains/inverted_pleat.jpg",
-      aesthetic: "Minimalist and compact space solutions",
+      aesthetic: "Minimalist compact solutions",
       hardware: "Recessed architectural track"
     },
     {
       id: "grommet",
       name: "Grommet (Eyelet)",
       fullness: "1.8x Fullness",
-      description: "Metal circular rings set directly into the fabric top, threading seamlessly onto an exposed rod for bold, easy glides.",
+      description: "Metal eyelets set into the fabric, threading directly onto an exposed rod.",
       image: "/images/curtains/grommet.jpg",
-      aesthetic: "Casual modern, industrial loft and youth rooms",
-      hardware: "Exposed metal pole (25mm - 38mm diameter)"
+      aesthetic: "Casual modern loft styling",
+      hardware: "Exposed metal pole (25-38mm)"
     },
     {
       id: "goblet",
       name: "Goblet Standard",
       fullness: "2.2x Fullness",
-      description: "Classic chalice silhouette with tailored button accents, delivering sculptural elegance across high-ceiling residences.",
+      description: "Classic chalice silhouette delivering grandeur across high ceilings.",
       image: "/images/curtains/goblet.jpg",
-      aesthetic: "Regal classic and luxury master bedroom suites",
-      hardware: "Traditional wooden or antique brass poles"
+      aesthetic: "Regal classic master suites",
+      hardware: "Antique brass or wooden poles"
     },
     {
       id: "cubicle",
       name: "Cubicle / Hospital Track",
       fullness: "1.5x Fullness",
-      description: "Functional top webbing with heavy-duty wheeled gliders designed for continuous smooth operation across hospital partitions and commercial bays.",
+      description: "Heavy-duty wheeled gliders for smooth healthcare and commercial partition tracks.",
       image: "/images/curtains/cubicle.jpg",
-      aesthetic: "Healthcare, clinic suites and commercial partitioning",
-      hardware: "Heavy-duty extruded aluminum cubicle track"
+      aesthetic: "Healthcare & clinical suites",
+      hardware: "Extruded aluminum cubicle track"
     },
     {
       id: "rod-pocket",
       name: "Rod Pocket",
       fullness: "2.0x Fullness",
-      description: "A continuous sewn fabric tunnel along the top hem that slides directly over a curtain rod, producing soft, dense gathers.",
+      description: "Continuous fabric tunnel gathered directly over a slender rod.",
       image: "/images/curtains/rod_pocket.jpg",
-      aesthetic: "Cottage charm, stationary sidelight panels and sheer curtains",
-      hardware: "Slim concealed sash or decorative pole"
+      aesthetic: "Cottage charm & sheer panels",
+      hardware: "Slim concealed sash or pole"
     }
   ] as CurtainPleatStyle[],
 
@@ -429,7 +429,7 @@ export const SITE_CONTENT = {
       hex: "#F4EFE6",
       secondaryHex: "#E2DDD2",
       textureType: "silk",
-      description: "Lustrous woven raw silk in soft warm ivory with a natural pearlescent sheen."
+      description: "Lustrous woven raw silk with pearlescent sheen."
     },
     {
       id: "champagne-luster",
@@ -437,7 +437,7 @@ export const SITE_CONTENT = {
       hex: "#E6DAC8",
       secondaryHex: "#CDBFA8",
       textureType: "silk",
-      description: "Warm golden-undertoned champagne with delicate metallic micro-threads."
+      description: "Warm golden-undertoned champagne with metallic micro-threads."
     },
     {
       id: "slate-velvet",
@@ -445,7 +445,7 @@ export const SITE_CONTENT = {
       hex: "#43525B",
       secondaryHex: "#2E3A41",
       textureType: "velvet",
-      description: "High-density heavy drape velvet with deep light-absorbing pile and cool architectural presence."
+      description: "High-density heavy drape velvet with deep light absorption."
     },
     {
       id: "peacock-teal",
@@ -453,7 +453,7 @@ export const SITE_CONTENT = {
       hex: "#2F4852",
       secondaryHex: "#1E3139",
       textureType: "linen",
-      description: "Artisanal loomed linen in a rich, saturated Chennai peacock teal tone."
+      description: "Artisanal loomed linen in saturated South Indian peacock teal."
     },
     {
       id: "nandanam-taupe",
@@ -469,7 +469,7 @@ export const SITE_CONTENT = {
       hex: "#9E563E",
       secondaryHex: "#7B3E29",
       textureType: "linen",
-      description: "Rich earth pigment reflecting traditional South Indian clay and warm sunsets."
+      description: "Rich earth pigment reflecting warm sunset tones."
     },
     {
       id: "nilgiri-sage",
@@ -477,7 +477,7 @@ export const SITE_CONTENT = {
       hex: "#707E6D",
       secondaryHex: "#566254",
       textureType: "chenille",
-      description: "Subtle botanical green with tactile ribbed chenille softness and tranquil calm."
+      description: "Botanical green with tactile ribbed softness."
     },
     {
       id: "imperial-brass",
@@ -485,7 +485,7 @@ export const SITE_CONTENT = {
       hex: "#A88851",
       secondaryHex: "#856937",
       textureType: "brocade",
-      description: "Opulent muted gold and brass brocade weave that catches ambient warm lighting."
+      description: "Opulent muted brass that catches ambient warm lighting."
     },
     {
       id: "onyx-noir",
@@ -493,7 +493,7 @@ export const SITE_CONTENT = {
       hex: "#242322",
       secondaryHex: "#151413",
       textureType: "blackout",
-      description: "100% total room-darkening weave with acoustic sound-dampening backing."
+      description: "100% total room-darkening weave with sound dampening."
     },
     {
       id: "forest-emerald",
@@ -501,44 +501,44 @@ export const SITE_CONTENT = {
       hex: "#284235",
       secondaryHex: "#192B22",
       textureType: "velvet",
-      description: "Regal jewel-toned botanical velvet ideal for moody, layered salon living spaces."
+      description: "Jewel-toned botanical velvet for layered salon living."
     }
   ] as FabricSwatch[],
 
   sofaRefurbishing: {
-    heroTitle: "Bespoke Sofa Refurbishing & Re-Upholstery",
-    heroSubtitle: "Save your solid teak frame, elevate your comfort, and redefine your living space with world-class fabrics.",
-    beforeImage: "/images/sofa/sofa_before.jpg",
-    afterImage: "/images/sofa/sofa_after.jpg",
+    heroTitle: "Sofa Refurbishing & Re-Upholstery",
+    heroSubtitle: "Save your solid teak frame. Fortify comfort with high-density ergonomic foam and world-class fabrics.",
+    beforeImage: "/images/hd/sofa_vintage.jpg",
+    afterImage: "/images/hd/sofa_luxury.jpg",
     processSteps: [
       {
         stepNumber: "01",
-        title: "On-Site Inspection & Frame Diagnosis",
-        desc: "Our master carpenter visits your home or office to evaluate frame integrity, joint strength, webbing elasticity, and spring tension."
+        title: "On-Site Frame Diagnosis",
+        desc: "Our master carpenter inspects joints, springs, and frame integrity."
       },
       {
         stepNumber: "02",
-        title: "Bespoke Fabric & Foam Curation",
-        desc: "Explore hundreds of imported velvets, textured chenilles, breathable linens, and stain-guarded leathers with tailored firmness samples."
+        title: "Fabric & Foam Curation",
+        desc: "Choose from 300+ velvets, bouclés, linens, and stain-guarded leathers."
       },
       {
         stepNumber: "03",
-        title: "Artisanal Re-Crafting & Structural Rebuild",
-        desc: "We dismantle down to the skeleton, re-glue hardwood joints, replace worn webbing with high-gauge springs, and build fresh 40+ density ergonomic foam cores."
+        title: "Master Structural Rebuild",
+        desc: "Dismantled to the bone, fresh webbing, and 40+ density ergonomic foam cores."
       },
       {
         stepNumber: "04",
-        title: "White-Glove Inspection & Showroom Delivery",
-        desc: "Double-needle stitching inspection, steam pressing, protective dust packaging, and careful on-site placement in your room of choice."
+        title: "White-Glove Delivery",
+        desc: "Double-needle stitching inspection, steam press, and room placement."
       }
     ],
     fabricOptions: [
-      { id: "velvet-petrol", name: "Designer Slate Velvet", hex: "#3C4B4E" },
-      { id: "terracotta", name: "Tuscan Terracotta", hex: "#9E563E" },
-      { id: "sand-linen", name: "Warm Sandstone Linen", hex: "#C7BEB2" },
-      { id: "navy-monarch", name: "Royal Navy Damask", hex: "#223547" },
-      { id: "emerald-plush", name: "Forest Emerald Plush", hex: "#264134" },
-      { id: "charcoal-boucle", name: "Charcoal Bouclé", hex: "#302E2D" }
+      { id: "emerald-plush", name: "Forest Emerald Plush", hex: "#1E4738" },
+      { id: "velvet-petrol", name: "Designer Slate Velvet", hex: "#284C59" },
+      { id: "terracotta", name: "Madras Terracotta", hex: "#9E462F" },
+      { id: "sand-linen", name: "Warm Sandstone Bouclé", hex: "#D6CEC2" },
+      { id: "navy-monarch", name: "Midnight Navy Silk", hex: "#1E2C42" },
+      { id: "charcoal-boucle", name: "Charcoal Bouclé", hex: "#2B2928" }
     ]
   },
 
@@ -549,23 +549,23 @@ export const SITE_CONTENT = {
       logo: "/images/clients/hilton.png",
       logoTransparent: "/images/clients/hilton_transparent.png",
       industry: "Luxury Hospitality",
-      description: "Bespoke blackout drapery and acoustic fabric wall paneling for presidential suites and executive guest rooms."
+      description: "Bespoke blackout drapery and acoustic fabric wall paneling for presidential suites and executive rooms."
     },
     {
       id: "apollo-hospitals",
       name: "Apollo Hospitals",
       logo: "/images/clients/apollo_hospitals.png",
       logoTransparent: "/images/clients/apollo_hospitals_transparent.png",
-      industry: "Healthcare & Specialized Clinics",
-      description: "Anti-microbial cubicle track systems, specialized hygienic privacy curtains, and executive lounge furnishings."
+      industry: "Healthcare & Clinics",
+      description: "Anti-microbial cubicle track systems, specialized hygienic privacy curtains, and executive lounges."
     },
     {
       id: "tvs",
       name: "TVS Motor Company",
       logo: "/images/clients/tvs.png",
       logoTransparent: "/images/clients/tvs_transparent.png",
-      industry: "Automotive & Corporate Headquarters",
-      description: "Corporate boardroom motorized solar blinds, executive conference draperies, and reception lounge re-upholstery."
+      industry: "Automotive & Corporate",
+      description: "Corporate boardroom motorized solar blinds and executive conference draperies."
     },
     {
       id: "dlf",
@@ -573,14 +573,14 @@ export const SITE_CONTENT = {
       logo: "/images/clients/dlf.png",
       logoTransparent: "/images/clients/dlf_transparent.png",
       industry: "Real Estate & Infrastructure",
-      description: "Furnishing model luxury apartments, clubhouse window coverings, and designer reception backdrops."
+      description: "Furnishing model luxury apartments, clubhouse coverings, and designer reception backdrops."
     },
     {
       id: "nippo",
       name: "Nippo The Energy Powerhouse",
       logo: "/images/clients/nippo.png",
       logoTransparent: "/images/clients/nippo_transparent.png",
-      industry: "Industrial Manufacturing",
+      industry: "Manufacturing",
       description: "Solar heat-reflective roller shades and executive office acoustic treatments."
     },
     {
@@ -588,8 +588,8 @@ export const SITE_CONTENT = {
       name: "Vels University",
       logo: "/images/clients/vels_university.png",
       logoTransparent: "/images/clients/vels_university_transparent.png",
-      industry: "Higher Education & Institutions",
-      description: "Main auditorium stage velvet draperies, VIP guest house furnishings, and motorized lecture hall screens."
+      industry: "Higher Education",
+      description: "Main auditorium stage velvet draperies and VIP guest house furnishings."
     },
     {
       id: "radisson",
@@ -597,7 +597,7 @@ export const SITE_CONTENT = {
       logo: "/images/clients/radisson.png",
       logoTransparent: "/images/clients/radisson_transparent.png",
       industry: "Global Hospitality",
-      description: "Double pinch pleat sheer and blackout drape combinations across premier banquet halls and suites."
+      description: "Double pinch pleat sheer and blackout drape combinations across premier banquet halls."
     },
     {
       id: "ramada",
@@ -605,7 +605,7 @@ export const SITE_CONTENT = {
       logo: "/images/clients/ramada.png",
       logoTransparent: "/images/clients/ramada_transparent.png",
       industry: "Hospitality & Leisure",
-      description: "Custom headboards, Roman shades, and refurbished lobby sofa sets."
+      description: "Custom headboards, Roman shades, and refurbished lobby sofa suites."
     },
     {
       id: "ideal",
@@ -613,91 +613,82 @@ export const SITE_CONTENT = {
       logo: "/images/clients/ideal.png",
       logoTransparent: "/images/clients/ideal_transparent.png",
       industry: "Resorts & Coastal Escapes",
-      description: "Moisture-resistant outdoor shades, coastal linen drapes, and teak patio furniture cushions."
+      description: "Moisture-resistant outdoor shades, coastal linen drapes, and patio furniture cushions."
     }
   ] as ClientItem[],
 
   gallery: [
     {
       id: "gal-1",
-      title: "Regal French Window Drapes",
+      title: "Penthouse Architectural Drapes",
       category: "curtains",
       categoryLabel: "Bespoke Curtains",
-      image: "/images/gallery/furnishing_curtain_blue.jpg",
+      image: "/images/hd/dining_drapes.jpg",
       location: "Private Villa, Boat Club Road, Chennai",
-      description: "Custom floor-to-ceiling gathered duck-egg blue drapes framed with ornamental tiebacks and sheer linen under-layers."
+      description: "Floor-to-ceiling tailored drapes framed with motorized tracks and sheer linen under-layers."
     },
     {
       id: "gal-2",
-      title: "Tufted Luxury Leather Feature Wall",
-      category: "wall-panels",
-      categoryLabel: "Wall Panels",
-      image: "/images/gallery/gallery_hero_tufted.jpg",
+      title: "Contemporary Living Room & Sheers",
+      category: "curtains",
+      categoryLabel: "Curtains & Soft Furnishings",
+      image: "/images/hd/hero_penthouse.jpg",
       location: "Penthouse Suite, Poes Garden, Chennai",
-      description: "Deep diamond button-tufted leather acoustic wall paneling behind a pristine white contemporary lounge."
+      description: "Warm daylight filtration with double pinch pleat linen sheers and bespoke salon furniture."
     },
     {
       id: "gal-3",
-      title: "Sunburst Fan-Pleated Roman Shade",
+      title: "Modern Architectural Roman Shade",
       category: "blinds",
       categoryLabel: "Roman Blinds",
-      image: "/images/gallery/blinds_fan_fold.jpg",
+      image: "/images/hd/roman_blinds.jpg",
       location: "Executive Residence, Nandanam, Chennai",
-      description: "Sculptural charcoal fan-pleated Roman shade casting soft filtered daylight across garden bay windows."
+      description: "Tailored neutral Roman shade with precise batten folds and light filtering."
     },
     {
       id: "gal-4",
-      title: "Chandelier Master Suite with Geometric Headboard",
+      title: "Hotel Suite Geometric Headboard",
       category: "wall-panels",
       categoryLabel: "Designer Headboards",
-      image: "/images/hero/bedroom_chandelier.jpg",
+      image: "/images/hd/headboard_suite.jpg",
       location: "Luxury Apartment, RA Puram, Chennai",
-      description: "Floor-to-ceiling geometric fluted panel headboard with mirrored brass inlay and warm ambient backlighting."
+      description: "Sculptural upholstered wall headboard with integrated warm ambient backlighting."
     },
     {
       id: "gal-5",
-      title: "Hardwood Walnut Floor & Tailored Hallway",
+      title: "European Oak Herringbone Parquet",
       category: "flooring",
       categoryLabel: "Hardwood Flooring",
-      image: "/images/gallery/flooring_hardwood.jpg",
+      image: "/images/hd/flooring_oak.jpg",
       location: "Bespoke Residence, ECR, Chennai",
-      description: "Rich natural oil finished engineered hardwood plank with continuous grain matching."
+      description: "Natural oiled engineered oak parquet with acoustic silent underlayment."
     },
     {
       id: "gal-6",
-      title: "3D Sphere Optical Illusion Wallpaper",
+      title: "Artistic Textured Wall Mural",
       category: "wallpaper",
-      categoryLabel: "Wallpaper",
-      image: "/images/gallery/wallpaper_3d_sphere.jpg",
+      categoryLabel: "Designer Wallpaper",
+      image: "/images/hd/wallpaper_art.jpg",
       location: "Media Room, Alwarpet, Chennai",
-      description: "Seamless imported 3D optical perspective mural creating boundless spatial depth."
+      description: "High-fashion custom scale-printed wall covering with organic textural depth."
     },
     {
       id: "gal-7",
-      title: "Vortex Monochrome Wallpaper & Salon Sofa",
-      category: "wallpaper",
-      categoryLabel: "Wallpaper & Furniture",
-      image: "/images/hero/hero_sofa_vortex.jpg",
-      location: "Architectural Studio, Nungambakkam, Chennai",
-      description: "Dynamic spiral mural paired with tailored off-white sofa and custom textured cushions."
+      title: "Fluted Acoustic Wall Paneling",
+      category: "wall-panels",
+      categoryLabel: "Wall Panels",
+      image: "/images/hd/wall_panel.jpg",
+      location: "Boardroom, Anna Salai, Chennai",
+      description: "Padded acoustic channels with integrated shadow reveals."
     },
     {
       id: "gal-8",
-      title: "Horizontal Channel Charcoal Wall System",
-      category: "wall-panels",
-      categoryLabel: "Wall Panels",
-      image: "/images/gallery/wallpanel_grey_horizontal.jpg",
-      location: "Corporate Boardroom, Anna Salai, Chennai",
-      description: "High-spec acoustic padded channels wrapped in stain-resistant charcoal wool fabric."
-    },
-    {
-      id: "gal-9",
-      title: "Artisanal Sofa Re-Upholstery in Petrol Velvet",
+      title: "Emerald Velvet Sofa Restoration",
       category: "sofa",
       categoryLabel: "Sofa Refurbishing",
-      image: "/images/sofa/sofa_after.jpg",
+      image: "/images/hd/sofa_luxury.jpg",
       location: "Heritage Residence, Mylapore, Chennai",
-      description: "Complete frame restoration and re-cushioning in Italian high-density velvet with bespoke contrast piping."
+      description: "Teak frame overhaul and reupholstery in Italian emerald plush velvet."
     }
   ] as GalleryItem[]
 };

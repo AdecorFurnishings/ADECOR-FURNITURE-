@@ -62,13 +62,13 @@ export const ContactPage: React.FC = () => {
       <div className="max-w-7xl mx-auto px-6 mb-16 text-center">
         <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#EAE7E1] text-[#1E1D1B] border border-[#D3D0C9] mb-4">
           <Sparkles className="w-3.5 h-3.5 text-[#C5A880]" />
-          <span className="label-caps text-[10px] tracking-luxury">Get In Touch • Nandanam, Chennai</span>
+          <span className="label-caps text-[10px] tracking-luxury">Nandanam Atelier • Chennai</span>
         </div>
-        <h1 className="font-editorial text-5xl sm:text-6xl lg:text-7xl text-[#1E1D1B] font-light tracking-tight">
-          Visit Our Showroom or Book On-Site
+        <h1 className="font-syne text-5xl sm:text-6xl lg:text-7xl text-[#1E1D1B] font-bold uppercase tracking-tight">
+          Visit Showroom or Book On-Site
         </h1>
-        <p className="mt-4 max-w-2xl mx-auto text-base sm:text-lg text-[#5E5C57] font-light leading-relaxed">
-          We invite you to experience hundreds of imported fabric rolls at our Nandanam studio, or invite our master draper for on-site measuring anywhere in Tamil Nadu.
+        <p className="mt-4 max-w-xl mx-auto text-base sm:text-lg text-[#5E5C57] font-light leading-relaxed">
+          Experience hundreds of fabric rolls at our Nandanam studio, or invite our master draper for on-site measuring anywhere in Tamil Nadu.
         </p>
       </div>
 

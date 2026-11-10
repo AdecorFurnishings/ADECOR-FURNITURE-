@@ -13,11 +13,11 @@ export const CurtainStylesPage: React.FC = () => {
           <Sparkles className="w-3.5 h-3.5 text-[#C5A880]" />
           <span className="label-caps text-[10px] tracking-luxury">Curtain Styles • Choose Your Pleat</span>
         </div>
-        <h1 className="font-editorial text-5xl sm:text-6xl lg:text-7xl text-[#1E1D1B] font-light tracking-tight">
+        <h1 className="font-syne text-5xl sm:text-6xl lg:text-7xl text-[#1E1D1B] font-bold uppercase tracking-tight">
           13 Signature Drapery Pleats
         </h1>
-        <p className="mt-4 max-w-2xl mx-auto text-base sm:text-lg text-[#5E5C57] font-light leading-relaxed">
-          The pleat defines how light filters, how the fabric falls, and how your window frames the room. Explore our complete tailoring repertoire crafted in Nandanam, Chennai.
+        <p className="mt-4 max-w-xl mx-auto text-base sm:text-lg text-[#5E5C57] font-light leading-relaxed">
+          The pleat defines light filtration, fabric fall, and window geometry. Explore our complete tailoring repertoire.
         </p>
       </div>
 

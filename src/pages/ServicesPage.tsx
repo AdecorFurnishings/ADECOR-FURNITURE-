@@ -23,13 +23,13 @@ export const ServicesPage: React.FC = () => {
       <div className="max-w-7xl mx-auto px-6 mb-16 text-center">
         <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#EAE7E1] text-[#1E1D1B] border border-[#D3D0C9] mb-4">
           <Sparkles className="w-3.5 h-3.5 text-[#C5A880]" />
-          <span className="label-caps text-[10px] tracking-luxury">End-to-End Interior Furnishing</span>
+          <span className="label-caps text-[10px] tracking-luxury">End-to-End Interior Atelier</span>
         </div>
-        <h1 className="font-editorial text-5xl sm:text-6xl lg:text-7xl text-[#1E1D1B] font-light tracking-tight">
-          Our Services & Atelier
+        <h1 className="font-syne text-5xl sm:text-6xl lg:text-7xl text-[#1E1D1B] font-bold uppercase tracking-tight">
+          Our Atelier Services
         </h1>
-        <p className="mt-4 max-w-2xl mx-auto text-base sm:text-lg text-[#5E5C57] font-light leading-relaxed">
-          From classic drapery columns and automated shades to acoustic wall panelling and master sofa restorations. Tailored to perfection in Chennai since 2004.
+        <p className="mt-4 max-w-xl mx-auto text-base sm:text-lg text-[#5E5C57] font-light leading-relaxed">
+          From architectural drapes and motorized shades to acoustic panelling and master sofa restorations. Tailored in Chennai since 2004.
         </p>
       </div>
 

@@ -5,7 +5,7 @@ import { SITE_CONTENT } from '../../data/content';
 
 export const SofaRefurbishingSection: React.FC = () => {
   // Slider position: 0 (all before) to 100 (all after)
-  const [sliderPos, setSliderPos] = useState(52);
+  const [sliderPos, setSliderPos] = useState(50);
   const [isDragging, setIsDragging] = useState(false);
   const [activeFabric, setActiveFabric] = useState(SITE_CONTENT.sofaRefurbishing.fabricOptions[0]);
   const containerRef = useRef<HTMLDivElement>(null);
@@ -42,46 +42,48 @@ export const SofaRefurbishingSection: React.FC = () => {
   }, [isDragging, handleDrag]);
 
   return (
-    <section className="py-24 bg-[#141312] text-[#FAF8F5] relative overflow-hidden">
+    <section className="py-24 bg-[#100F0E] text-[#FAF8F5] relative overflow-hidden">
       {/* Background ambient lighting */}
       <div className="absolute inset-0 bg-grain pointer-events-none opacity-20" />
-      <div className="absolute -top-40 -left-40 w-96 h-96 rounded-full bg-[#C5A880]/10 blur-3xl pointer-events-none" />
-      <div className="absolute -bottom-40 -right-40 w-96 h-96 rounded-full bg-[#5C768D]/10 blur-3xl pointer-events-none" />
+      <div className="absolute -top-40 -left-40 w-96 h-96 rounded-full bg-[#C5A880]/15 blur-3xl pointer-events-none" />
+      <div className="absolute -bottom-40 -right-40 w-96 h-96 rounded-full bg-[#1E4738]/15 blur-3xl pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-6 relative z-10">
         
-        {/* Section Header */}
+        {/* Section Header: Crisp & High-Impact */}
         <div className="text-center max-w-3xl mx-auto mb-16">
           <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/10 backdrop-blur-md border border-[#C5A880]/50 text-[#C5A880] mb-4">
             <Sparkles className="w-3.5 h-3.5" />
-            <span className="label-caps text-[10px] tracking-luxury text-[#EAE7E1]">
+            <span className="label-caps text-[10px] tracking-luxury text-[#FAF8F5]">
               New Atelier Service
             </span>
           </div>
 
-          <h2 className="font-editorial text-4xl sm:text-5xl lg:text-6xl font-light tracking-tight text-[#FAF8F5]">
-            Master Sofa Refurbishing & Re-Upholstery
+          <h2 className="font-syne text-4xl sm:text-5xl lg:text-6xl font-bold uppercase tracking-tight text-[#FAF8F5]">
+            Sofa Refurbishing & Re-Upholstery
           </h2>
           <p className="mt-4 text-[#D3D0C9] text-base sm:text-lg font-light leading-relaxed">
-            Never discard an heirloom sofa. We preserve your seasoned solid teak or rosewood frame, replace tired springs with high-density ergonomic cushioning, and wrap it in timeless luxury fabric.
+            Never discard an heirloom sofa. We preserve your seasoned solid teak frame, rebuild with 40+ density ergonomic cushioning, and tailor world-class fabrics.
           </p>
         </div>
 
-        {/* 1. Drag-to-Compare Before/After Interactive Slider */}
+        {/* 1. Drag-to-Compare Before/After Interactive Slider with Ultra-HD Photos */}
         <div className="mb-16">
           <div className="flex items-center justify-between text-xs text-[#8A8782] mb-3 px-2">
             <span className="flex items-center gap-1.5">
               <MoveHorizontal className="w-4 h-4 text-[#C5A880]" />
-              <span className="uppercase tracking-widest text-[#EAE7E1]">Drag divider to compare transformation</span>
+              <span className="uppercase tracking-widest text-[#FAF8F5] font-syne font-semibold">
+                Drag divider to inspect transformation
+              </span>
             </span>
-            <span className="hidden sm:inline font-mono text-[11px] text-[#C5A880]/80">
-              Placeholder Before/After Assets [Swappable]
+            <span className="hidden sm:inline font-mono text-[11px] text-[#C5A880]">
+              High-Definition Atelier Showcase
             </span>
           </div>
 
           <div
             ref={containerRef}
-            className="relative w-full aspect-[16/9] sm:aspect-[21/10] rounded-2xl overflow-hidden border border-white/15 shadow-2xl select-none cursor-ew-resize"
+            className="relative w-full aspect-[16/10] sm:aspect-[21/10] rounded-3xl overflow-hidden border border-white/20 shadow-2xl select-none cursor-ew-resize"
             onMouseDown={(e) => {
               setIsDragging(true);
               handleDrag(e.clientX);
@@ -95,7 +97,7 @@ export const SofaRefurbishingSection: React.FC = () => {
             data-cursor="Drag"
           >
             {/* The "AFTER" Image (Full background) */}
-            <div className="absolute inset-0 w-full h-full">
+            <div className="absolute inset-0 w-full h-full bg-[#181816]">
               <img
                 src={SITE_CONTENT.sofaRefurbishing.afterImage}
                 alt="After: Refurbished Luxury Sofa"
@@ -103,12 +105,12 @@ export const SofaRefurbishingSection: React.FC = () => {
               />
               {/* Dynamic Fabric Tint Overlay */}
               <div
-                className="absolute inset-0 mix-blend-color opacity-35 pointer-events-none transition-colors duration-500"
+                className="absolute inset-0 mix-blend-color opacity-30 pointer-events-none transition-colors duration-500"
                 style={{ backgroundColor: activeFabric.hex }}
               />
               {/* After Badge */}
-              <div className="absolute top-4 right-4 z-10 px-3.5 py-1.5 rounded-full bg-black/70 backdrop-blur-md border border-[#C5A880]/60 text-[#C5A880] text-xs font-semibold tracking-wider uppercase">
-                After: Refurbished Masterpiece
+              <div className="absolute top-5 right-5 z-10 px-4 py-1.5 rounded-full bg-black/80 backdrop-blur-md border border-[#C5A880]/60 text-[#C5A880] text-xs font-syne font-bold tracking-wider uppercase shadow-xl">
+                After: Refurbished Emerald Velvet
               </div>
             </div>
 
@@ -126,22 +128,22 @@ export const SofaRefurbishingSection: React.FC = () => {
                 <img
                   src={SITE_CONTENT.sofaRefurbishing.beforeImage}
                   alt="Before: Worn Original Sofa"
-                  className="w-full h-full object-cover object-center"
+                  className="w-full h-full object-cover object-center filter brightness-[0.92]"
                 />
               </div>
               {/* Before Badge */}
-              <div className="absolute top-4 left-4 z-10 px-3.5 py-1.5 rounded-full bg-black/75 backdrop-blur-md border border-white/20 text-[#FAF8F5] text-xs font-semibold tracking-wider uppercase">
-                Before: Worn & Sagging
+              <div className="absolute top-5 left-5 z-10 px-4 py-1.5 rounded-full bg-black/85 backdrop-blur-md border border-white/25 text-[#FAF8F5] text-xs font-syne font-semibold tracking-wider uppercase shadow-xl">
+                Before: Weathered & Sagging
               </div>
             </div>
 
             {/* Draggable Divider Line & Handle */}
             <div
-              className="absolute inset-y-0 w-1 bg-white shadow-[0_0_15px_rgba(255,255,255,0.8)] z-20 pointer-events-none"
+              className="absolute inset-y-0 w-1 bg-white shadow-[0_0_20px_rgba(255,255,255,0.9)] z-20 pointer-events-none"
               style={{ left: `${sliderPos}%` }}
             >
-              <div className="absolute top-1/2 -translate-y-1/2 -translate-x-1/2 w-10 h-10 rounded-full bg-[#141312] border-2 border-white text-white flex items-center justify-center shadow-2xl">
-                <MoveHorizontal className="w-4 h-4" />
+              <div className="absolute top-1/2 -translate-y-1/2 -translate-x-1/2 w-11 h-11 rounded-full bg-[#100F0E] border-2 border-white text-white flex items-center justify-center shadow-2xl">
+                <MoveHorizontal className="w-4 h-4 text-white" />
               </div>
             </div>
           </div>
@@ -152,7 +154,7 @@ export const SofaRefurbishingSection: React.FC = () => {
               <span className="label-caps text-[#C5A880] text-xs">
                 Preview Fabric Swatch on Sofa:
               </span>
-              <span className="text-xs text-[#D3D0C9] font-medium">{activeFabric.name}</span>
+              <span className="text-xs text-[#FAF8F5] font-syne font-bold uppercase">{activeFabric.name}</span>
             </div>
 
             <div className="flex items-center gap-3">
@@ -179,10 +181,10 @@ export const SofaRefurbishingSection: React.FC = () => {
         {/* 2. Four-Step Process (Inspect, Choose Fabric, Re-upholster, Deliver) */}
         <div className="mb-16">
           <div className="text-center mb-10">
-            <span className="label-caps text-[#C5A880] text-xs tracking-luxury">
-              Our 4-Step Rejuvenation Process
+            <span className="label-caps text-[#C5A880] text-xs">
+              Meticulous Rejuvenation
             </span>
-            <h3 className="font-editorial text-3xl sm:text-4xl text-[#FAF8F5] font-light mt-2">
+            <h3 className="font-syne text-3xl sm:text-4xl text-[#FAF8F5] font-bold uppercase mt-1">
               How We Rebuild From The Core
             </h3>
           </div>
@@ -195,15 +197,15 @@ export const SofaRefurbishingSection: React.FC = () => {
               >
                 <div>
                   <div className="flex items-center justify-between mb-4">
-                    <span className="font-mono text-2xl font-light text-[#C5A880] group-hover:scale-110 transition-transform">
+                    <span className="font-syne text-2xl font-bold text-[#C5A880] group-hover:scale-110 transition-transform">
                       {step.stepNumber}
                     </span>
                     <Sparkle className="w-4 h-4 text-white/30 group-hover:text-[#C5A880] transition-colors" />
                   </div>
-                  <h4 className="font-editorial text-xl font-medium text-[#FAF8F5] mb-2 leading-snug">
+                  <h4 className="font-syne text-lg font-bold text-[#FAF8F5] mb-2 uppercase leading-snug">
                     {step.title}
                   </h4>
-                  <p className="text-xs text-[#8A8782] leading-relaxed">
+                  <p className="text-xs text-[#8A8782] leading-relaxed font-light">
                     {step.desc}
                   </p>
                 </div>
@@ -224,18 +226,18 @@ export const SofaRefurbishingSection: React.FC = () => {
               <Truck className="w-4 h-4" />
               <span className="label-caps text-xs">Complimentary Pick-Up & Delivery in Chennai</span>
             </div>
-            <h4 className="font-editorial text-2xl sm:text-3xl text-white font-light">
-              Ready to restore your cherished living room suite?
+            <h4 className="font-syne text-2xl sm:text-3xl text-white font-bold uppercase">
+              Ready to restore your living room suite?
             </h4>
             <p className="text-sm text-[#D3D0C9] max-w-xl font-light">
-              Book a free consultation at our Nandanam showroom or invite our master upholsterer for an on-site frame inspection at your home.
+              Book a consultation at our Nandanam showroom or invite our master upholsterer for an on-site frame inspection.
             </p>
           </div>
 
           <div className="flex flex-wrap items-center gap-4">
             <Link
               to="/contact?service=sofa-refurbishing"
-              className="px-8 py-4 rounded-full bg-[#C5A880] hover:bg-[#FAF8F5] text-[#141312] font-semibold text-xs tracking-luxury uppercase flex items-center gap-2.5 transition-all shadow-glow-gold"
+              className="px-8 py-4 rounded-full bg-[#C5A880] hover:bg-white text-[#100F0E] font-syne font-bold text-xs tracking-luxury uppercase flex items-center gap-2.5 transition-all shadow-glow-gold hover:scale-105"
             >
               <span>Schedule Free Inspection</span>
               <ArrowRight className="w-4 h-4" />
@@ -247,7 +249,7 @@ export const SofaRefurbishingSection: React.FC = () => {
               )}`}
               target="_blank"
               rel="noopener noreferrer"
-              className="px-7 py-4 rounded-full bg-white/10 hover:bg-white/20 border border-white/20 text-[#FAF8F5] text-xs tracking-luxury uppercase font-medium transition-all"
+              className="px-7 py-4 rounded-full bg-white/10 hover:bg-white/20 border border-white/20 text-[#FAF8F5] text-xs font-syne font-semibold tracking-luxury uppercase transition-all"
             >
               WhatsApp Photos for Quote
             </a>

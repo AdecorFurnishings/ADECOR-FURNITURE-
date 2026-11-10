@@ -46,11 +46,11 @@ export const CurtainColorChanger: React.FC = () => {
             <span className="label-caps text-[10px] tracking-luxury">Interactive Drapery Studio</span>
           </div>
 
-          <h2 className="font-editorial text-4xl sm:text-5xl lg:text-6xl text-[#1E1D1B] font-light tracking-tight leading-tight">
-            Curtain Colour & Pleat Customizer
+          <h2 className="font-syne text-4xl sm:text-5xl lg:text-6xl text-[#1E1D1B] font-bold uppercase tracking-tight leading-tight">
+            Curtain Colour & Pleat Studio
           </h2>
           <p className="mt-4 text-[#5E5C57] text-base sm:text-lg font-light leading-relaxed">
-            Test our curated imported fabrics on realistic architectural folds. Change colors and pleats in real time, then request an on-site sample box directly to your door in Chennai.
+            Test curated fabrics on realistic architectural folds. Change colors and pleats in real time, then request on-site physical swatches.
           </p>
         </div>
 

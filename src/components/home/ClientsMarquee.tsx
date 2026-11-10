@@ -13,8 +13,8 @@ export const ClientsMarquee: React.FC = () => {
               <Building2 className="w-3.5 h-3.5 text-[#C5A880]" />
               <span className="label-caps text-[10px] tracking-luxury">Trusted Enterprise Portfolio</span>
             </div>
-            <h2 className="font-editorial text-3xl sm:text-4xl lg:text-5xl text-[#1E1D1B] font-light">
-              Trusted by India's Premier Establishments
+            <h2 className="font-syne text-3xl sm:text-4xl lg:text-5xl text-[#1E1D1B] font-bold uppercase tracking-tight">
+              Trusted by Premier Establishments
             </h2>
           </div>
 
