@@ -55,7 +55,7 @@ export const SofaRefurbishingSection: React.FC = () => {
           <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/10 backdrop-blur-md border border-[#C5A880]/50 text-[#C5A880] mb-4">
             <Sparkles className="w-3.5 h-3.5" />
             <span className="label-caps text-[10px] tracking-luxury text-[#FAF8F5]">
-              New Atelier Service
+              Master Furniture Restoration
             </span>
           </div>
 
@@ -77,13 +77,13 @@ export const SofaRefurbishingSection: React.FC = () => {
               </span>
             </span>
             <span className="hidden sm:inline font-mono text-[11px] text-[#C5A880]">
-              High-Definition Atelier Showcase
+              High-Definition Restoration Showcase
             </span>
           </div>
 
           <div
             ref={containerRef}
-            className="relative w-full aspect-[16/10] sm:aspect-[21/10] rounded-3xl overflow-hidden border border-white/20 shadow-2xl select-none cursor-ew-resize"
+            className="relative w-full aspect-[16/10] sm:aspect-[21/10] rounded-3xl overflow-hidden border border-white/20 shadow-2xl select-none cursor-ew-resize bg-[#181816]"
             onMouseDown={(e) => {
               setIsDragging(true);
               handleDrag(e.clientX);
@@ -96,8 +96,8 @@ export const SofaRefurbishingSection: React.FC = () => {
             }}
             data-cursor="Drag"
           >
-            {/* The "AFTER" Image (Full background) */}
-            <div className="absolute inset-0 w-full h-full bg-[#181816]">
+            {/* The "AFTER" Image (Pristine Luxury Refurbished Sofa) */}
+            <div className="absolute inset-0 w-full h-full">
               <img
                 src={SITE_CONTENT.sofaRefurbishing.afterImage}
                 alt="After: Refurbished Luxury Sofa"
@@ -109,31 +109,26 @@ export const SofaRefurbishingSection: React.FC = () => {
                 style={{ backgroundColor: activeFabric.hex }}
               />
               {/* After Badge */}
-              <div className="absolute top-5 right-5 z-10 px-4 py-1.5 rounded-full bg-black/80 backdrop-blur-md border border-[#C5A880]/60 text-[#C5A880] text-xs font-syne font-bold tracking-wider uppercase shadow-xl">
-                After: Refurbished Emerald Velvet
+              <div className="absolute top-5 right-5 z-10 px-4 py-1.5 rounded-full bg-emerald-950/85 backdrop-blur-md border border-emerald-400/50 text-[#C5A880] text-xs font-syne font-bold tracking-wider uppercase shadow-xl flex items-center gap-2">
+                <span className="w-2 h-2 rounded-full bg-emerald-400" />
+                <span>After: Refurbished Luxury Velvet</span>
               </div>
             </div>
 
-            {/* The "BEFORE" Image (Clipped on Left side) */}
+            {/* The "BEFORE" Image (Severely Damaged, Worn & Torn Sofa) */}
             <div
-              className="absolute inset-y-0 left-0 overflow-hidden shadow-2xl"
-              style={{ width: `${sliderPos}%` }}
+              className="absolute inset-0 overflow-hidden"
+              style={{ clipPath: `inset(0 ${100 - sliderPos}% 0 0)` }}
             >
-              <div
-                className="absolute inset-y-0 left-0"
-                style={{
-                  width: containerRef.current ? `${containerRef.current.clientWidth}px` : '100%',
-                }}
-              >
-                <img
-                  src={SITE_CONTENT.sofaRefurbishing.beforeImage}
-                  alt="Before: Worn Original Sofa"
-                  className="w-full h-full object-cover object-center filter brightness-[0.92]"
-                />
-              </div>
+              <img
+                src={SITE_CONTENT.sofaRefurbishing.beforeImage}
+                alt="Before: Heavily Worn, Torn & Damaged Sofa"
+                className="w-full h-full object-cover object-center filter contrast-[1.05]"
+              />
               {/* Before Badge */}
-              <div className="absolute top-5 left-5 z-10 px-4 py-1.5 rounded-full bg-black/85 backdrop-blur-md border border-white/25 text-[#FAF8F5] text-xs font-syne font-semibold tracking-wider uppercase shadow-xl">
-                Before: Weathered & Sagging
+              <div className="absolute top-5 left-5 z-10 px-4 py-1.5 rounded-full bg-red-950/85 backdrop-blur-md border border-red-500/40 text-red-200 text-xs font-syne font-semibold tracking-wider uppercase shadow-xl flex items-center gap-2">
+                <span className="w-2 h-2 rounded-full bg-red-400 animate-pulse" />
+                <span>Before: Torn, Sagging & Damaged</span>
               </div>
             </div>
 

@@ -5,7 +5,6 @@ import { HeroCurtains } from '../components/home/HeroCurtains';
 import { CurtainColorChanger } from '../components/home/CurtainColorChanger';
 import { RomanBlindInteractive } from '../components/home/RomanBlindInteractive';
 import { SofaRefurbishingSection } from '../components/home/SofaRefurbishingSection';
-import { BespokeSoftFurnishingsSection } from '../components/home/BespokeSoftFurnishingsSection';
 import { ClientsMarquee } from '../components/home/ClientsMarquee';
 import { SITE_CONTENT } from '../data/content';
 
@@ -101,7 +100,7 @@ export const HomePage: React.FC = () => {
             <div>
               <span className="label-caps text-[#8A8782]">Tailored Interior Solutions</span>
               <h2 className="font-syne text-4xl sm:text-5xl text-[#1E1D1B] font-bold uppercase tracking-tight mt-2">
-                Atelier Craft & Services
+                Furnishing Craft & Services
               </h2>
             </div>
             <Link
@@ -172,10 +171,7 @@ export const HomePage: React.FC = () => {
       {/* 6. Sofa Refurbishing & Re-Upholstery Section */}
       <SofaRefurbishingSection />
 
-      {/* 7. Nordic & Minimalist Bespoke Soft Furnishings (Inspired by NORDA) */}
-      <BespokeSoftFurnishingsSection />
-
-      {/* 8. Curated Gallery with High-Definition Photography */}
+      {/* 7. Curated Gallery with High-Definition Photography */}
       <section className="py-24 bg-[#FAF8F5]">
         <div className="max-w-7xl mx-auto px-6">
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">

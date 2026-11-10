@@ -35,6 +35,7 @@ export const IntroBoomLoader: React.FC<IntroLoaderProps> = ({ onComplete, forceS
       setStage('done');
       setIsVisible(false);
       sessionStorage.setItem('adecor_intro_seen', 'true');
+      window.dispatchEvent(new CustomEvent('adecor_intro_completed'));
       if (onComplete) onComplete();
     }, 3900);
 
@@ -49,6 +50,7 @@ export const IntroBoomLoader: React.FC<IntroLoaderProps> = ({ onComplete, forceS
     setStage('done');
     setIsVisible(false);
     sessionStorage.setItem('adecor_intro_seen', 'true');
+    window.dispatchEvent(new CustomEvent('adecor_intro_completed'));
     if (onComplete) onComplete();
   };
 

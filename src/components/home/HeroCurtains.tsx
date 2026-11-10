@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { ArrowRight, Sparkles, PhoneCall, Palette } from 'lucide-react';
+import { ArrowRight, Sparkles, PhoneCall, Palette, Eye, EyeOff } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { SITE_CONTENT } from '../../data/content';
 
@@ -38,16 +38,42 @@ const vibrantFabrics = [
 ];
 
 export const HeroCurtains: React.FC = () => {
-  // Cinematic auto-parting curtains: starts at 0.15 (mostly closed), opens gracefully to 0.78
-  const [openAmount, setOpenAmount] = useState(0.18);
+  // Curtains start 100% fully closed (isOpen = false), then smoothly glide open ("removing curtains")
+  const [isOpen, setIsOpen] = useState(false);
   const [fabricIndex, setFabricIndex] = useState(0);
 
-  // Slow, cinematic opening on load
+  // Cinematic opening sequence: starts completely closed, then smoothly draws open
   useEffect(() => {
-    const timer = setTimeout(() => {
-      setOpenAmount(0.76);
-    }, 800);
-    return () => clearTimeout(timer);
+    const hasSeenIntro = sessionStorage.getItem('adecor_intro_seen');
+
+    if (hasSeenIntro) {
+      // User has already seen intro: stay closed for 1200ms so user clearly sees closed curtains, then glide open
+      const timer = setTimeout(() => {
+        setIsOpen(true);
+      }, 1200);
+      return () => clearTimeout(timer);
+    } else {
+      // Intro is currently running: wait for intro to finish, then stay closed 1200ms, then glide open
+      let openTimer: NodeJS.Timeout | null = null;
+      const handleIntroDone = () => {
+        openTimer = setTimeout(() => {
+          setIsOpen(true);
+        }, 1200);
+      };
+
+      window.addEventListener('adecor_intro_completed', handleIntroDone);
+
+      // Safe fallback timer
+      const fallbackTimer = setTimeout(() => {
+        setIsOpen(true);
+      }, 5200);
+
+      return () => {
+        window.removeEventListener('adecor_intro_completed', handleIntroDone);
+        if (openTimer) clearTimeout(openTimer);
+        clearTimeout(fallbackTimer);
+      };
+    }
   }, []);
 
   // Pointer hover on curtains automatically cycles to the next vibrant color
@@ -56,8 +82,6 @@ export const HeroCurtains: React.FC = () => {
   };
 
   const currentFabric = vibrantFabrics[fabricIndex];
-  // Curtain width percentage: (1 - openAmount) * 50
-  const curtainWidth = (1 - openAmount) * 50;
 
   return (
     <section className="relative w-full min-h-[92vh] lg:min-h-screen overflow-hidden bg-[#100F0E] select-none flex items-center justify-center pt-20">
@@ -126,20 +150,21 @@ export const HeroCurtains: React.FC = () => {
         <div className="absolute right-2 w-3.5 h-5 rounded-full bg-[#9E7A4A] shadow-lg" />
       </div>
 
-      {/* 3. The Left Vibrant Fabric Curtain */}
+      {/* 3. The Left Vibrant Fabric Curtain (Width: 50.5%, slides from 0% when fully closed to -84% when opened) */}
       <div
         onMouseEnter={handleCurtainHover}
-        className="absolute top-20 bottom-0 left-0 z-20 transition-all duration-[1800ms] ease-out origin-left shadow-[25px_0_50px_rgba(0,0,0,0.6)] cursor-pointer group"
+        onClick={() => setIsOpen((prev) => !prev)}
+        className="absolute top-20 bottom-0 left-0 w-[50.5%] z-20 transition-transform duration-[2200ms] ease-[cubic-bezier(0.25,1,0.5,1)] origin-left shadow-[25px_0_50px_rgba(0,0,0,0.7)] cursor-pointer group"
         style={{
-          width: `${curtainWidth}%`,
+          transform: isOpen ? 'translateX(-84%)' : 'translateX(0%)',
           background: currentFabric.gradient,
         }}
-        title="Move pointer here to cycle vibrant curtain fabrics!"
+        title="Move pointer to cycle vibrant fabric colors • Click to draw curtains open or closed"
       >
         {/* Header Heading Pleats */}
         <div className="absolute top-0 inset-x-0 h-9 bg-black/40 border-b border-black/40 flex justify-between px-2">
-          {Array.from({ length: 12 }).map((_, i) => (
-            <div key={i} className="w-2 h-6 rounded-b bg-black/60 shadow-inner" />
+          {Array.from({ length: 14 }).map((_, i) => (
+            <div key={i} className="w-2.5 h-6 rounded-b bg-black/60 shadow-inner" />
           ))}
         </div>
 
@@ -159,24 +184,28 @@ export const HeroCurtains: React.FC = () => {
           }}
         />
 
+        {/* Right Edge Shadow Overlap (when meeting the center) */}
+        <div className="absolute inset-y-0 right-0 w-8 bg-gradient-to-l from-black/70 to-transparent pointer-events-none" />
+
         {/* Bottom Hem Weight */}
         <div className="absolute bottom-0 inset-x-0 h-10 bg-black/40 border-t border-white/10" />
       </div>
 
-      {/* 4. The Right Vibrant Fabric Curtain */}
+      {/* 4. The Right Vibrant Fabric Curtain (Width: 50.5%, slides from 0% when fully closed to 84% when opened) */}
       <div
         onMouseEnter={handleCurtainHover}
-        className="absolute top-20 bottom-0 right-0 z-20 transition-all duration-[1800ms] ease-out origin-right shadow-[-25px_0_50px_rgba(0,0,0,0.6)] cursor-pointer group"
+        onClick={() => setIsOpen((prev) => !prev)}
+        className="absolute top-20 bottom-0 right-0 w-[50.5%] z-20 transition-transform duration-[2200ms] ease-[cubic-bezier(0.25,1,0.5,1)] origin-right shadow-[-25px_0_50px_rgba(0,0,0,0.7)] cursor-pointer group"
         style={{
-          width: `${curtainWidth}%`,
+          transform: isOpen ? 'translateX(84%)' : 'translateX(0%)',
           background: currentFabric.gradient,
         }}
-        title="Move pointer here to cycle vibrant curtain fabrics!"
+        title="Move pointer to cycle vibrant fabric colors • Click to draw curtains open or closed"
       >
         {/* Header Heading Pleats */}
         <div className="absolute top-0 inset-x-0 h-9 bg-black/40 border-b border-black/40 flex justify-between px-2">
-          {Array.from({ length: 12 }).map((_, i) => (
-            <div key={i} className="w-2 h-6 rounded-b bg-black/60 shadow-inner" />
+          {Array.from({ length: 14 }).map((_, i) => (
+            <div key={i} className="w-2.5 h-6 rounded-b bg-black/60 shadow-inner" />
           ))}
         </div>
 
@@ -196,19 +225,53 @@ export const HeroCurtains: React.FC = () => {
           }}
         />
 
+        {/* Left Edge Shadow Overlap (when meeting the center) */}
+        <div className="absolute inset-y-0 left-0 w-8 bg-gradient-to-r from-black/70 to-transparent pointer-events-none" />
+
         {/* Bottom Hem Weight */}
         <div className="absolute bottom-0 inset-x-0 h-10 bg-black/40 border-t border-white/10" />
       </div>
 
-      {/* 5. Elegant Interactive Fabric Pill (Bottom) */}
-      <div className="absolute bottom-6 inset-x-0 z-30 flex items-center justify-center px-4 pointer-events-none">
-        <div className="px-5 py-2 rounded-full bg-[#100F0E]/80 backdrop-blur-md border border-[#C5A880]/40 text-[#FAF8F5] text-xs flex items-center gap-3 shadow-xl">
+      {/* 5. Center Badge When Curtains Are Fully Closed */}
+      {!isOpen && (
+        <div className="absolute z-25 inset-0 flex items-center justify-center pointer-events-none animate-fade-in">
+          <div className="px-6 py-3 rounded-full bg-black/85 backdrop-blur-md border border-[#C5A880] shadow-2xl flex items-center gap-3 text-white">
+            <span className="w-2.5 h-2.5 rounded-full bg-[#C5A880] animate-ping" />
+            <span className="font-syne text-xs uppercase tracking-luxury text-[#DEC8AA]">
+              Curtains Fully Closed • Unveiling Atelier...
+            </span>
+          </div>
+        </div>
+      )}
+
+      {/* 6. Interactive Floating Controls & Fabric Pill (Bottom) */}
+      <div className="absolute bottom-6 inset-x-0 z-30 flex flex-wrap items-center justify-center gap-3 px-4">
+        {/* Color Palette Display */}
+        <div className="px-4 py-2 rounded-full bg-[#100F0E]/85 backdrop-blur-md border border-[#C5A880]/40 text-[#FAF8F5] text-xs flex items-center gap-3 shadow-xl">
           <Palette className="w-3.5 h-3.5 text-[#C5A880]" />
           <span className="text-[11px] font-medium tracking-wide">
             Curtain Shade: <strong className="text-[#C5A880]">{currentFabric.name}</strong>
           </span>
-          <span className="text-[10px] text-[#8A8782] hidden sm:inline">• Hover curtains to change vibrant color</span>
+          <span className="text-[10px] text-[#8A8782] hidden sm:inline">• Hover curtains to change color</span>
         </div>
+
+        {/* Interactive Draw Open / Close Curtains Button */}
+        <button
+          onClick={() => setIsOpen((prev) => !prev)}
+          className="px-4 py-2 rounded-full bg-black/75 hover:bg-[#C5A880] hover:text-[#100F0E] text-[#FAF8F5] backdrop-blur-md border border-white/30 text-xs font-syne uppercase tracking-wider flex items-center gap-2 transition-all duration-300 shadow-xl"
+        >
+          {isOpen ? (
+            <>
+              <EyeOff className="w-3.5 h-3.5" />
+              <span>Close Curtains</span>
+            </>
+          ) : (
+            <>
+              <Eye className="w-3.5 h-3.5 text-[#C5A880]" />
+              <span>Open Curtains</span>
+            </>
+          )}
+        </button>
       </div>
 
     </section>

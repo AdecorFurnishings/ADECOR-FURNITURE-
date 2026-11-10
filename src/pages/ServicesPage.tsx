@@ -26,7 +26,7 @@ export const ServicesPage: React.FC = () => {
           <span className="label-caps text-[10px] tracking-luxury">End-to-End Interior Atelier</span>
         </div>
         <h1 className="font-syne text-5xl sm:text-6xl lg:text-7xl text-[#1E1D1B] font-bold uppercase tracking-tight">
-          Our Atelier Services
+          Our Interior Services
         </h1>
         <p className="mt-4 max-w-xl mx-auto text-base sm:text-lg text-[#5E5C57] font-light leading-relaxed">
           From architectural drapes and motorized shades to acoustic panelling and master sofa restorations. Tailored in Chennai since 2004.

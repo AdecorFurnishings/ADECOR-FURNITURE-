@@ -154,8 +154,7 @@ export const SITE_CONTENT = {
       tagline: "Revive Cherished Furniture with Master Craftsmanship",
       description: "Save your solid teak frame. We dismantle to the skeleton, fortify joints, inject 40+ density ergonomic foam, and wrap in luxury velvet or leather.",
       features: ["Free on-site inspection in Chennai", "40+ density ergonomic foam rebuild", "Italian velvet, bouclé & leather", "Free pick-up and delivery"],
-      image: "/images/hd/sofa_luxury.jpg",
-      badge: "New Service"
+      image: "/images/hd/sofa_luxury.jpg"
     },
     {
       id: "wall-panels",
