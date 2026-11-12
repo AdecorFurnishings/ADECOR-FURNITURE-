@@ -1,6 +1,20 @@
 import React, { useState, useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
-import { Phone, Mail, MapPin, Send, CheckCircle2, Clock, Sparkles, ExternalLink, MessageCircle } from 'lucide-react';
+import {
+  Phone,
+  Mail,
+  MapPin,
+  Send,
+  CheckCircle2,
+  Clock,
+  Sparkles,
+  ExternalLink,
+  MessageCircle,
+  Building2,
+  ShieldCheck,
+  ArrowRight,
+  ChevronDown,
+} from 'lucide-react';
 import { SITE_CONTENT } from '../data/content';
 import { ADecorLogo } from '../components/common/ADecorLogo';
 
@@ -19,43 +33,51 @@ export const ContactPage: React.FC = () => {
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [submittedWaUrl, setSubmittedWaUrl] = useState('');
 
-  // Form State
-  const [formData, setFormData] = useState({
-    name: '',
-    phone: '',
-    email: '',
-    service:
-      searchParams.get('service') === 'sofa-refurbishing'
-        ? 'upholstery-rework'
-        : searchParams.get('service') || (searchParams.get('blind') ? 'blinds' : 'curtains'),
-    consultationType: 'onsite', // 'onsite' or 'location'
-    addressOrCity: 'Chennai',
-    message: '',
-  });
-
-  // Pre-fill message based on query params from interactive tools
-  useEffect(() => {
+  // Initial Form State with searchParams pre-filling
+  const [formData, setFormData] = useState(() => {
     const pleat = searchParams.get('pleat');
     const fabric = searchParams.get('fabric');
     const blind = searchParams.get('blind');
     const project = searchParams.get('project');
     const service = searchParams.get('service');
+    const inquiry = searchParams.get('inquiry');
 
-    let defaultMsg = '';
-    if (pleat && fabric) {
-      defaultMsg = `I configured curtains in ${pleat} pleat with ${fabric} fabric. Please bring physical fabric swatches for an on-site window measurement.`;
+    let initialMsg = '';
+    if (inquiry === 'enterprise' || inquiry === 'commercial') {
+      initialMsg = 'I would like to inquire about commercial tender pricing and bulk specifications for an upcoming project.';
+    } else if (pleat && fabric) {
+      initialMsg = `I configured curtains in ${pleat} pleat with ${fabric} fabric. Please bring physical fabric swatches for an on-site window measurement.`;
     } else if (blind) {
-      defaultMsg = `I am interested in getting a quote for ${blind} Roman blinds for my home/office.`;
+      initialMsg = `I am interested in getting a quote for ${blind} Roman blinds for my home/office.`;
     } else if (service === 'upholstery-rework' || service === 'sofa-refurbishing') {
-      defaultMsg = `I would like to schedule an on-site chassis assessment and textile selection for my upholstery rework project.`;
+      initialMsg = `I would like to schedule an on-site chassis assessment and textile selection for my upholstery rework project.`;
     } else if (project) {
-      defaultMsg = `I was inspired by your "${project}" installation in your gallery and would like a custom proposal.`;
+      initialMsg = `I was inspired by your "${project}" installation in your gallery and would like a custom proposal.`;
     }
 
-    if (defaultMsg) {
-      setFormData((prev) => ({ ...prev, message: defaultMsg }));
+    return {
+      name: '',
+      phone: '',
+      email: '',
+      service:
+        service === 'sofa-refurbishing'
+          ? 'upholstery-rework'
+          : service || (blind ? 'blinds' : 'curtains'),
+      consultationType: 'onsite', // 'onsite' or 'location'
+      addressOrCity: 'Chennai',
+      message: initialMsg,
+    };
+  });
+
+  // Handle hash scrolling on direct visit (e.g. /contact#clients)
+  useEffect(() => {
+    if (window.location.hash === '#clients') {
+      const el = document.getElementById('clients');
+      if (el) {
+        setTimeout(() => el.scrollIntoView({ behavior: 'smooth' }), 250);
+      }
     }
-  }, [searchParams]);
+  }, []);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -90,23 +112,54 @@ export const ContactPage: React.FC = () => {
     }
   };
 
+  const handleCommercialInquiryClick = () => {
+    setFormData((prev) => ({
+      ...prev,
+      service: 'curtains',
+      message: 'I would like to inquire about commercial tender pricing and bulk specifications for an upcoming project.',
+    }));
+    const formElement = document.getElementById('consultation-form');
+    if (formElement) {
+      formElement.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   return (
     <div className="pt-36 sm:pt-44 pb-24 bg-[#FAF8F5] min-h-screen">
-      {/* Page Hero with generous clearance under sticky header */}
+      {/* 1. Page Hero: Combined Contact & Clients Header */}
       <div className="max-w-7xl mx-auto px-6 mb-16 text-center">
         <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#EAE7E1] text-[#1E1D1B] border border-[#D3D0C9] mb-5">
           <Sparkles className="w-3.5 h-3.5 text-[#C5A880]" />
-          <span className="label-caps text-[10px] tracking-luxury">Anna Nagar • Chennai</span>
+          <span className="label-caps text-[10px] tracking-luxury">Anna Nagar • Chennai • Est. 2004</span>
         </div>
         <h1 className="font-syne text-4xl sm:text-6xl lg:text-7xl text-[#1E1D1B] font-bold uppercase tracking-tight leading-[1.05]">
-          Visit Location or Book On-Site
+          Contact & Clients
         </h1>
-        <p className="mt-4 max-w-xl mx-auto text-base sm:text-lg text-[#5E5C57] font-light leading-relaxed">
-          Experience hundreds of fabric rolls at our Anna Nagar location, or invite our master draper for on-site measuring anywhere in Tamil Nadu.
+        <p className="mt-4 max-w-2xl mx-auto text-base sm:text-lg text-[#5E5C57] font-light leading-relaxed">
+          Book an on-site consultation & window measurement anywhere in Tamil Nadu, or explore our portfolio of landmark hotel, healthcare, and corporate clients.
         </p>
+
+        {/* Quick Section Anchors */}
+        <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
+          <a
+            href="#consultation-form"
+            className="px-5 py-2.5 rounded-full bg-[#1E1D1B] text-white hover:bg-[#C5A880] hover:text-[#1E1D1B] text-xs font-semibold uppercase tracking-luxury transition-all shadow-sm flex items-center gap-2"
+          >
+            <span>Book Consultation</span>
+            <ChevronDown className="w-3.5 h-3.5" />
+          </a>
+          <a
+            href="#clients"
+            className="px-5 py-2.5 rounded-full bg-white border border-[#D3D0C9] text-[#1E1D1B] hover:border-[#C5A880] hover:text-[#C5A880] text-xs font-semibold uppercase tracking-luxury transition-all shadow-sm flex items-center gap-2"
+          >
+            <Building2 className="w-3.5 h-3.5 text-[#C5A880]" />
+            <span>Corporate Clients ({SITE_CONTENT.clients.length})</span>
+          </a>
+        </div>
       </div>
 
-      <div className="max-w-7xl mx-auto px-6">
+      {/* 2. Main Consultation & Location Grid */}
+      <div id="consultation-form" className="max-w-7xl mx-auto px-6 mb-28 scroll-mt-28">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
           
           {/* Left Column: Inquiry Form (7 cols) */}
@@ -141,112 +194,146 @@ export const ContactPage: React.FC = () => {
                     </a>
                   </div>
                 )}
-                <div className="pt-1">
-                  <button
-                    type="button"
-                    onClick={() => setIsSubmitted(false)}
-                    className="text-xs text-[#1E1D1B] underline tracking-wider uppercase font-semibold"
-                  >
-                    Edit or send another inquiry
-                  </button>
-                </div>
+                <button
+                  onClick={() => setIsSubmitted(false)}
+                  className="text-xs underline text-[#8A8782] hover:text-[#1E1D1B] block mx-auto pt-2"
+                >
+                  Edit Inquiry or Submit Another
+                </button>
               </div>
             ) : (
               <form onSubmit={handleSubmit} className="space-y-6">
                 
+                {/* Consultation Mode Toggle */}
+                <div>
+                  <label className="block label-caps text-[#1E1D1B] text-[10px] mb-2.5">
+                    How would you like to meet?
+                  </label>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    <button
+                      type="button"
+                      onClick={() => setFormData((prev) => ({ ...prev, consultationType: 'onsite' }))}
+                      className={`p-4 rounded-2xl text-left border transition-all ${
+                        formData.consultationType === 'onsite'
+                          ? 'border-[#1E1D1B] bg-[#1E1D1B] text-white shadow-md'
+                          : 'border-[#D3D0C9] bg-white text-[#1E1D1B] hover:border-[#8A8782]'
+                      }`}
+                    >
+                      <span className="font-medium text-xs block">On-Site Measuring Visit</span>
+                      <span className="text-[11px] opacity-75 mt-0.5 block">
+                        Our master draper visits your residence across TN
+                      </span>
+                    </button>
+
+                    <button
+                      type="button"
+                      onClick={() => setFormData((prev) => ({ ...prev, consultationType: 'location' }))}
+                      className={`p-4 rounded-2xl text-left border transition-all ${
+                        formData.consultationType === 'location'
+                          ? 'border-[#1E1D1B] bg-[#1E1D1B] text-white shadow-md'
+                          : 'border-[#D3D0C9] bg-white text-[#1E1D1B] hover:border-[#8A8782]'
+                      }`}
+                    >
+                      <span className="font-medium text-xs block">Visit Location</span>
+                      <span className="text-[11px] opacity-75 mt-0.5 block">
+                        NR Dave Complex, Anna Nagar, Chennai
+                      </span>
+                    </button>
+                  </div>
+                </div>
+
                 {/* Name & Phone */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-                  <div className="space-y-1.5">
-                    <label className="label-caps text-[11px] text-[#5E5C57]">Full Name *</label>
+                  <div>
+                    <label className="block label-caps text-[#1E1D1B] text-[10px] mb-2">
+                      Your Full Name *
+                    </label>
                     <input
                       type="text"
                       required
-                      placeholder="e.g. Senthil Kumar"
                       value={formData.name}
-                      onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                      className="w-full px-4 py-3 rounded-xl border border-[#D3D0C9] bg-[#FAF8F5] text-xs focus:outline-none focus:border-[#C5A880] transition-colors"
+                      onChange={(e) => setFormData((prev) => ({ ...prev, name: e.target.value }))}
+                      placeholder="e.g. Ramesh Kumar"
+                      className="w-full px-4 py-3 rounded-xl border border-[#D3D0C9] bg-[#FAF8F5] text-xs focus:outline-none focus:border-[#C5A880] focus:bg-white transition-colors"
                     />
                   </div>
 
-                  <div className="space-y-1.5">
-                    <label className="label-caps text-[11px] text-[#5E5C57]">Phone Number *</label>
+                  <div>
+                    <label className="block label-caps text-[#1E1D1B] text-[10px] mb-2">
+                      WhatsApp / Phone Number *
+                    </label>
                     <input
                       type="tel"
                       required
-                      placeholder="+91 98411 XXXXX"
                       value={formData.phone}
-                      onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                      className="w-full px-4 py-3 rounded-xl border border-[#D3D0C9] bg-[#FAF8F5] text-xs focus:outline-none focus:border-[#C5A880] transition-colors"
+                      onChange={(e) => setFormData((prev) => ({ ...prev, phone: e.target.value }))}
+                      placeholder="+91 98411 XXXXX"
+                      className="w-full px-4 py-3 rounded-xl border border-[#D3D0C9] bg-[#FAF8F5] text-xs focus:outline-none focus:border-[#C5A880] focus:bg-white transition-colors"
                     />
                   </div>
                 </div>
 
-                {/* Email & Location */}
+                {/* Email & Area */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-                  <div className="space-y-1.5">
-                    <label className="label-caps text-[11px] text-[#5E5C57]">Email Address</label>
+                  <div>
+                    <label className="block label-caps text-[#1E1D1B] text-[10px] mb-2">
+                      Email Address (Optional)
+                    </label>
                     <input
                       type="email"
-                      placeholder="name@example.com"
                       value={formData.email}
-                      onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                      className="w-full px-4 py-3 rounded-xl border border-[#D3D0C9] bg-[#FAF8F5] text-xs focus:outline-none focus:border-[#C5A880] transition-colors"
+                      onChange={(e) => setFormData((prev) => ({ ...prev, email: e.target.value }))}
+                      placeholder="name@example.com"
+                      className="w-full px-4 py-3 rounded-xl border border-[#D3D0C9] bg-[#FAF8F5] text-xs focus:outline-none focus:border-[#C5A880] focus:bg-white transition-colors"
                     />
                   </div>
 
-                  <div className="space-y-1.5">
-                    <label className="label-caps text-[11px] text-[#5E5C57]">Your Area / City in TN</label>
+                  <div>
+                    <label className="block label-caps text-[#1E1D1B] text-[10px] mb-2">
+                      Your Area / City *
+                    </label>
                     <input
                       type="text"
-                      placeholder="e.g. Anna Nagar / ECR / Coimbatore"
+                      required
                       value={formData.addressOrCity}
-                      onChange={(e) => setFormData({ ...formData, addressOrCity: e.target.value })}
-                      className="w-full px-4 py-3 rounded-xl border border-[#D3D0C9] bg-[#FAF8F5] text-xs focus:outline-none focus:border-[#C5A880] transition-colors"
+                      onChange={(e) => setFormData((prev) => ({ ...prev, addressOrCity: e.target.value }))}
+                      placeholder="e.g. Anna Nagar, ECR, Coimbatore"
+                      className="w-full px-4 py-3 rounded-xl border border-[#D3D0C9] bg-[#FAF8F5] text-xs focus:outline-none focus:border-[#C5A880] focus:bg-white transition-colors"
                     />
                   </div>
                 </div>
 
-                {/* Service Dropdown & Consultation Preference */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-                  <div className="space-y-1.5">
-                    <label className="label-caps text-[11px] text-[#5E5C57]">Primary Service Needed</label>
-                    <select
-                      value={formData.service}
-                      onChange={(e) => setFormData({ ...formData, service: e.target.value })}
-                      className="w-full px-4 py-3 rounded-xl border border-[#D3D0C9] bg-[#FAF8F5] text-xs focus:outline-none focus:border-[#C5A880] transition-colors"
-                    >
-                      <option value="curtains">Bespoke Curtains (Pleat Styles)</option>
-                      <option value="blinds">Roman Blinds (Folding Styles)</option>
-                      <option value="upholstery-rework">Upholstery Rework & Frame Restoration</option>
-                      <option value="wall-panels">Acoustic & Fabric Wall Panels</option>
-                      <option value="designer-headboards">Designer Headboards</option>
-                      <option value="wallpaper">Designer Wallpaper</option>
-                      <option value="flooring">Hardwood & Luxury Flooring</option>
-                    </select>
-                  </div>
-
-                  <div className="space-y-1.5">
-                    <label className="label-caps text-[11px] text-[#5E5C57]">Consultation Mode</label>
-                    <select
-                      value={formData.consultationType}
-                      onChange={(e) => setFormData({ ...formData, consultationType: e.target.value })}
-                      className="w-full px-4 py-3 rounded-xl border border-[#D3D0C9] bg-[#FAF8F5] text-xs focus:outline-none focus:border-[#C5A880] transition-colors"
-                    >
-                      <option value="onsite">On-Site Measuring Visit (Anywhere in TN)</option>
-                      <option value="location">Visit Location (Anna Nagar, Chennai)</option>
-                    </select>
-                  </div>
+                {/* Service Dropdown */}
+                <div>
+                  <label className="block label-caps text-[#1E1D1B] text-[10px] mb-2">
+                    Primary Service of Interest
+                  </label>
+                  <select
+                    value={formData.service}
+                    onChange={(e) => setFormData((prev) => ({ ...prev, service: e.target.value }))}
+                    className="w-full px-4 py-3 rounded-xl border border-[#D3D0C9] bg-[#FAF8F5] text-xs focus:outline-none focus:border-[#C5A880] focus:bg-white transition-colors"
+                  >
+                    <option value="curtains">Bespoke Curtains (Pleats, Wave & Sheers)</option>
+                    <option value="blinds">Roman Blinds (Motorized & Manual)</option>
+                    <option value="upholstery-rework">Upholstery Rework & Frame Restoration</option>
+                    <option value="wall-panels">Acoustic & Fabric Wall Panels</option>
+                    <option value="designer-headboards">Custom Designer Headboards</option>
+                    <option value="wallpaper">Designer Wallpaper</option>
+                    <option value="flooring">Hardwood & Luxury Vinyl Flooring</option>
+                  </select>
                 </div>
 
                 {/* Message */}
-                <div className="space-y-1.5">
-                  <label className="label-caps text-[11px] text-[#5E5C57]">Project Details / Window Count</label>
+                <div>
+                  <label className="block label-caps text-[#1E1D1B] text-[10px] mb-2">
+                    Project Details / Requirements
+                  </label>
                   <textarea
                     rows={4}
-                    placeholder="Tell us about your room, number of windows, preferred colors, or dimensions..."
                     value={formData.message}
-                    onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                    className="w-full px-4 py-3 rounded-xl border border-[#D3D0C9] bg-[#FAF8F5] text-xs focus:outline-none focus:border-[#C5A880] transition-colors resize-none"
+                    onChange={(e) => setFormData((prev) => ({ ...prev, message: e.target.value }))}
+                    placeholder="Tell us about your space: window counts, fabric preferences, room types, or schedule preferences..."
+                    className="w-full px-4 py-3 rounded-xl border border-[#D3D0C9] bg-[#FAF8F5] text-xs focus:outline-none focus:border-[#C5A880] focus:bg-white transition-colors resize-none"
                   />
                 </div>
 
@@ -268,33 +355,32 @@ export const ContactPage: React.FC = () => {
           {/* Right Column: Location Info, Map, QR & Direct Contacts (5 cols) */}
           <div className="lg:col-span-5 space-y-8">
             
-            {/* Location Address Card */}
-            <div className="p-8 rounded-3xl bg-[#1E1D1B] text-[#FAF8F5] shadow-elevated space-y-6 border-t-2 border-[#D90B0B]/70">
-              {/* Crisp Full-Crimson Signature Plaque on White Card */}
-              <div className="bg-white rounded-2xl px-5 py-4 flex items-center justify-between gap-4 shadow-sm border border-[#EAE7E1]">
+            {/* Atelier Address Card */}
+            <div className="p-8 rounded-3xl bg-[#141312] text-[#FAF8F5] shadow-elevated border border-white/10 space-y-6">
+              
+              {/* White Signature Plaque */}
+              <div className="bg-white rounded-2xl px-5 py-4 flex items-center justify-between border border-white/80 shadow-inner">
                 <ADecorLogo variant="crimson" className="h-11 sm:h-12 w-auto" />
-                <span className="hidden sm:inline-block text-[9px] font-mono uppercase tracking-[0.22em] text-[#5E5C57]">
-                  Est. 2004
+                <span className="text-[10px] font-mono uppercase tracking-widest text-[#8A8782]">
+                  Atelier
                 </span>
               </div>
 
               <div>
-                <span className="label-caps text-[#C5A880] text-[10px]">Location</span>
-                <h3 className="font-editorial text-3xl text-white font-light mt-1">
+                <span className="label-caps text-[#C5A880] text-[10px] block">Location</span>
+                <h3 className="font-editorial text-2xl text-white font-medium mt-1">
                   Anna Nagar, Chennai
                 </h3>
               </div>
 
-              <div className="space-y-4 text-xs text-[#D3D0C9]">
+              <div className="space-y-4 text-xs text-[#D3D0C9] font-light">
                 <div className="flex items-start gap-3">
                   <MapPin className="w-4 h-4 text-[#C5A880] shrink-0 mt-0.5" />
-                  <div>
-                    <strong className="text-white block">A-Decor Perfect Home</strong>
-                    <p>{SITE_CONTENT.brand.address.street}</p>
-                    <p>
-                      {SITE_CONTENT.brand.address.area}, {SITE_CONTENT.brand.address.city}, {SITE_CONTENT.brand.address.state} {SITE_CONTENT.brand.address.pincode}
-                    </p>
-                    <p className="text-[11px] text-[#8A8782] mt-0.5">{SITE_CONTENT.brand.address.landmark}</p>
+                  <div className="leading-relaxed">
+                    <strong className="text-white block font-medium">A-Decor Furnishings</strong>
+                    <p>{SITE_CONTENT.brand.address.street},</p>
+                    <p>{SITE_CONTENT.brand.address.landmark},</p>
+                    <p>{SITE_CONTENT.brand.address.area}, {SITE_CONTENT.brand.address.city} - {SITE_CONTENT.brand.address.pincode}</p>
                     <a
                       href={SITE_CONTENT.brand.googleMapsUrl}
                       target="_blank"
@@ -404,6 +490,91 @@ export const ContactPage: React.FC = () => {
 
         </div>
       </div>
+
+      {/* 3. Combined Enterprise & Corporate Clients Section */}
+      <section id="clients" className="max-w-7xl mx-auto px-6 pt-16 border-t border-[#D3D0C9]/80 scroll-mt-28">
+        <div className="mb-14 text-center">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#EAE7E1] text-[#1E1D1B] border border-[#D3D0C9] mb-4">
+            <Building2 className="w-3.5 h-3.5 text-[#C5A880]" />
+            <span className="label-caps text-[10px] tracking-luxury">Corporate & Institutional Portfolio</span>
+          </div>
+          <h2 className="font-syne text-3xl sm:text-5xl lg:text-6xl text-[#1E1D1B] font-bold uppercase tracking-tight">
+            Enterprise Clients
+          </h2>
+          <p className="mt-4 max-w-2xl mx-auto text-base text-[#5E5C57] font-light leading-relaxed">
+            For over 20 years, A-Decor has been the contract furnishing partner for India’s landmark hotels, healthcare facilities, and corporate headquarters.
+          </p>
+        </div>
+
+        {/* 9 Clients Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {SITE_CONTENT.clients.map((client, idx) => (
+            <div
+              key={client.id}
+              className="p-8 rounded-3xl bg-white border border-[#D3D0C9] shadow-soft-luxury hover:shadow-elevated hover:border-[#C5A880] transition-all duration-300 flex flex-col justify-between group"
+            >
+              <div>
+                {/* Logo Frame */}
+                <div className="w-full h-32 rounded-2xl bg-[#ECE9E2]/50 border border-[#D3D0C9]/60 flex items-center justify-center p-6 mb-6 group-hover:bg-[#FAF8F5] transition-colors">
+                  <img
+                    src={client.logoTransparent || client.logo}
+                    alt={client.name}
+                    loading="lazy"
+                    decoding="async"
+                    className="max-h-16 max-w-full object-contain filter grayscale group-hover:grayscale-0 group-hover:scale-108 transition-all duration-300"
+                  />
+                </div>
+
+                <span className="label-caps text-[#C5A880] text-[10px]">
+                  {client.industry}
+                </span>
+                <h3 className="font-editorial text-2xl text-[#1E1D1B] group-hover:text-[#C5A880] transition-colors mt-1 font-medium">
+                  {client.name}
+                </h3>
+
+                <p className="text-xs text-[#5E5C57] leading-relaxed mt-3 font-light">
+                  {client.description}
+                </p>
+              </div>
+
+              <div className="pt-6 border-t border-[#D3D0C9]/60 mt-6 flex items-center justify-between text-[11px] text-[#8A8782]">
+                <span className="flex items-center gap-1.5 text-[#1E1D1B] font-medium">
+                  <CheckCircle2 className="w-3.5 h-3.5 text-[#C5A880]" />
+                  <span>Contract Verified</span>
+                </span>
+                <span className="font-mono text-[#8A8782]">Ref: AD-0{idx + 1}</span>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* Enterprise Standards & Contract Advisory Callout */}
+        <div className="max-w-5xl mx-auto mt-20">
+          <div className="p-8 sm:p-12 rounded-3xl bg-[#1E1D1B] text-[#FAF8F5] shadow-2xl flex flex-col md:flex-row items-center justify-between gap-8">
+            <div className="space-y-3">
+              <div className="flex items-center gap-2 text-[#C5A880]">
+                <ShieldCheck className="w-5 h-5" />
+                <span className="label-caps text-xs">Commercial Furnishing Division</span>
+              </div>
+              <h3 className="font-editorial text-3xl text-white font-light">
+                Architectural & Bulk Tender Requirements
+              </h3>
+              <p className="text-xs sm:text-sm text-[#D3D0C9] max-w-lg leading-relaxed font-light">
+                We cater to architects, interior design studios, real-estate builders, and turnkey hotel contractors across Tamil Nadu with specialized commercial pricing and flame-retardant certifications.
+              </p>
+            </div>
+
+            <button
+              type="button"
+              onClick={handleCommercialInquiryClick}
+              className="px-8 py-4 rounded-full bg-[#C5A880] text-[#141312] font-semibold text-xs tracking-luxury uppercase hover:bg-white transition-all shadow-glow-gold shrink-0 flex items-center gap-2"
+            >
+              <span>Inquire for Commercial Tender</span>
+              <ArrowRight className="w-4 h-4" />
+            </button>
+          </div>
+        </div>
+      </section>
     </div>
   );
 };

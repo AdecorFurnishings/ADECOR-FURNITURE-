@@ -19,7 +19,7 @@ export const ClientsMarquee: React.FC = () => {
           </div>
 
           <Link
-            to="/clients"
+            to="/contact#clients"
             className="text-xs uppercase tracking-luxury text-[#1E1D1B] font-semibold hover:text-[#C5A880] transition-colors self-start md:self-auto"
           >
             Explore Case Studies →

@@ -40,14 +40,14 @@ const ROUTE_SEO: Record<string, SeoMeta> = {
       'Browse real luxury curtains, canopy sheers, sunburst headboards, Pergola waves & wall murals installed by A-Decor across Chennai and Tamil Nadu.',
   },
   '/clients': {
-    title: 'Our Clients | Corporate, Hospitality & Residential Partners | A-Decor',
+    title: 'Contact & Clients | On-Site Consultation & Corporate Portfolio | A-Decor Chennai',
     description:
-      'See leading hospitality brands, corporate offices, architects & residential estates across Tamil Nadu that trust A-Decor Furnishings.',
+      'Book an on-site window measurement & fabric consultation in Anna Nagar, Chennai or explore our enterprise client portfolio trusted by premier hotels and corporate landmarks.',
   },
   '/contact': {
-    title: 'Contact & Book Home Consultation | A-Decor Anna Nagar, Chennai',
+    title: 'Contact & Clients | On-Site Consultation & Corporate Portfolio | A-Decor Chennai',
     description:
-      'Book an on-site window measurement & fabric consultation or visit A-Decor at NR Dave Complex, 2nd Avenue, Anna Nagar, Chennai. Instant WhatsApp quote support.',
+      'Book an on-site window measurement & fabric consultation in Anna Nagar, Chennai or explore our enterprise client portfolio trusted by premier hotels and corporate landmarks.',
   },
 };
 

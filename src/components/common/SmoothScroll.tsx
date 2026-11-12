@@ -40,11 +40,23 @@ export const SmoothScroll: React.FC<{ children: React.ReactNode }> = ({ children
     };
   }, []);
 
-  // Reset scroll position synchronously (canceling Lenis inertia) on route changes
+  // Reset scroll position synchronously (canceling Lenis inertia) on route changes, or smooth scroll to hash target
   useEffect(() => {
     if (!location.hash) {
       lenisRef.current?.scrollTo(0, { immediate: true, force: true });
       window.scrollTo(0, 0);
+    } else {
+      const scrollTimer = window.setTimeout(() => {
+        const el = document.querySelector(location.hash);
+        if (el) {
+          if (lenisRef.current) {
+            lenisRef.current.scrollTo(el as HTMLElement, { offset: -90 });
+          } else {
+            el.scrollIntoView({ behavior: 'smooth' });
+          }
+        }
+      }, 180);
+      return () => window.clearTimeout(scrollTimer);
     }
     const r1 = window.setTimeout(() => ScrollTrigger.refresh(), 550);
     const r2 = window.setTimeout(() => ScrollTrigger.refresh(), 950);

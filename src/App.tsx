@@ -1,5 +1,5 @@
 import { Suspense, lazy } from 'react';
-import { Routes, Route, useLocation } from 'react-router-dom';
+import { Routes, Route, useLocation, Navigate } from 'react-router-dom';
 import { AnimatePresence, MotionConfig } from 'framer-motion';
 import { SmoothScroll } from './components/common/SmoothScroll';
 import { CustomCursor } from './components/common/CustomCursor';
@@ -17,7 +17,6 @@ const ServicesPage = lazy(() => import('./pages/ServicesPage').then(m => ({ defa
 const CurtainStylesPage = lazy(() => import('./pages/CurtainStylesPage').then(m => ({ default: m.CurtainStylesPage })));
 const RomanBlindsPage = lazy(() => import('./pages/RomanBlindsPage').then(m => ({ default: m.RomanBlindsPage })));
 const GalleryPage = lazy(() => import('./pages/GalleryPage').then(m => ({ default: m.GalleryPage })));
-const ClientsPage = lazy(() => import('./pages/ClientsPage').then(m => ({ default: m.ClientsPage })));
 const ContactPage = lazy(() => import('./pages/ContactPage').then(m => ({ default: m.ContactPage })));
 
 // Minimal luxury skeleton fallback
@@ -57,7 +56,7 @@ export function App() {
                   <Route path="/curtain-styles" element={<CurtainStylesPage />} />
                   <Route path="/roman-blinds" element={<RomanBlindsPage />} />
                   <Route path="/gallery" element={<GalleryPage />} />
-                  <Route path="/clients" element={<ClientsPage />} />
+                  <Route path="/clients" element={<Navigate to="/contact#clients" replace />} />
                   <Route path="/contact" element={<ContactPage />} />
                   <Route path="*" element={<HomePage />} />
                 </Routes>

@@ -502,7 +502,7 @@ export const AboutScrollExperience: React.FC<AboutScrollExperienceProps> = ({ mo
             </div>
 
             <Link
-              to="/clients"
+              to="/contact#clients"
               className="text-xs uppercase tracking-luxury text-[#C5A880] hover:text-white transition-colors font-syne font-semibold inline-flex items-center gap-2 self-start md:self-auto"
             >
               <span>View All Clients</span>

@@ -17,10 +17,14 @@ export const Navbar: React.FC = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Close mobile menu on route change
-  useEffect(() => {
-    setIsMobileMenuOpen(false);
-  }, [location.pathname]);
+  // Close mobile menu on route change without cascading renders
+  const [prevPath, setPrevPath] = useState(location.pathname);
+  if (prevPath !== location.pathname) {
+    setPrevPath(location.pathname);
+    if (isMobileMenuOpen) {
+      setIsMobileMenuOpen(false);
+    }
+  }
 
   const navLinks = [
     { label: 'Home', href: '/' },
@@ -29,8 +33,7 @@ export const Navbar: React.FC = () => {
     { label: 'Curtain Styles', href: '/curtain-styles' },
     { label: 'Roman Blinds', href: '/roman-blinds' },
     { label: 'Gallery', href: '/gallery' },
-    { label: 'Clients', href: '/clients' },
-    { label: 'Contact', href: '/contact' },
+    { label: 'Contact & Clients', href: '/contact' },
   ];
 
   // Determine if navbar should have solid luxury dark background
@@ -59,7 +62,9 @@ export const Navbar: React.FC = () => {
           {/* Desktop Navigation Links */}
           <nav className="hidden lg:flex items-center gap-3 xl:gap-4">
             {navLinks.map((link) => {
-              const isActive = location.pathname === link.href;
+              const isActive =
+                location.pathname === link.href ||
+                (link.href === '/contact' && (location.pathname === '/contact' || location.pathname === '/clients'));
               return (
                 <Link
                   key={link.href}
