@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://www.adecorperfecthome.com/sitemap.xml
+Sitemap: https://adecorperfecthome.vercel.app/sitemap.xml

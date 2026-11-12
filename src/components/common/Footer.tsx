@@ -114,20 +114,26 @@ export const Footer: React.FC = () => {
               </div>
             </div>
 
-            {/* QR Code from PDF */}
+            {/* QR Code for Live Website */}
             <div className="pt-2 flex items-center gap-3">
-              <div className="w-16 h-16 rounded-lg bg-white p-1 border border-white/20 shrink-0">
+              <a
+                href={SITE_CONTENT.brand.websiteUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-16 h-16 rounded-lg bg-white p-1 border border-white/20 shrink-0 hover:scale-105 transition-transform"
+                title="Open A-Decor Website"
+              >
                 <img
                   src={SITE_CONTENT.brand.qrCodeImage}
-                  alt="A-Decor Contact QR Code"
+                  alt="A-Decor Website QR Code"
                   loading="lazy"
                   decoding="async"
                   className="w-full h-full object-contain"
                 />
-              </div>
-              <div className="text-[10px] text-[#8A8782] leading-tight">
+              </a>
+              <div className="text-[10px] text-[#8A8782] leading-tight space-y-0.5">
                 <p className="text-white font-medium">Scan for Digital Card</p>
-                <p>Instant phone contact & location directions in Chennai.</p>
+                <p>Scan QR to visit {SITE_CONTENT.brand.website} on mobile.</p>
               </div>
             </div>
 

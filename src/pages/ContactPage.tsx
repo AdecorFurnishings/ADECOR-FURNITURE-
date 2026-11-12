@@ -338,16 +338,33 @@ export const ContactPage: React.FC = () => {
 
               {/* QR Code */}
               <div className="p-4 rounded-2xl bg-white/10 border border-white/10 flex items-center gap-4">
-                <img
-                  src={SITE_CONTENT.brand.qrCodeImage}
-                  alt="A-Decor QR Code"
-                  loading="lazy"
-                  decoding="async"
-                  className="w-16 h-16 rounded-lg bg-white p-1"
-                />
-                <div className="text-xs">
+                <a
+                  href={SITE_CONTENT.brand.websiteUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="shrink-0 hover:scale-105 transition-transform"
+                  title="Open A-Decor Website"
+                >
+                  <img
+                    src={SITE_CONTENT.brand.qrCodeImage}
+                    alt="A-Decor Website QR Code"
+                    loading="lazy"
+                    decoding="async"
+                    className="w-16 h-16 rounded-lg bg-white p-1"
+                  />
+                </a>
+                <div className="text-xs space-y-1">
                   <p className="text-white font-medium">Official Digital Card</p>
-                  <p className="text-[11px] text-[#D3D0C9]">Scan with your smartphone to save contact & directions.</p>
+                  <p className="text-[11px] text-[#D3D0C9]">
+                    Scan with your smartphone to open adecorperfecthome.vercel.app.
+                  </p>
+                  <a
+                    href="/images/contact/qr_code.png"
+                    download="A-Decor-Website-QR.png"
+                    className="inline-block text-[10px] uppercase tracking-wider text-[#C5A880] hover:underline"
+                  >
+                    Download QR →
+                  </a>
                 </div>
               </div>
             </div>

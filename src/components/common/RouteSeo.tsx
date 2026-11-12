@@ -6,7 +6,7 @@ interface SeoMeta {
   description: string;
 }
 
-const BASE_URL = 'https://www.adecorperfecthome.com';
+const BASE_URL = 'https://adecorperfecthome.vercel.app';
 
 const ROUTE_SEO: Record<string, SeoMeta> = {
   '/': {
