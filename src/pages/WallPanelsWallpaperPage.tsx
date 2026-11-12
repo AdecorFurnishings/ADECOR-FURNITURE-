@@ -1,15 +1,11 @@
 import React, { useState, useMemo, useRef, useCallback } from 'react';
 import { Link } from 'react-router-dom';
 import {
-  Volume2,
   Sparkles,
   Layers,
   Check,
   X,
   Eye,
-  SlidersHorizontal,
-  Sun,
-  Moon,
   Compass,
   ArrowRight,
   MessageCircle,
@@ -18,7 +14,6 @@ import {
 } from 'lucide-react';
 import { SITE_CONTENT } from '../data/content';
 
-type LightingMode = 'daylight' | 'warm' | 'gallery';
 type FilterCategory = 'all' | 'panel' | 'wallpaper';
 
 interface WallArtPiece {
@@ -401,7 +396,6 @@ const WALL_COLLECTIONS: WallArtPiece[] = [
 
 export const WallPanelsWallpaperPage: React.FC = () => {
   const [activeCategory, setActiveCategory] = useState<FilterCategory>('all');
-  const [lightingMode, setLightingMode] = useState<LightingMode>('daylight');
   const [selectedPiece, setSelectedPiece] = useState<WallArtPiece | null>(null);
   const [copiedHex, setCopiedHex] = useState<string | null>(null);
 
@@ -414,32 +408,6 @@ export const WallPanelsWallpaperPage: React.FC = () => {
   const countPanel = useMemo(() => WALL_COLLECTIONS.filter((i) => i.category === 'panel').length, []);
   const countWallpaper = useMemo(() => WALL_COLLECTIONS.filter((i) => i.category === 'wallpaper').length, []);
 
-  // Lighting mode CSS classes for image tones
-  const lightingFilterClass = useMemo(() => {
-    switch (lightingMode) {
-      case 'warm':
-        return 'brightness-[1.03] sepia-[0.22] contrast-[1.04] saturate-[1.12]';
-      case 'gallery':
-        return 'brightness-[1.06] contrast-[1.16] saturate-[1.08]';
-      case 'daylight':
-      default:
-        return 'brightness-100 contrast-100 saturate-100';
-    }
-  }, [lightingMode]);
-
-  // Lighting ambient glow
-  const lightingGlow = useMemo(() => {
-    switch (lightingMode) {
-      case 'warm':
-        return 'rgba(212, 163, 89, 0.16)';
-      case 'gallery':
-        return 'rgba(255, 255, 255, 0.14)';
-      case 'daylight':
-      default:
-        return 'rgba(197, 168, 128, 0.08)';
-    }
-  }, [lightingMode]);
-
   const handleCopyHex = (hex: string) => {
     navigator.clipboard.writeText(hex);
     setCopiedHex(hex);
@@ -450,9 +418,10 @@ export const WallPanelsWallpaperPage: React.FC = () => {
     <div className="min-h-screen bg-[#11100F] text-[#FAF8F5] pt-24 pb-20 selection:bg-[#C5A880]/30 selection:text-white relative overflow-hidden">
       {/* Background subtle noise & soft radial glow */}
       <div
-        className="pointer-events-none fixed inset-0 opacity-40 transition-colors duration-700 -z-10"
+        className="pointer-events-none fixed inset-0 opacity-40 -z-10"
         style={{
-          background: `radial-gradient(circle at 50% 20%, ${lightingGlow} 0%, transparent 70%), radial-gradient(circle at 80% 80%, rgba(20, 19, 18, 0.8) 0%, #11100F 100%)`,
+          background:
+            'radial-gradient(circle at 50% 20%, rgba(197, 168, 128, 0.08) 0%, transparent 70%), radial-gradient(circle at 80% 80%, rgba(20, 19, 18, 0.8) 0%, #11100F 100%)',
         }}
       />
 
@@ -460,7 +429,7 @@ export const WallPanelsWallpaperPage: React.FC = () => {
         {/* ========================================================= */}
         {/* 1. HERO HEADER: PRO-DESIGNER MINIMAL, CLEAN & CRISP */}
         {/* ========================================================= */}
-        <section className="pt-6 sm:pt-10 pb-8 text-center relative max-w-4xl mx-auto">
+        <section className="pt-6 sm:pt-10 pb-4 text-center relative max-w-4xl mx-auto">
           {/* Atelier Badge */}
           <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-[#C5A880]/30 bg-[#1E1D1B]/80 text-[#C5A880] text-[11px] font-mono tracking-widest uppercase mb-5 backdrop-blur-sm shadow-sm">
             <Sparkles className="w-3.5 h-3.5 text-[#C5A880]" />
@@ -472,78 +441,10 @@ export const WallPanelsWallpaperPage: React.FC = () => {
             <span className="italic font-light text-[#C5A880]">&amp; Designer Wallpaper</span>
           </h1>
 
-          <p className="text-sm sm:text-base text-[#D3D0C9] max-w-2xl mx-auto font-light leading-relaxed mb-8">
+          <p className="text-sm sm:text-base text-[#D3D0C9] max-w-2xl mx-auto font-light leading-relaxed">
             Sculptural fabric geometry and bespoke panoramic murals. Handcrafted in Chennai with acoustic foam,
             PVD brass reveals, and archival non-woven silk canvases.
           </p>
-
-          {/* Interactive Lighting Simulation Switcher */}
-          <div className="inline-flex items-center gap-1.5 p-1.5 rounded-2xl bg-[#1C1B19] border border-white/10 shadow-lg backdrop-blur-md">
-            <span className="text-[11px] font-mono uppercase tracking-wider text-[#8A8782] px-3 hidden sm:inline flex items-center gap-1.5">
-              <Sun className="w-3.5 h-3.5 text-[#C5A880]" />
-              Lighting Simulation:
-            </span>
-
-            <button
-              onClick={() => setLightingMode('daylight')}
-              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-medium transition-all ${
-                lightingMode === 'daylight'
-                  ? 'bg-[#FAF8F5] text-[#141312] shadow-sm font-semibold'
-                  : 'text-[#FAF8F5]/70 hover:text-white hover:bg-white/5'
-              }`}
-            >
-              <Sun className="w-3.5 h-3.5" />
-              <span>5000K Natural</span>
-            </button>
-
-            <button
-              onClick={() => setLightingMode('warm')}
-              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-medium transition-all ${
-                lightingMode === 'warm'
-                  ? 'bg-[#C5A880] text-[#141312] shadow-sm font-semibold'
-                  : 'text-[#FAF8F5]/70 hover:text-white hover:bg-white/5'
-              }`}
-            >
-              <Moon className="w-3.5 h-3.5 text-[#D4AF37]" />
-              <span>2700K Warm Dusk</span>
-            </button>
-
-            <button
-              onClick={() => setLightingMode('gallery')}
-              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-medium transition-all ${
-                lightingMode === 'gallery'
-                  ? 'bg-[#3A3835] text-white border border-[#C5A880]/50 shadow-sm font-semibold'
-                  : 'text-[#FAF8F5]/70 hover:text-white hover:bg-white/5'
-              }`}
-            >
-              <SlidersHorizontal className="w-3.5 h-3.5 text-[#C5A880]" />
-              <span>3800K Gallery</span>
-            </button>
-          </div>
-
-          {/* 4 Crisp Key Designer Metrics */}
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mt-8 pt-6 border-t border-white/10 text-left">
-            <div className="p-3 rounded-xl bg-[#181716] border border-white/5">
-              <p className="text-[10px] font-mono uppercase tracking-wider text-[#C5A880]">Acoustic Control</p>
-              <p className="text-sm font-semibold text-white mt-0.5">NRC 0.85+ Rating</p>
-              <p className="text-[11px] text-[#8A8782] mt-0.5">Absorbs room reverberation</p>
-            </div>
-            <div className="p-3 rounded-xl bg-[#181716] border border-white/5">
-              <p className="text-[10px] font-mono uppercase tracking-wider text-[#C5A880]">Joinery Precision</p>
-              <p className="text-sm font-semibold text-white mt-0.5">PVD Gold Reveals</p>
-              <p className="text-[11px] text-[#8A8782] mt-0.5">Zero-tarnish metal inlays</p>
-            </div>
-            <div className="p-3 rounded-xl bg-[#181716] border border-white/5">
-              <p className="text-[10px] font-mono uppercase tracking-wider text-[#C5A880]">Mural Substrates</p>
-              <p className="text-sm font-semibold text-white mt-0.5">Silk &amp; Matte Fleece</p>
-              <p className="text-[11px] text-[#8A8782] mt-0.5">Non-woven zero reflection</p>
-            </div>
-            <div className="p-3 rounded-xl bg-[#181716] border border-white/5">
-              <p className="text-[10px] font-mono uppercase tracking-wider text-[#C5A880]">Atelier Service</p>
-              <p className="text-sm font-semibold text-white mt-0.5">100% In-House Team</p>
-              <p className="text-[11px] text-[#8A8782] mt-0.5">Chennai measuring to install</p>
-            </div>
-          </div>
         </section>
 
         {/* ========================================================= */}
@@ -601,72 +502,13 @@ export const WallPanelsWallpaperPage: React.FC = () => {
             <ArtPieceCard
               key={piece.id}
               piece={piece}
-              lightingFilterClass={lightingFilterClass}
               onInspect={() => setSelectedPiece(piece)}
             />
           ))}
         </section>
 
         {/* ========================================================= */}
-        {/* 4. TACTILE MATERIAL COMPARISON ATELIER GUIDE */}
-        {/* ========================================================= */}
-        <section className="mt-20 pt-12 border-t border-white/10">
-          <div className="text-center max-w-2xl mx-auto mb-10">
-            <p className="text-[11px] font-mono uppercase tracking-widest text-[#C5A880] mb-2">
-              Architectural Craftsmanship
-            </p>
-            <h2 className="font-editorial text-2xl sm:text-3xl text-white">
-              Engineered Substrates &amp; Acoustic Stillness
-            </h2>
-            <p className="text-xs sm:text-sm text-[#8A8782] mt-2">
-              Every wall cladding panel and paper drop is calibrated for Chennai residences with moisture-sealed cores.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div className="p-6 rounded-2xl bg-[#161514] border border-white/10 hover:border-[#C5A880]/40 transition-all group">
-              <div className="w-10 h-10 rounded-xl bg-[#C5A880]/10 text-[#C5A880] flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
-                <Volume2 className="w-5 h-5" />
-              </div>
-              <h3 className="text-base font-semibold text-white mb-2">High-Density Acoustic Core</h3>
-              <p className="text-xs text-[#8A8782] leading-relaxed mb-4">
-                Reduces flutter echoes in home theatres and master suites. Engineered foam dampens 85% of ambient high and mid frequencies.
-              </p>
-              <div className="text-[11px] font-mono text-[#C5A880] bg-[#1C1B19] px-2.5 py-1 rounded inline-block">
-                NRC 0.85 Certified Rating
-              </div>
-            </div>
-
-            <div className="p-6 rounded-2xl bg-[#161514] border border-white/10 hover:border-[#C5A880]/40 transition-all group">
-              <div className="w-10 h-10 rounded-xl bg-[#C5A880]/10 text-[#C5A880] flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
-                <Sparkles className="w-5 h-5" />
-              </div>
-              <h3 className="text-base font-semibold text-white mb-2">PVD Vacuum Brass Channels</h3>
-              <p className="text-xs text-[#8A8782] leading-relaxed mb-4">
-                Titanium PVD coated brass reveals that never tarnish in coastal Chennai humidity. Razor-sharp geometric joints flush-cut to velvet.
-              </p>
-              <div className="text-[11px] font-mono text-[#C5A880] bg-[#1C1B19] px-2.5 py-1 rounded inline-block">
-                Zero-Tarnish Titanium PVD
-              </div>
-            </div>
-
-            <div className="p-6 rounded-2xl bg-[#161514] border border-white/10 hover:border-[#C5A880]/40 transition-all group">
-              <div className="w-10 h-10 rounded-xl bg-[#C5A880]/10 text-[#C5A880] flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
-                <Layers className="w-5 h-5" />
-              </div>
-              <h3 className="text-base font-semibold text-white mb-2">Breathable Non-Woven Canvas</h3>
-              <p className="text-xs text-[#8A8782] leading-relaxed mb-4">
-                Micro-porous fleece substrate allows plaster walls to breathe, preventing moisture bubbles. Light-fast archival pigment printing.
-              </p>
-              <div className="text-[11px] font-mono text-[#C5A880] bg-[#1C1B19] px-2.5 py-1 rounded inline-block">
-                180gsm FSC Non-Woven Base
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* ========================================================= */}
-        {/* 5. RESIDENTIAL CONSULTATION CALLOUT */}
+        {/* 4. RESIDENTIAL CONSULTATION CALLOUT */}
         {/* ========================================================= */}
         <section className="mt-16 p-8 sm:p-10 rounded-3xl bg-gradient-to-r from-[#1C1B19] via-[#161514] to-[#1C1B19] border border-[#C5A880]/30 relative overflow-hidden">
           <div className="max-w-2xl relative z-10">
@@ -713,16 +555,13 @@ export const WallPanelsWallpaperPage: React.FC = () => {
       </div>
 
       {/* ========================================================= */}
-      {/* 6. FULLSCREEN SENSORY INSPECTOR MODAL */}
+      {/* 5. FULLSCREEN SENSORY INSPECTOR MODAL */}
       {/* ========================================================= */}
       {selectedPiece && (
         <InspectorModal
           piece={selectedPiece}
-          lightingMode={lightingMode}
-          lightingFilterClass={lightingFilterClass}
           copiedHex={copiedHex}
           onCopyHex={handleCopyHex}
-          onSetLightingMode={setLightingMode}
           onClose={() => setSelectedPiece(null)}
         />
       )}
@@ -735,11 +574,10 @@ export const WallPanelsWallpaperPage: React.FC = () => {
 // =========================================================================
 interface ArtPieceCardProps {
   piece: WallArtPiece;
-  lightingFilterClass: string;
   onInspect: () => void;
 }
 
-const ArtPieceCard: React.FC<ArtPieceCardProps> = ({ piece, lightingFilterClass, onInspect }) => {
+const ArtPieceCard: React.FC<ArtPieceCardProps> = ({ piece, onInspect }) => {
   const cardRef = useRef<HTMLDivElement>(null);
   const [sheenPos, setSheenPos] = useState<{ x: number; y: number; opacity: number }>({ x: 50, y: 50, opacity: 0 });
 
@@ -778,7 +616,7 @@ const ArtPieceCard: React.FC<ArtPieceCardProps> = ({ piece, lightingFilterClass,
           src={piece.image}
           alt={piece.title}
           loading="lazy"
-          className={`w-full h-full object-cover transition-all duration-700 ease-out group-hover:scale-105 ${lightingFilterClass}`}
+          className="w-full h-full object-cover transition-all duration-700 ease-out group-hover:scale-105"
         />
 
         {/* Ambient Tone Bottom Vignette */}
@@ -839,21 +677,15 @@ const ArtPieceCard: React.FC<ArtPieceCardProps> = ({ piece, lightingFilterClass,
 // =========================================================================
 interface InspectorModalProps {
   piece: WallArtPiece;
-  lightingMode: LightingMode;
-  lightingFilterClass: string;
   copiedHex: string | null;
   onCopyHex: (hex: string) => void;
-  onSetLightingMode: (mode: LightingMode) => void;
   onClose: () => void;
 }
 
 const InspectorModal: React.FC<InspectorModalProps> = ({
   piece,
-  lightingMode,
-  lightingFilterClass,
   copiedHex,
   onCopyHex,
-  onSetLightingMode,
   onClose,
 }) => {
   const [zoomLevel, setZoomLevel] = useState<number>(1);
@@ -886,7 +718,7 @@ const InspectorModal: React.FC<InspectorModalProps> = ({
           <X className="w-5 h-5" />
         </button>
 
-        {/* Left Column: Interactive Image Viewer with Zoom & Lighting */}
+        {/* Left Column: Interactive Image Viewer with Zoom */}
         <div className="lg:w-7/12 relative bg-[#0A0909] flex flex-col justify-between overflow-hidden min-h-[340px] sm:min-h-[460px]">
           <div
             className="relative flex-1 w-full h-full overflow-hidden cursor-zoom-in"
@@ -896,7 +728,7 @@ const InspectorModal: React.FC<InspectorModalProps> = ({
             <img
               src={piece.image}
               alt={piece.title}
-              className={`w-full h-full object-cover sm:object-contain transition-all duration-300 ${lightingFilterClass}`}
+              className="w-full h-full object-cover sm:object-contain transition-all duration-300"
               style={{
                 transformOrigin: `${mousePos.x}% ${mousePos.y}%`,
                 transform: zoomLevel > 1 ? `scale(${zoomLevel})` : 'scale(1)',
@@ -912,47 +744,13 @@ const InspectorModal: React.FC<InspectorModalProps> = ({
             </div>
           </div>
 
-          {/* Bottom Lighting Toolbar inside modal */}
-          <div className="p-3 bg-[#181716] border-t border-white/10 flex items-center justify-between gap-2">
-            <span className="text-[10px] font-mono text-[#8A8782] uppercase tracking-wider hidden sm:inline">
-              Lighting:
+          {/* Bottom Info Bar inside modal */}
+          <div className="p-3 bg-[#181716] border-t border-white/10 flex items-center justify-between text-[11px] font-mono">
+            <span className="text-[#8A8782] uppercase tracking-wider">
+              {piece.category === 'panel' ? 'Acoustic Wall Panel' : 'Designer Wallpaper Mural'}
             </span>
-
-            <div className="flex items-center gap-1">
-              <button
-                onClick={() => onSetLightingMode('daylight')}
-                className={`px-2.5 py-1 rounded-lg text-[11px] font-mono uppercase transition-all ${
-                  lightingMode === 'daylight'
-                    ? 'bg-white text-black font-semibold'
-                    : 'text-white/60 hover:text-white'
-                }`}
-              >
-                Daylight
-              </button>
-              <button
-                onClick={() => onSetLightingMode('warm')}
-                className={`px-2.5 py-1 rounded-lg text-[11px] font-mono uppercase transition-all ${
-                  lightingMode === 'warm'
-                    ? 'bg-[#C5A880] text-black font-semibold'
-                    : 'text-white/60 hover:text-white'
-                }`}
-              >
-                Warm 2700K
-              </button>
-              <button
-                onClick={() => onSetLightingMode('gallery')}
-                className={`px-2.5 py-1 rounded-lg text-[11px] font-mono uppercase transition-all ${
-                  lightingMode === 'gallery'
-                    ? 'bg-[#3A3835] text-white border border-[#C5A880]/50 font-semibold'
-                    : 'text-white/60 hover:text-white'
-                }`}
-              >
-                Gallery 3800K
-              </button>
-            </div>
-
-            <span className="text-[10px] font-mono text-[#C5A880] tracking-wider">
-              {piece.category === 'panel' ? 'Acoustic Panel' : 'Mural Wallpaper'}
+            <span className="text-[#C5A880] tracking-wider">
+              Atelier Anna Nagar, Chennai
             </span>
           </div>
         </div>
