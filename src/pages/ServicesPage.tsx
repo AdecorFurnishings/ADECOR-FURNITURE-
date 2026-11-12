@@ -165,6 +165,17 @@ const ServiceShowcaseRow: React.FC<ServiceCardProps> = ({ service, index, isDark
               View Roman Blinds →
             </Link>
           )}
+
+          {(service.id === 'wall-panels' || service.id === 'wallpaper') && (
+            <Link
+              to="/wall-panels-wallpaper"
+              className={`text-xs uppercase tracking-luxury font-semibold transition-colors py-2 ${
+                isDarkTheme ? 'text-[#DEC8AA] hover:text-white' : 'text-[#1E1D1B] hover:text-[#C5A880]'
+              }`}
+            >
+              Explore Wall Panels &amp; Wallpaper →
+            </Link>
+          )}
         </div>
       </div>
     </article>

@@ -32,6 +32,7 @@ export const Navbar: React.FC = () => {
     { label: 'Services', href: '/services' },
     { label: 'Curtain Styles', href: '/curtain-styles' },
     { label: 'Roman Blinds', href: '/roman-blinds' },
+    { label: 'Wall Panels & Wallpaper', href: '/wall-panels-wallpaper' },
     { label: 'Gallery', href: '/gallery' },
     { label: 'Contact & Clients', href: '/contact' },
   ];
@@ -60,16 +61,22 @@ export const Navbar: React.FC = () => {
           </Link>
 
           {/* Desktop Navigation Links */}
-          <nav className="hidden lg:flex items-center gap-3 xl:gap-4">
+          <nav className="hidden lg:flex items-center gap-2 xl:gap-3.5 2xl:gap-4">
             {navLinks.map((link) => {
               const isActive =
                 location.pathname === link.href ||
-                (link.href === '/contact' && (location.pathname === '/contact' || location.pathname === '/clients'));
+                (link.href === '/contact' && (location.pathname === '/contact' || location.pathname === '/clients')) ||
+                (link.href === '/wall-panels-wallpaper' && (
+                  location.pathname === '/wall-panels-wallpaper' ||
+                  location.pathname === '/wall-panels' ||
+                  location.pathname === '/wallpaper' ||
+                  location.pathname === '/wallpanels'
+                ));
               return (
                 <Link
                   key={link.href}
                   to={link.href}
-                  className={`text-[11px] tracking-[0.11em] xl:tracking-[0.15em] uppercase font-medium transition-all relative py-1 whitespace-nowrap ${
+                  className={`text-[10px] xl:text-[11px] tracking-[0.07em] xl:tracking-[0.12em] uppercase font-medium transition-all relative py-1 whitespace-nowrap ${
                     isActive
                       ? 'text-[#C5A880]'
                       : 'text-[#FAF8F5]/80 hover:text-white'

@@ -45,6 +45,7 @@ export const Footer: React.FC = () => {
               <li><Link to="/services" className="hover:text-white transition-colors">Our Services</Link></li>
               <li><Link to="/curtain-styles" className="hover:text-white transition-colors">Curtain Pleats</Link></li>
               <li><Link to="/roman-blinds" className="hover:text-white transition-colors">Roman Blind Styles</Link></li>
+              <li><Link to="/wall-panels-wallpaper" className="hover:text-white transition-colors">Wall Panels &amp; Wallpaper</Link></li>
               <li><Link to="/gallery" className="hover:text-white transition-colors">Project Gallery</Link></li>
               <li><Link to="/contact" className="hover:text-white transition-colors">Contact & Clients</Link></li>
             </ul>

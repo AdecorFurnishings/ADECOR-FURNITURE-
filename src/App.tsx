@@ -16,6 +16,7 @@ const AboutPage = lazy(() => import('./pages/AboutPage').then(m => ({ default: m
 const ServicesPage = lazy(() => import('./pages/ServicesPage').then(m => ({ default: m.ServicesPage })));
 const CurtainStylesPage = lazy(() => import('./pages/CurtainStylesPage').then(m => ({ default: m.CurtainStylesPage })));
 const RomanBlindsPage = lazy(() => import('./pages/RomanBlindsPage').then(m => ({ default: m.RomanBlindsPage })));
+const WallPanelsWallpaperPage = lazy(() => import('./pages/WallPanelsWallpaperPage').then(m => ({ default: m.WallPanelsWallpaperPage })));
 const GalleryPage = lazy(() => import('./pages/GalleryPage').then(m => ({ default: m.GalleryPage })));
 const ContactPage = lazy(() => import('./pages/ContactPage').then(m => ({ default: m.ContactPage })));
 
@@ -55,6 +56,10 @@ export function App() {
                   <Route path="/services" element={<ServicesPage />} />
                   <Route path="/curtain-styles" element={<CurtainStylesPage />} />
                   <Route path="/roman-blinds" element={<RomanBlindsPage />} />
+                  <Route path="/wall-panels-wallpaper" element={<WallPanelsWallpaperPage />} />
+                  <Route path="/wall-panels" element={<Navigate to="/wall-panels-wallpaper" replace />} />
+                  <Route path="/wallpaper" element={<Navigate to="/wall-panels-wallpaper" replace />} />
+                  <Route path="/wallpanels" element={<Navigate to="/wall-panels-wallpaper" replace />} />
                   <Route path="/gallery" element={<GalleryPage />} />
                   <Route path="/clients" element={<Navigate to="/contact#clients" replace />} />
                   <Route path="/contact" element={<ContactPage />} />

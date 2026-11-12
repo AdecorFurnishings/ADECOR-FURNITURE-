@@ -34,6 +34,21 @@ const ROUTE_SEO: Record<string, SeoMeta> = {
     description:
       'Preview flat, hobbled, relaxed, waterfall & motorized Roman blind styles with live draw controls crafted by A-Decor in Chennai.',
   },
+  '/wall-panels-wallpaper': {
+    title: 'Acoustic Wall Panels & Designer Wallpaper Murals | A-Decor Chennai',
+    description:
+      'Sculptural acoustic fabric wall panels, 3D tufted velvet headboards, geometric brass reveals & panoramic wallpaper murals crafted by A-Decor in Anna Nagar, Chennai.',
+  },
+  '/wall-panels': {
+    title: 'Acoustic Fabric Wall Panels & Velvet Headboards | A-Decor Chennai',
+    description:
+      'Custom acoustic fabric wall panels with NRC 0.85 sound absorption, diamond tufted velvet, and PVD brass reveals crafted by A-Decor in Chennai.',
+  },
+  '/wallpaper': {
+    title: 'Designer Wallpaper Murals & Textured Canvases | A-Decor Chennai',
+    description:
+      'Panoramic landscape murals, baroque embossed damasks, 3D strata stone reliefs, and gilded silk wallpapers tailored for luxury residences in Chennai.',
+  },
   '/gallery': {
     title: 'Project Gallery | Completed Villas, Penthouses & Offices | A-Decor Chennai',
     description:
