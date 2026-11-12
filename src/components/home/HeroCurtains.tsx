@@ -43,34 +43,53 @@ export const HeroCurtains: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [fabricIndex, setFabricIndex] = useState(0);
 
-  // Cinematic opening sequence: starts completely closed, then smoothly draws open
+  // Cinematic opening sequence: guarantees closed frame paints first on BOTH PC & mobile, holds steady, then glides open
   useEffect(() => {
-    const hasSeenIntro = sessionStorage.getItem('adecor_intro_seen');
+    let openTimer: ReturnType<typeof setTimeout> | null = null;
+    let raf1: number | null = null;
+    let raf2: number | null = null;
+
+    const scheduleSmoothOpen = (delayMs: number) => {
+      // Wait for 2 compositor frames so CSS transition always starts cleanly from closed translate3d(0,0,0) on mobile GPUs
+      raf1 = requestAnimationFrame(() => {
+        raf2 = requestAnimationFrame(() => {
+          openTimer = setTimeout(() => {
+            setIsOpen(true);
+          }, delayMs);
+        });
+      });
+    };
+
+    let hasSeenIntro = false;
+    try {
+      hasSeenIntro = Boolean(sessionStorage.getItem('adecor_intro_seen'));
+    } catch {
+      hasSeenIntro = false;
+    }
 
     if (hasSeenIntro) {
-      // User has already seen intro: stay closed briefly so user clearly sees closed curtains, then glide open
-      const timer = setTimeout(() => {
-        setIsOpen(true);
-      }, 650);
-      return () => clearTimeout(timer);
+      scheduleSmoothOpen(950);
+      return () => {
+        if (raf1 !== null) cancelAnimationFrame(raf1);
+        if (raf2 !== null) cancelAnimationFrame(raf2);
+        if (openTimer) clearTimeout(openTimer);
+      };
     } else {
-      // Intro is currently running: wait for intro to finish, then stay closed briefly, then glide open
-      let openTimer: ReturnType<typeof setTimeout> | null = null;
       const handleIntroDone = () => {
-        openTimer = setTimeout(() => {
-          setIsOpen(true);
-        }, 650);
+        scheduleSmoothOpen(950);
       };
 
       window.addEventListener('adecor_intro_completed', handleIntroDone);
 
-      // Safe fallback timer
+      // Safe fallback only if intro completion event never arrives
       const fallbackTimer = setTimeout(() => {
-        setIsOpen(true);
-      }, 3200);
+        scheduleSmoothOpen(600);
+      }, 4800);
 
       return () => {
         window.removeEventListener('adecor_intro_completed', handleIntroDone);
+        if (raf1 !== null) cancelAnimationFrame(raf1);
+        if (raf2 !== null) cancelAnimationFrame(raf2);
         if (openTimer) clearTimeout(openTimer);
         clearTimeout(fallbackTimer);
       };
@@ -85,7 +104,7 @@ export const HeroCurtains: React.FC = () => {
   const currentFabric = vibrantFabrics[fabricIndex];
 
   return (
-    <section className="relative w-full min-h-[92vh] lg:min-h-screen overflow-hidden bg-[#100F0E] select-none flex items-center justify-center pt-20">
+    <section className="relative w-full min-h-[100svh] lg:min-h-screen overflow-hidden bg-[#100F0E] select-none flex items-center justify-center pt-20 touch-pan-y">
       
       {/* 1. Behind Curtains: Ultra High-Resolution Penthouse Living Room */}
       <div className="absolute inset-0 overflow-hidden">
@@ -178,9 +197,10 @@ export const HeroCurtains: React.FC = () => {
       <div
         onMouseEnter={handleCurtainHover}
         onClick={() => setIsOpen((prev) => !prev)}
-        className="absolute top-20 bottom-0 left-0 w-[50.5%] z-20 transition-transform duration-[2200ms] ease-[cubic-bezier(0.25,1,0.5,1)] origin-left shadow-[25px_0_50px_rgba(0,0,0,0.7)] cursor-pointer group will-change-transform"
+        className="adecor-preserve-motion touch-pan-y absolute top-20 bottom-0 left-0 w-[50.5%] z-20 transition-transform duration-[2400ms] ease-[cubic-bezier(0.22,1,0.36,1)] origin-left shadow-[25px_0_50px_rgba(0,0,0,0.7)] cursor-pointer group will-change-transform"
         style={{
-          transform: isOpen ? 'translateX(-84%)' : 'translateX(0%)',
+          transform: isOpen ? 'translate3d(-84%, 0, 0)' : 'translate3d(0%, 0, 0)',
+          backfaceVisibility: 'hidden',
           background: currentFabric.gradient,
         }}
         title="Move pointer to cycle vibrant fabric colors • Click to draw curtains open or closed"
@@ -219,9 +239,10 @@ export const HeroCurtains: React.FC = () => {
       <div
         onMouseEnter={handleCurtainHover}
         onClick={() => setIsOpen((prev) => !prev)}
-        className="absolute top-20 bottom-0 right-0 w-[50.5%] z-20 transition-transform duration-[2200ms] ease-[cubic-bezier(0.25,1,0.5,1)] origin-right shadow-[-25px_0_50px_rgba(0,0,0,0.7)] cursor-pointer group will-change-transform"
+        className="adecor-preserve-motion touch-pan-y absolute top-20 bottom-0 right-0 w-[50.5%] z-20 transition-transform duration-[2400ms] ease-[cubic-bezier(0.22,1,0.36,1)] origin-right shadow-[-25px_0_50px_rgba(0,0,0,0.7)] cursor-pointer group will-change-transform"
         style={{
-          transform: isOpen ? 'translateX(84%)' : 'translateX(0%)',
+          transform: isOpen ? 'translate3d(84%, 0, 0)' : 'translate3d(0%, 0, 0)',
+          backfaceVisibility: 'hidden',
           background: currentFabric.gradient,
         }}
         title="Move pointer to cycle vibrant fabric colors • Click to draw curtains open or closed"

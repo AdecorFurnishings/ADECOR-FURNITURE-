@@ -11,14 +11,13 @@ export const SmoothScroll: React.FC<{ children: React.ReactNode }> = ({ children
   const lenisRef = useRef<Lenis | null>(null);
 
   useEffect(() => {
-    // Respect reduced motion
-    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if (prefersReducedMotion) return;
+    const isCoarsePointer = window.matchMedia('(pointer: coarse)').matches;
+    // Mobile touchscreens already use native hardware 120Hz momentum scroll; Lenis wheel smoothing is for desktop pointers
+    if (isCoarsePointer) return;
 
     const lenis = new Lenis({
-      duration: 1.25,
+      duration: 1.15,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-      touchMultiplier: 1.5,
       infinite: false,
     });
     lenisRef.current = lenis;

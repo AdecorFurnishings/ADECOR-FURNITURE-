@@ -9,7 +9,6 @@ interface IntroLoaderProps {
 const shouldShowIntro = (forceShow: boolean): boolean => {
   if (forceShow) return true;
   if (typeof window === 'undefined') return true;
-  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return false;
   try {
     return !sessionStorage.getItem('adecor_intro_seen');
   } catch {
@@ -39,14 +38,17 @@ export const IntroBoomLoader: React.FC<IntroLoaderProps> = ({ onComplete, forceS
       return () => cancelAnimationFrame(rafId);
     }
 
-    // Crisp architectural timing (~2.0s total) for luxury reveal without delaying LCP:
+    // Consistent slow, steady timing across both PC & Mobile:
+    // 0ms -> 1000ms: crest glow & stroke draw
+    // 1000ms -> 2300ms: gentle pulse & progress bar
+    // 2300ms -> 3350ms: full 1000ms smooth opacity fade out before unmounting
     const pulseTimer = setTimeout(() => {
       setStage('pulsing');
-    }, 600);
+    }, 1000);
 
     const partingTimer = setTimeout(() => {
       setStage('parting');
-    }, 1350);
+    }, 2300);
 
     const completeTimer = setTimeout(() => {
       setStage('done');
@@ -58,7 +60,7 @@ export const IntroBoomLoader: React.FC<IntroLoaderProps> = ({ onComplete, forceS
       }
       window.dispatchEvent(new CustomEvent('adecor_intro_completed'));
       notifyComplete();
-    }, 2050);
+    }, 3350);
 
     return () => {
       cancelAnimationFrame(rafId);
@@ -84,7 +86,7 @@ export const IntroBoomLoader: React.FC<IntroLoaderProps> = ({ onComplete, forceS
 
   return (
     <div
-      className={`fixed inset-0 z-[100] flex flex-col items-center justify-center bg-[#100F0E] text-[#FAF8F5] transition-opacity duration-1000 ease-in-out ${
+      className={`adecor-preserve-motion fixed inset-0 z-[100] flex flex-col items-center justify-center bg-[#100F0E] text-[#FAF8F5] transition-opacity duration-1000 ease-in-out ${
         stage === 'parting' ? 'opacity-0 pointer-events-none' : 'opacity-100'
       }`}
     >

@@ -33,7 +33,7 @@ export function App() {
   const location = useLocation();
 
   return (
-    <MotionConfig reducedMotion="user">
+    <MotionConfig>
       <SmoothScroll>
         <RouteSeo />
         {/* Intro Boom Particle Ripple Loader (once per session, skippable) */}
