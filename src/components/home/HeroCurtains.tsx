@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { ArrowRight, Sparkles, PhoneCall, Palette, Eye, EyeOff } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { SITE_CONTENT } from '../../data/content';
+import { ADecorLogo } from '../common/ADecorLogo';
 
 // Vibrant designer curtain fabric palettes with damask/rib gradients
 const vibrantFabrics = [
@@ -47,18 +48,18 @@ export const HeroCurtains: React.FC = () => {
     const hasSeenIntro = sessionStorage.getItem('adecor_intro_seen');
 
     if (hasSeenIntro) {
-      // User has already seen intro: stay closed for 1200ms so user clearly sees closed curtains, then glide open
+      // User has already seen intro: stay closed briefly so user clearly sees closed curtains, then glide open
       const timer = setTimeout(() => {
         setIsOpen(true);
-      }, 1200);
+      }, 650);
       return () => clearTimeout(timer);
     } else {
-      // Intro is currently running: wait for intro to finish, then stay closed 1200ms, then glide open
-      let openTimer: NodeJS.Timeout | null = null;
+      // Intro is currently running: wait for intro to finish, then stay closed briefly, then glide open
+      let openTimer: ReturnType<typeof setTimeout> | null = null;
       const handleIntroDone = () => {
         openTimer = setTimeout(() => {
           setIsOpen(true);
-        }, 1200);
+        }, 650);
       };
 
       window.addEventListener('adecor_intro_completed', handleIntroDone);
@@ -66,7 +67,7 @@ export const HeroCurtains: React.FC = () => {
       // Safe fallback timer
       const fallbackTimer = setTimeout(() => {
         setIsOpen(true);
-      }, 5200);
+      }, 3200);
 
       return () => {
         window.removeEventListener('adecor_intro_completed', handleIntroDone);
@@ -90,55 +91,78 @@ export const HeroCurtains: React.FC = () => {
       <div className="absolute inset-0 overflow-hidden">
         <img
           src="/images/hd/hero_penthouse.jpg"
-          alt="A-Decor Luxury Interior Nandanam Chennai"
-          className="absolute inset-0 w-full h-full object-cover object-center filter brightness-[0.85] contrast-[1.05] transition-transform duration-1000 ease-out scale-105"
+          alt="A-Decor Luxury Interior Anna Nagar Chennai"
+          fetchPriority="high"
+          decoding="sync"
+          className="absolute inset-0 w-full h-full object-cover object-center filter brightness-[0.85] contrast-[1.05] transition-transform duration-1000 ease-out scale-105 will-change-transform"
         />
         {/* Soft luxury film scrim */}
         <div className="absolute inset-0 bg-gradient-to-t from-[#100F0E] via-black/50 to-black/40" />
 
         {/* Crisp Editorial Headline & Content */}
         <div className="relative z-10 max-w-4xl mx-auto px-6 h-full flex flex-col justify-center items-center text-center text-white pt-12 pb-24">
-          
-          {/* Subtle Tag Badge */}
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-black/40 backdrop-blur-md border border-[#C5A880]/50 mb-5 animate-fade-in shadow-lg">
-            <Sparkles className="w-3.5 h-3.5 text-[#C5A880]" />
-            <span className="label-caps text-[#FAF8F5] text-[10px] tracking-luxury">
-              Nandanam, Chennai • Established 2004
-            </span>
-          </div>
+          {/* Open-Bottom Architectural Atelier Framing around Hero Stage Centerpiece */}
+          <div className="relative px-5 sm:px-12 py-8 sm:py-10 border-t border-l border-r border-[#D90B0B]/55 bg-black/25 backdrop-blur-[2px]">
+            <div aria-hidden="true" className="pointer-events-none absolute inset-2 border border-[#C5A880]/20" />
 
-          {/* High-Impact Modern Luxury Headline */}
-          <h1 className="font-syne text-5xl sm:text-7xl md:text-8xl lg:text-9xl font-bold tracking-tight text-[#FAF8F5] leading-[0.92] uppercase drop-shadow-2xl">
-            {SITE_CONTENT.brand.headline}
-          </h1>
+            {/* Subtle Tag Badge with Crimson [A] Keystone */}
+            <div className="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-black/55 backdrop-blur-md border border-[#C5A880]/50 mb-4 animate-fade-in shadow-lg">
+              <span className="inline-flex items-center justify-center w-4 h-3.5 bg-[#D90B0B] text-white font-sans font-extrabold text-[9px] leading-none">
+                A
+              </span>
+              <Sparkles className="w-3 h-3 text-[#C5A880]" />
+              <span className="label-caps text-[#FAF8F5] text-[10px] tracking-luxury">
+                Anna Nagar, Chennai • Established 2004
+              </span>
+            </div>
 
-          {/* Elegant Tagline */}
-          <p className="font-editorial italic text-2xl sm:text-3xl md:text-4xl text-[#DEC8AA] mt-4 mb-3 font-normal tracking-wide">
-            "{SITE_CONTENT.brand.tagline}"
-          </p>
+            {/* High-Impact Modern Luxury Headline */}
+            <h1 className="font-syne text-5xl sm:text-7xl md:text-8xl lg:text-9xl font-bold tracking-tight text-[#FAF8F5] leading-[0.92] uppercase drop-shadow-2xl">
+              {SITE_CONTENT.brand.headline}
+            </h1>
 
-          {/* Crisp, Short Description */}
-          <p className="max-w-xl text-sm sm:text-base text-[#D3D0C9] font-light leading-relaxed mb-8">
-            Bespoke draperies, motorized Roman blinds, acoustic wall panels, and master sofa refurbishing crafted for Tamil Nadu’s finest residences.
-          </p>
+            {/* Official Signature Mark Accent */}
+            <div className="flex justify-center mt-4 mb-2">
+              <ADecorLogo variant="obsidian" className="h-9 sm:h-11 w-auto opacity-95" />
+            </div>
 
-          {/* Action CTAs */}
-          <div className="flex flex-wrap items-center justify-center gap-4 z-20">
-            <Link
-              to="/curtain-styles"
-              className="px-8 py-4 rounded-full bg-[#C5A880] hover:bg-white text-[#100F0E] font-syne font-bold text-xs tracking-luxury uppercase flex items-center gap-2.5 transition-all duration-300 shadow-glow-gold hover:scale-105"
-            >
-              <span>Explore Collections</span>
-              <ArrowRight className="w-4 h-4" />
-            </Link>
+            {/* Elegant Tagline */}
+            <p className="font-editorial italic text-2xl sm:text-3xl md:text-4xl text-[#DEC8AA] mt-2 mb-3 font-normal tracking-wide">
+              "{SITE_CONTENT.brand.tagline}"
+            </p>
 
-            <Link
-              to="/contact"
-              className="px-8 py-4 rounded-full bg-white/10 hover:bg-white/20 backdrop-blur-md border border-white/30 text-[#FAF8F5] font-syne font-semibold text-xs tracking-luxury uppercase transition-all duration-300 flex items-center gap-2"
-            >
-              <PhoneCall className="w-3.5 h-3.5 text-[#C5A880]" />
-              <span>Book Consultation</span>
-            </Link>
+            {/* Crisp, Short Description */}
+            <p className="max-w-xl mx-auto text-sm sm:text-base text-[#D3D0C9] font-light leading-relaxed mb-7">
+              Bespoke draperies, motorized Roman blinds, acoustic wall panels, and bespoke upholstery rework crafted for Tamil Nadu’s finest residences.
+            </p>
+
+            {/* Action CTAs */}
+            <div className="flex flex-wrap items-center justify-center gap-4 z-20">
+              <Link
+                to="/curtain-styles"
+                className="px-8 py-4 rounded-full bg-[#C5A880] hover:bg-white text-[#100F0E] font-syne font-bold text-xs tracking-luxury uppercase flex items-center gap-2.5 transition-all duration-300 shadow-glow-gold hover:scale-105"
+              >
+                <span>Explore Collections</span>
+                <ArrowRight className="w-4 h-4" />
+              </Link>
+
+              <Link
+                to="/contact"
+                className="px-8 py-4 rounded-full bg-white/10 hover:bg-white/20 backdrop-blur-md border border-white/30 text-[#FAF8F5] font-syne font-semibold text-xs tracking-luxury uppercase transition-all duration-300 flex items-center gap-2"
+              >
+                <PhoneCall className="w-3.5 h-3.5 text-[#C5A880]" />
+                <span>Book Consultation</span>
+              </Link>
+            </div>
+
+            {/* Open-Bottom Cutout Legs Echoing the Logo Frame */}
+            <div className="flex items-center gap-3 absolute -bottom-[8px] inset-x-0 pointer-events-none">
+              <div className="flex-1 h-[1px] bg-[#D90B0B]/55" />
+              <span className="text-[8px] sm:text-[9px] font-sans font-bold uppercase tracking-[0.34em] text-[#FAF8F5]/80 whitespace-nowrap">
+                A DECOR FURNISHINGS
+              </span>
+              <div className="flex-1 h-[1px] bg-[#D90B0B]/55" />
+            </div>
           </div>
         </div>
       </div>
@@ -154,7 +178,7 @@ export const HeroCurtains: React.FC = () => {
       <div
         onMouseEnter={handleCurtainHover}
         onClick={() => setIsOpen((prev) => !prev)}
-        className="absolute top-20 bottom-0 left-0 w-[50.5%] z-20 transition-transform duration-[2200ms] ease-[cubic-bezier(0.25,1,0.5,1)] origin-left shadow-[25px_0_50px_rgba(0,0,0,0.7)] cursor-pointer group"
+        className="absolute top-20 bottom-0 left-0 w-[50.5%] z-20 transition-transform duration-[2200ms] ease-[cubic-bezier(0.25,1,0.5,1)] origin-left shadow-[25px_0_50px_rgba(0,0,0,0.7)] cursor-pointer group will-change-transform"
         style={{
           transform: isOpen ? 'translateX(-84%)' : 'translateX(0%)',
           background: currentFabric.gradient,
@@ -195,7 +219,7 @@ export const HeroCurtains: React.FC = () => {
       <div
         onMouseEnter={handleCurtainHover}
         onClick={() => setIsOpen((prev) => !prev)}
-        className="absolute top-20 bottom-0 right-0 w-[50.5%] z-20 transition-transform duration-[2200ms] ease-[cubic-bezier(0.25,1,0.5,1)] origin-right shadow-[-25px_0_50px_rgba(0,0,0,0.7)] cursor-pointer group"
+        className="absolute top-20 bottom-0 right-0 w-[50.5%] z-20 transition-transform duration-[2200ms] ease-[cubic-bezier(0.25,1,0.5,1)] origin-right shadow-[-25px_0_50px_rgba(0,0,0,0.7)] cursor-pointer group will-change-transform"
         style={{
           transform: isOpen ? 'translateX(84%)' : 'translateX(0%)',
           background: currentFabric.gradient,

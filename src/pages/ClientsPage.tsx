@@ -5,14 +5,14 @@ import { SITE_CONTENT } from '../data/content';
 
 export const ClientsPage: React.FC = () => {
   return (
-    <div className="pt-28 pb-24 bg-[#FAF8F5]">
-      {/* Page Hero */}
+    <div className="pt-36 sm:pt-44 pb-24 bg-[#FAF8F5] min-h-screen">
+      {/* Page Hero with generous clearance under sticky header */}
       <div className="max-w-7xl mx-auto px-6 mb-16 text-center">
-        <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#EAE7E1] text-[#1E1D1B] border border-[#D3D0C9] mb-4">
+        <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#EAE7E1] text-[#1E1D1B] border border-[#D3D0C9] mb-5">
           <Building2 className="w-3.5 h-3.5 text-[#C5A880]" />
           <span className="label-caps text-[10px] tracking-luxury">Corporate & Institutional Portfolio</span>
         </div>
-        <h1 className="font-syne text-5xl sm:text-6xl lg:text-7xl text-[#1E1D1B] font-bold uppercase tracking-tight">
+        <h1 className="font-syne text-4xl sm:text-6xl lg:text-7xl text-[#1E1D1B] font-bold uppercase tracking-tight leading-[1.05]">
           Enterprise Clients
         </h1>
         <p className="mt-4 max-w-xl mx-auto text-base sm:text-lg text-[#5E5C57] font-light leading-relaxed">
@@ -34,6 +34,8 @@ export const ClientsPage: React.FC = () => {
                   <img
                     src={client.logoTransparent || client.logo}
                     alt={client.name}
+                    loading="lazy"
+                    decoding="async"
                     className="max-h-16 max-w-full object-contain filter grayscale group-hover:grayscale-0 group-hover:scale-108 transition-all duration-300"
                   />
                 </div>

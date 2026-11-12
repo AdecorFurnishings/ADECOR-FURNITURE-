@@ -1,19 +1,34 @@
 import React, { useState, useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
-import { Phone, Mail, MapPin, Send, CheckCircle2, Clock, Sparkles } from 'lucide-react';
+import { Phone, Mail, MapPin, Send, CheckCircle2, Clock, Sparkles, ExternalLink, MessageCircle } from 'lucide-react';
 import { SITE_CONTENT } from '../data/content';
+import { ADecorLogo } from '../components/common/ADecorLogo';
+
+const SERVICE_LABELS: Record<string, string> = {
+  curtains: 'Bespoke Curtains (Pleat Styles)',
+  blinds: 'Roman Blinds (Folding Styles)',
+  'upholstery-rework': 'Upholstery Rework & Frame Restoration',
+  'wall-panels': 'Acoustic & Fabric Wall Panels',
+  'designer-headboards': 'Designer Headboards',
+  wallpaper: 'Designer Wallpaper',
+  flooring: 'Hardwood & Luxury Flooring',
+};
 
 export const ContactPage: React.FC = () => {
   const [searchParams] = useSearchParams();
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [submittedWaUrl, setSubmittedWaUrl] = useState('');
 
   // Form State
   const [formData, setFormData] = useState({
     name: '',
     phone: '',
     email: '',
-    service: searchParams.get('service') || searchParams.get('blind') ? 'blinds' : searchParams.get('pleat') ? 'curtains' : 'curtains',
-    consultationType: 'onsite', // 'onsite' or 'showroom'
+    service:
+      searchParams.get('service') === 'sofa-refurbishing'
+        ? 'upholstery-rework'
+        : searchParams.get('service') || (searchParams.get('blind') ? 'blinds' : 'curtains'),
+    consultationType: 'onsite', // 'onsite' or 'location'
     addressOrCity: 'Chennai',
     message: '',
   });
@@ -31,8 +46,8 @@ export const ContactPage: React.FC = () => {
       defaultMsg = `I configured curtains in ${pleat} pleat with ${fabric} fabric. Please bring physical fabric swatches for an on-site window measurement.`;
     } else if (blind) {
       defaultMsg = `I am interested in getting a quote for ${blind} Roman blinds for my home/office.`;
-    } else if (service === 'sofa-refurbishing') {
-      defaultMsg = `I would like to schedule an on-site frame inspection and fabric selection for my sofa refurbishing.`;
+    } else if (service === 'upholstery-rework' || service === 'sofa-refurbishing') {
+      defaultMsg = `I would like to schedule an on-site chassis assessment and textile selection for my upholstery rework project.`;
     } else if (project) {
       defaultMsg = `I was inspired by your "${project}" installation in your gallery and would like a custom proposal.`;
     }
@@ -44,31 +59,50 @@ export const ContactPage: React.FC = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+
+    const consultationLabel =
+      formData.consultationType === 'onsite'
+        ? 'On-Site Measuring Visit (Anywhere in TN)'
+        : 'Visit Location (Anna Nagar, Chennai)';
+    const serviceLabel = SERVICE_LABELS[formData.service] || formData.service;
+    const whatsappDigits = SITE_CONTENT.brand.whatsapp.replace(/\D/g, '');
+
+    const summaryLines = [
+      '*New Consultation Inquiry — A Decor Furnishings (Chennai)*',
+      '',
+      `*Name:* ${formData.name.trim()}`,
+      `*Phone:* ${formData.phone.trim()}`,
+      `*Email:* ${formData.email.trim() || 'Not provided'}`,
+      `*Area / City:* ${formData.addressOrCity.trim() || 'Chennai'}`,
+      `*Primary Service:* ${serviceLabel}`,
+      `*Consultation Mode:* ${consultationLabel}`,
+      `*Project Details:* ${formData.message.trim() || 'Please contact me regarding this consultation.'}`,
+    ];
+
+    const waUrl = `https://wa.me/${whatsappDigits}?text=${encodeURIComponent(summaryLines.join('\n'))}`;
+    setSubmittedWaUrl(waUrl);
     setIsSubmitted(true);
 
-    // Format WhatsApp message
-    const consultationLabel = formData.consultationType === 'onsite' ? 'On-Site Home Visit' : 'Nandanam Showroom Visit';
-    const text = `*New Interior Inquiry - A-Decor Chennai*%0A%0A*Name:* ${encodeURIComponent(formData.name)}%0A*Phone:* ${encodeURIComponent(formData.phone)}%0A*Email:* ${encodeURIComponent(formData.email)}%0A*Service:* ${encodeURIComponent(formData.service)}%0A*Consultation:* ${encodeURIComponent(consultationLabel)}%0A*Location:* ${encodeURIComponent(formData.addressOrCity)}%0A*Details:* ${encodeURIComponent(formData.message)}`;
-
-    // Open WhatsApp in new tab after 800ms
-    setTimeout(() => {
-      window.open(`https://wa.me/919841134665?text=${text}`, '_blank');
-    }, 600);
+    // Open synchronously inside the form submit gesture so browsers never block WhatsApp launch
+    const waWindow = window.open(waUrl, '_blank', 'noopener,noreferrer');
+    if (!waWindow) {
+      window.location.assign(waUrl);
+    }
   };
 
   return (
-    <div className="pt-28 pb-24 bg-[#FAF8F5]">
-      {/* Page Hero */}
+    <div className="pt-36 sm:pt-44 pb-24 bg-[#FAF8F5] min-h-screen">
+      {/* Page Hero with generous clearance under sticky header */}
       <div className="max-w-7xl mx-auto px-6 mb-16 text-center">
-        <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#EAE7E1] text-[#1E1D1B] border border-[#D3D0C9] mb-4">
+        <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#EAE7E1] text-[#1E1D1B] border border-[#D3D0C9] mb-5">
           <Sparkles className="w-3.5 h-3.5 text-[#C5A880]" />
-          <span className="label-caps text-[10px] tracking-luxury">Nandanam Atelier • Chennai</span>
+          <span className="label-caps text-[10px] tracking-luxury">Anna Nagar • Chennai</span>
         </div>
-        <h1 className="font-syne text-5xl sm:text-6xl lg:text-7xl text-[#1E1D1B] font-bold uppercase tracking-tight">
-          Visit Showroom or Book On-Site
+        <h1 className="font-syne text-4xl sm:text-6xl lg:text-7xl text-[#1E1D1B] font-bold uppercase tracking-tight leading-[1.05]">
+          Visit Location or Book On-Site
         </h1>
         <p className="mt-4 max-w-xl mx-auto text-base sm:text-lg text-[#5E5C57] font-light leading-relaxed">
-          Experience hundreds of fabric rolls at our Nandanam studio, or invite our master draper for on-site measuring anywhere in Tamil Nadu.
+          Experience hundreds of fabric rolls at our Anna Nagar location, or invite our master draper for on-site measuring anywhere in Tamil Nadu.
         </p>
       </div>
 
@@ -88,18 +122,32 @@ export const ContactPage: React.FC = () => {
             </div>
 
             {isSubmitted ? (
-              <div className="p-8 rounded-2xl bg-[#EAE7E1] text-center space-y-4 animate-fade-in border border-[#C5A880]">
+              <div className="p-8 rounded-2xl bg-[#EAE7E1] text-center space-y-5 animate-fade-in border border-[#C5A880]">
                 <CheckCircle2 className="w-12 h-12 text-[#C5A880] mx-auto" />
                 <h3 className="font-editorial text-3xl text-[#1E1D1B]">Thank You, {formData.name}</h3>
                 <p className="text-xs text-[#5E5C57] max-w-md mx-auto leading-relaxed">
-                  Your inquiry has been logged. We are also connecting you to our WhatsApp concierge for instant confirmation.
+                  All your consultation details have been prepared for our WhatsApp desk (<strong>+91 98411 34665</strong>). If WhatsApp did not open automatically, click below to send directly.
                 </p>
-                <div className="pt-2">
+                {submittedWaUrl && (
+                  <div className="pt-1">
+                    <a
+                      href={submittedWaUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-full bg-[#25D366] hover:bg-[#1ebe5d] text-white text-xs font-semibold tracking-wider uppercase shadow-md transition-colors"
+                    >
+                      <MessageCircle className="w-4 h-4" />
+                      <span>Open WhatsApp with Full Details</span>
+                    </a>
+                  </div>
+                )}
+                <div className="pt-1">
                   <button
+                    type="button"
                     onClick={() => setIsSubmitted(false)}
                     className="text-xs text-[#1E1D1B] underline tracking-wider uppercase font-semibold"
                   >
-                    Send another inquiry
+                    Edit or send another inquiry
                   </button>
                 </div>
               </div>
@@ -150,7 +198,7 @@ export const ContactPage: React.FC = () => {
                     <label className="label-caps text-[11px] text-[#5E5C57]">Your Area / City in TN</label>
                     <input
                       type="text"
-                      placeholder="e.g. Nandanam / ECR / Coimbatore"
+                      placeholder="e.g. Anna Nagar / ECR / Coimbatore"
                       value={formData.addressOrCity}
                       onChange={(e) => setFormData({ ...formData, addressOrCity: e.target.value })}
                       className="w-full px-4 py-3 rounded-xl border border-[#D3D0C9] bg-[#FAF8F5] text-xs focus:outline-none focus:border-[#C5A880] transition-colors"
@@ -167,9 +215,9 @@ export const ContactPage: React.FC = () => {
                       onChange={(e) => setFormData({ ...formData, service: e.target.value })}
                       className="w-full px-4 py-3 rounded-xl border border-[#D3D0C9] bg-[#FAF8F5] text-xs focus:outline-none focus:border-[#C5A880] transition-colors"
                     >
-                      <option value="curtains">Bespoke Curtains (13 Pleat Styles)</option>
-                      <option value="blinds">Roman Blinds (12 Folding Styles)</option>
-                      <option value="sofa-refurbishing">Sofa Refurbishing & Re-Upholstery</option>
+                      <option value="curtains">Bespoke Curtains (Pleat Styles)</option>
+                      <option value="blinds">Roman Blinds (Folding Styles)</option>
+                      <option value="upholstery-rework">Upholstery Rework & Frame Restoration</option>
                       <option value="wall-panels">Acoustic & Fabric Wall Panels</option>
                       <option value="designer-headboards">Designer Headboards</option>
                       <option value="wallpaper">Designer Wallpaper</option>
@@ -185,7 +233,7 @@ export const ContactPage: React.FC = () => {
                       className="w-full px-4 py-3 rounded-xl border border-[#D3D0C9] bg-[#FAF8F5] text-xs focus:outline-none focus:border-[#C5A880] transition-colors"
                     >
                       <option value="onsite">On-Site Measuring Visit (Anywhere in TN)</option>
-                      <option value="showroom">Showroom Visit (Nandanam, Chennai)</option>
+                      <option value="location">Visit Location (Anna Nagar, Chennai)</option>
                     </select>
                   </div>
                 </div>
@@ -217,15 +265,23 @@ export const ContactPage: React.FC = () => {
             )}
           </div>
 
-          {/* Right Column: Showroom Info, Map, QR & Direct Contacts (5 cols) */}
+          {/* Right Column: Location Info, Map, QR & Direct Contacts (5 cols) */}
           <div className="lg:col-span-5 space-y-8">
             
-            {/* Showroom Address Card */}
-            <div className="p-8 rounded-3xl bg-[#1E1D1B] text-[#FAF8F5] shadow-elevated space-y-6">
+            {/* Location Address Card */}
+            <div className="p-8 rounded-3xl bg-[#1E1D1B] text-[#FAF8F5] shadow-elevated space-y-6 border-t-2 border-[#D90B0B]/70">
+              {/* Crisp Full-Crimson Signature Plaque on White Card */}
+              <div className="bg-white rounded-2xl px-5 py-4 flex items-center justify-between gap-4 shadow-sm border border-[#EAE7E1]">
+                <ADecorLogo variant="crimson" className="h-11 sm:h-12 w-auto" />
+                <span className="hidden sm:inline-block text-[9px] font-mono uppercase tracking-[0.22em] text-[#5E5C57]">
+                  Est. 2004
+                </span>
+              </div>
+
               <div>
-                <span className="label-caps text-[#C5A880] text-[10px]">Showroom Location</span>
+                <span className="label-caps text-[#C5A880] text-[10px]">Location</span>
                 <h3 className="font-editorial text-3xl text-white font-light mt-1">
-                  Nandanam Atelier
+                  Anna Nagar, Chennai
                 </h3>
               </div>
 
@@ -234,9 +290,20 @@ export const ContactPage: React.FC = () => {
                   <MapPin className="w-4 h-4 text-[#C5A880] shrink-0 mt-0.5" />
                   <div>
                     <strong className="text-white block">A-Decor Perfect Home</strong>
-                    <p>{SITE_CONTENT.brand.address.street}, {SITE_CONTENT.brand.address.area}</p>
-                    <p>Chennai - {SITE_CONTENT.brand.address.pincode}, Tamil Nadu</p>
+                    <p>{SITE_CONTENT.brand.address.street}</p>
+                    <p>
+                      {SITE_CONTENT.brand.address.area}, {SITE_CONTENT.brand.address.city}, {SITE_CONTENT.brand.address.state} {SITE_CONTENT.brand.address.pincode}
+                    </p>
                     <p className="text-[11px] text-[#8A8782] mt-0.5">{SITE_CONTENT.brand.address.landmark}</p>
+                    <a
+                      href={SITE_CONTENT.brand.googleMapsUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-1.5 mt-2.5 text-[11px] font-semibold uppercase tracking-wider text-[#C5A880] hover:text-white transition-colors"
+                    >
+                      <span>Get Directions on Google Maps</span>
+                      <ExternalLink className="w-3 h-3" />
+                    </a>
                   </div>
                 </div>
 
@@ -263,8 +330,8 @@ export const ContactPage: React.FC = () => {
                   <Clock className="w-4 h-4 text-[#C5A880] shrink-0 mt-0.5" />
                   <div>
                     <strong className="text-white block">Operating Hours</strong>
-                    <p>Monday – Saturday: 9:30 AM – 8:00 PM</p>
-                    <p className="text-[11px] text-[#8A8782]">Sunday: Private Showroom Appointments Only</p>
+                    <p>{SITE_CONTENT.brand.hours.weekdays}</p>
+                    <p className="text-[11px] text-[#8A8782]">{SITE_CONTENT.brand.hours.sunday}</p>
                   </div>
                 </div>
               </div>
@@ -274,6 +341,8 @@ export const ContactPage: React.FC = () => {
                 <img
                   src={SITE_CONTENT.brand.qrCodeImage}
                   alt="A-Decor QR Code"
+                  loading="lazy"
+                  decoding="async"
                   className="w-16 h-16 rounded-lg bg-white p-1"
                 />
                 <div className="text-xs">
@@ -283,15 +352,15 @@ export const ContactPage: React.FC = () => {
               </div>
             </div>
 
-            {/* Google Map of Nandanam, Chennai */}
+            {/* Google Map of Anna Nagar, Chennai */}
             <div className="rounded-3xl overflow-hidden border border-[#D3D0C9] bg-white shadow-soft-luxury">
               <div className="p-4 border-b border-[#D3D0C9] flex items-center justify-between text-xs">
                 <span className="font-semibold text-[#1E1D1B] flex items-center gap-1.5">
                   <MapPin className="w-3.5 h-3.5 text-[#C5A880]" />
-                  <span>Google Maps • Nandanam Prime Corridor</span>
+                  <span>Google Maps • Anna Nagar, Chennai</span>
                 </span>
                 <a
-                  href="https://maps.google.com/?q=Nandanam+Chennai"
+                  href={SITE_CONTENT.brand.googleMapsUrl}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-[#C5A880] hover:underline"
@@ -302,14 +371,14 @@ export const ContactPage: React.FC = () => {
 
               <div className="aspect-[16/10] w-full">
                 <iframe
-                  title="A-Decor Nandanam Chennai Map"
+                  title="A-Decor Anna Nagar Chennai Map"
                   src={SITE_CONTENT.brand.googleMapsEmbedUrl}
                   width="100%"
                   height="100%"
                   style={{ border: 0 }}
-                  allowFullScreen={false}
+                  allowFullScreen
                   loading="lazy"
-                  referrerPolicy="no-referrer-when-downgrade"
+                  referrerPolicy="strict-origin-when-cross-origin"
                 />
               </div>
             </div>

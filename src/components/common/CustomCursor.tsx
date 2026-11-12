@@ -1,86 +1,140 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
 export const CustomCursor: React.FC = () => {
-  const [position, setPosition] = useState({ x: -100, y: -100 });
-  const [trailingPos, setTrailingPos] = useState({ x: -100, y: -100 });
+  const dotRef = useRef<HTMLDivElement | null>(null);
+  const ringRef = useRef<HTMLDivElement | null>(null);
+  const mouseRef = useRef({ x: -100, y: -100 });
+  const trailingRef = useRef({ x: -100, y: -100 });
+  const rafRef = useRef<number | null>(null);
+  const visibleRef = useRef(false);
+  const stateRef = useRef({ text: '', hovered: false, pressed: false });
+
   const [cursorText, setCursorText] = useState('');
   const [isHovered, setIsHovered] = useState(false);
-  const [isTouchDevice, setIsTouchDevice] = useState(false);
   const [isPressed, setIsPressed] = useState(false);
+  const [isTouchDevice] = useState(() =>
+    typeof window !== 'undefined'
+      ? window.matchMedia('(pointer: coarse)').matches ||
+        window.matchMedia('(prefers-reduced-motion: reduce)').matches
+      : false,
+  );
 
   useEffect(() => {
-    // Detect touch device
-    if (window.matchMedia('(pointer: coarse)').matches) {
-      setIsTouchDevice(true);
-      return;
-    }
+    if (isTouchDevice) return;
+
+    const startLoop = () => {
+      if (rafRef.current !== null) return;
+      const tick = () => {
+        const dx = mouseRef.current.x - trailingRef.current.x;
+        const dy = mouseRef.current.y - trailingRef.current.y;
+        trailingRef.current.x += dx * 0.22;
+        trailingRef.current.y += dy * 0.22;
+
+        if (ringRef.current) {
+          ringRef.current.style.transform = `translate3d(${trailingRef.current.x}px, ${trailingRef.current.y}px, 0) translate(-50%, -50%)`;
+          if (!visibleRef.current) ringRef.current.style.opacity = '1';
+        }
+        visibleRef.current = true;
+
+        if (Math.abs(dx) > 0.12 || Math.abs(dy) > 0.12) {
+          rafRef.current = requestAnimationFrame(tick);
+        } else {
+          trailingRef.current.x = mouseRef.current.x;
+          trailingRef.current.y = mouseRef.current.y;
+          if (ringRef.current) {
+            ringRef.current.style.transform = `translate3d(${mouseRef.current.x}px, ${mouseRef.current.y}px, 0) translate(-50%, -50%)`;
+          }
+          rafRef.current = null;
+        }
+      };
+      rafRef.current = requestAnimationFrame(tick);
+    };
 
     const onMouseMove = (e: MouseEvent) => {
-      setPosition({ x: e.clientX, y: e.clientY });
+      const x = e.clientX;
+      const y = e.clientY;
+      mouseRef.current.x = x;
+      mouseRef.current.y = y;
 
-      // Check for elements with data-cursor attributes
+      if (!visibleRef.current) {
+        trailingRef.current.x = x;
+        trailingRef.current.y = y;
+      }
+
+      if (dotRef.current) {
+        dotRef.current.style.transform = `translate3d(${x}px, ${y}px, 0) translate(-50%, -50%)`;
+        dotRef.current.style.opacity = '0.85';
+      }
+
       const target = e.target as HTMLElement | null;
       const cursorTarget = target?.closest('[data-cursor]') as HTMLElement | null;
+      let nextText = '';
+      let nextHovered = false;
       if (cursorTarget) {
-        setCursorText(cursorTarget.getAttribute('data-cursor') || '');
-        setIsHovered(true);
-      } else {
-        const clickable = target?.closest('a, button, input, select, textarea, [role="button"]');
-        if (clickable) {
-          setCursorText('');
-          setIsHovered(true);
-        } else {
-          setCursorText('');
-          setIsHovered(false);
-        }
+        nextText = cursorTarget.getAttribute('data-cursor') || '';
+        nextHovered = true;
+      } else if (target?.closest('a, button, input, select, textarea, [role="button"]')) {
+        nextHovered = true;
+      }
+
+      if (stateRef.current.text !== nextText) {
+        stateRef.current.text = nextText;
+        setCursorText(nextText);
+      }
+      if (stateRef.current.hovered !== nextHovered) {
+        stateRef.current.hovered = nextHovered;
+        setIsHovered(nextHovered);
+      }
+
+      startLoop();
+    };
+
+    const onMouseDown = () => {
+      if (!stateRef.current.pressed) {
+        stateRef.current.pressed = true;
+        setIsPressed(true);
       }
     };
 
-    const onMouseDown = () => setIsPressed(true);
-    const onMouseUp = () => setIsPressed(false);
-
-    window.addEventListener('mousemove', onMouseMove);
-    window.addEventListener('mousedown', onMouseDown);
-    window.addEventListener('mouseup', onMouseUp);
-
-    // Trailing smooth loop
-    let animationFrameId: number;
-    const updateTrailing = () => {
-      setTrailingPos((prev) => ({
-        x: prev.x + (position.x - prev.x) * 0.22,
-        y: prev.y + (position.y - prev.y) * 0.22,
-      }));
-      animationFrameId = requestAnimationFrame(updateTrailing);
+    const onMouseUp = () => {
+      if (stateRef.current.pressed) {
+        stateRef.current.pressed = false;
+        setIsPressed(false);
+      }
     };
-    animationFrameId = requestAnimationFrame(updateTrailing);
+
+    window.addEventListener('mousemove', onMouseMove, { passive: true });
+    window.addEventListener('mousedown', onMouseDown, { passive: true });
+    window.addEventListener('mouseup', onMouseUp, { passive: true });
 
     return () => {
       window.removeEventListener('mousemove', onMouseMove);
       window.removeEventListener('mousedown', onMouseDown);
       window.removeEventListener('mouseup', onMouseUp);
-      cancelAnimationFrame(animationFrameId);
+      if (rafRef.current !== null) cancelAnimationFrame(rafRef.current);
     };
-  }, [position.x, position.y]);
+  }, [isTouchDevice]);
 
   if (isTouchDevice) return null;
 
   return (
-    <div className="pointer-events-none fixed inset-0 z-50 overflow-hidden">
-      {/* Tiny sharp center dot */}
+    <div aria-hidden="true" className="pointer-events-none fixed inset-0 z-50 overflow-hidden">
+      {/* Tiny sharp center dot (GPU-composited) */}
       <div
-        className="fixed -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#1E1D1B] transition-opacity duration-150"
+        ref={dotRef}
+        className="fixed left-0 top-0 rounded-full bg-[#1E1D1B] will-change-transform transition-[width,height,opacity] duration-150"
         style={{
-          left: `${position.x}px`,
-          top: `${position.y}px`,
           width: isHovered ? '4px' : '6px',
           height: isHovered ? '4px' : '6px',
-          opacity: position.x < 0 ? 0 : 0.8,
+          opacity: 0,
+          transform: 'translate3d(-100px, -100px, 0) translate(-50%, -50%)',
         }}
       />
 
-      {/* Trailing follower ring / expanding pill */}
+      {/* Trailing follower ring / expanding pill (GPU-composited) */}
       <div
-        className={`fixed -translate-x-1/2 -translate-y-1/2 flex items-center justify-center rounded-full border transition-all duration-300 ease-out ${
+        ref={ringRef}
+        className={`fixed left-0 top-0 flex items-center justify-center rounded-full border will-change-transform transition-[width,height,background-color,border-color,padding] duration-200 ease-out ${
           cursorText
             ? 'bg-[#1E1D1B] border-[#1E1D1B] text-[#FAF8F5] px-4 py-2 h-10 min-w-[70px] shadow-lg'
             : isHovered
@@ -90,9 +144,8 @@ export const CustomCursor: React.FC = () => {
             : 'w-9 h-9 border-[#8A8782]/40 bg-transparent'
         }`}
         style={{
-          left: `${trailingPos.x}px`,
-          top: `${trailingPos.y}px`,
-          opacity: trailingPos.x < 0 ? 0 : 1,
+          opacity: 0,
+          transform: 'translate3d(-100px, -100px, 0) translate(-50%, -50%)',
         }}
       >
         {cursorText && (

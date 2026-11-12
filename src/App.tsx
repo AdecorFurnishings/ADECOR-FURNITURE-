@@ -1,6 +1,6 @@
 import { Suspense, lazy } from 'react';
 import { Routes, Route, useLocation } from 'react-router-dom';
-import { AnimatePresence } from 'framer-motion';
+import { AnimatePresence, MotionConfig } from 'framer-motion';
 import { SmoothScroll } from './components/common/SmoothScroll';
 import { CustomCursor } from './components/common/CustomCursor';
 import { IntroBoomLoader } from './components/common/IntroBoomLoader';
@@ -8,9 +8,11 @@ import { Navbar } from './components/common/Navbar';
 import { Footer } from './components/common/Footer';
 import { FloatingWhatsApp } from './components/common/FloatingWhatsApp';
 import { PageTransition } from './components/common/PageTransition';
+import { RouteSeo } from './components/common/RouteSeo';
 
 // Lazy-loaded pages for lean bundle splitting
 import { HomePage } from './pages/HomePage';
+const AboutPage = lazy(() => import('./pages/AboutPage').then(m => ({ default: m.AboutPage })));
 const ServicesPage = lazy(() => import('./pages/ServicesPage').then(m => ({ default: m.ServicesPage })));
 const CurtainStylesPage = lazy(() => import('./pages/CurtainStylesPage').then(m => ({ default: m.CurtainStylesPage })));
 const RomanBlindsPage = lazy(() => import('./pages/RomanBlindsPage').then(m => ({ default: m.RomanBlindsPage })));
@@ -31,9 +33,11 @@ export function App() {
   const location = useLocation();
 
   return (
-    <SmoothScroll>
-      {/* Intro Boom Particle Ripple Loader (once per session, skippable) */}
-      <IntroBoomLoader />
+    <MotionConfig reducedMotion="user">
+      <SmoothScroll>
+        <RouteSeo />
+        {/* Intro Boom Particle Ripple Loader (once per session, skippable) */}
+        <IntroBoomLoader />
 
       {/* Luxury Follower Custom Cursor */}
       <CustomCursor />
@@ -48,6 +52,7 @@ export function App() {
               <Suspense fallback={<PageFallback />}>
                 <Routes location={location}>
                   <Route path="/" element={<HomePage />} />
+                  <Route path="/about" element={<AboutPage />} />
                   <Route path="/services" element={<ServicesPage />} />
                   <Route path="/curtain-styles" element={<CurtainStylesPage />} />
                   <Route path="/roman-blinds" element={<RomanBlindsPage />} />
@@ -64,7 +69,8 @@ export function App() {
         <Footer />
         <FloatingWhatsApp />
       </div>
-    </SmoothScroll>
+      </SmoothScroll>
+    </MotionConfig>
   );
 }
 

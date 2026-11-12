@@ -43,6 +43,8 @@ export const ClientsMarquee: React.FC = () => {
               <img
                 src={client.logoTransparent || client.logo}
                 alt={client.name}
+                loading="lazy"
+                decoding="async"
                 className="max-h-16 max-w-[160px] object-contain filter grayscale group-hover:grayscale-0 group-hover:scale-110 transition-all duration-300 opacity-70 group-hover:opacity-100"
               />
               <span className="text-[10px] tracking-widest text-[#8A8782] uppercase mt-2 group-hover:text-[#1E1D1B] transition-colors truncate max-w-[180px]">

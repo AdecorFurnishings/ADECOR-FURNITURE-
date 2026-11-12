@@ -16,44 +16,58 @@ async function run() {
   const page = await browser.newPage();
   await page.setViewport({ width: 1440, height: 900 });
 
-  // 1. Mark intro loader as seen in sessionStorage before loading so we test curtains directly without intro wait
   await page.evaluateOnNewDocument(() => {
     sessionStorage.setItem('adecor_intro_seen', 'true');
   });
 
-  await page.goto('http://127.0.0.1:5173/', { waitUntil: 'domcontentloaded' });
-  
-  // 2. Curtains start 100% fully closed (wait 400ms for initial render)
-  await new Promise(r => setTimeout(r, 400));
-  await page.screenshot({ path: path.join(outDir, '01_curtains_fully_closed.png') });
-  console.log('Saved 01_curtains_fully_closed.png');
-
-  // 3. Wait for curtains to smoothly draw apart (1200ms delay + 2200ms transition = 3400ms)
-  await new Promise(r => setTimeout(r, 3800));
-  await page.screenshot({ path: path.join(outDir, '02_curtains_drawn_open.png') });
-  console.log('Saved 02_curtains_drawn_open.png');
-
-  // 4. Hover over the left curtain to test pointer fabric color cycling
-  try {
-    const curtain = await page.$('div[title*="cycle vibrant"]');
-    if (curtain) {
-      await curtain.hover();
-      await new Promise(r => setTimeout(r, 600));
-      await page.screenshot({ path: path.join(outDir, '03_curtains_color_hover.png') });
-      console.log('Saved 03_curtains_color_hover.png');
-    }
-  } catch (err) {
-    console.log('Hover skip:', err.message);
-  }
-
-  // 5. Scroll down to Sofa Refurbishing (bad quality before vs luxury after)
+  // 1. Home page: 5 Core Furnishings
+  await page.goto('http://127.0.0.1:5173/', { waitUntil: 'networkidle0' });
   await page.evaluate(() => {
-    const el = Array.from(document.querySelectorAll('h2')).find(h => h.textContent && h.textContent.includes('Sofa'))?.closest('section');
+    const el = Array.from(document.querySelectorAll('h2')).find(h => h.textContent && h.textContent.includes('Bespoke Furnishings'))?.closest('section');
     if (el) el.scrollIntoView({ behavior: 'instant' });
   });
-  await new Promise(r => setTimeout(r, 1000));
-  await page.screenshot({ path: path.join(outDir, '04_sofa_bad_before_vs_luxury_after.png') });
-  console.log('Saved 04_sofa_bad_before_vs_luxury_after.png');
+  await new Promise(r => setTimeout(r, 800));
+  await page.screenshot({ path: path.join(outDir, '05_core_furnishings_5_items.png') });
+  console.log('Saved 05_core_furnishings_5_items.png');
+
+  // 2. Sofa Refurbishing (no 4 steps, no complimentary pickup, Schedule Inspection)
+  await page.evaluate(() => {
+    const el = Array.from(document.querySelectorAll('h2')).find(h => h.textContent && h.textContent.includes('Sofa Refurbishing'))?.closest('section');
+    if (el) el.scrollIntoView({ behavior: 'instant' });
+  });
+  await new Promise(r => setTimeout(r, 800));
+  await page.screenshot({ path: path.join(outDir, '06_sofa_clean_no_steps.png') });
+  console.log('Saved 06_sofa_clean_no_steps.png');
+
+  // 3. Home Portfolio Works
+  await page.evaluate(() => {
+    const el = Array.from(document.querySelectorAll('h2')).find(h => h.textContent && h.textContent.includes('Portfolio Works'))?.closest('section');
+    if (el) el.scrollIntoView({ behavior: 'instant' });
+  });
+  await new Promise(r => setTimeout(r, 800));
+  await page.screenshot({ path: path.join(outDir, '07_home_portfolio_works.png') });
+  console.log('Saved 07_home_portfolio_works.png');
+
+  // 4. Roman Blind Folding Studio
+  await page.evaluate(() => {
+    const el = Array.from(document.querySelectorAll('h2')).find(h => h.textContent && h.textContent.includes('Roman Blind Folding Studio'))?.closest('section');
+    if (el) el.scrollIntoView({ behavior: 'instant' });
+  });
+  await new Promise(r => setTimeout(r, 800));
+  await page.screenshot({ path: path.join(outDir, '08_roman_blind_folding_studio.png') });
+  console.log('Saved 08_roman_blind_folding_studio.png');
+
+  // 5. Gallery Page (Portfolio Works, bold names alone)
+  await page.goto('http://127.0.0.1:5173/gallery', { waitUntil: 'networkidle0' });
+  await new Promise(r => setTimeout(r, 800));
+  await page.screenshot({ path: path.join(outDir, '09_gallery_page_portfolio_works.png') });
+  console.log('Saved 09_gallery_page_portfolio_works.png');
+
+  // 6. Curtain Styles Page (13 styles in HD)
+  await page.goto('http://127.0.0.1:5173/curtain-styles', { waitUntil: 'networkidle0' });
+  await new Promise(r => setTimeout(r, 800));
+  await page.screenshot({ path: path.join(outDir, '10_curtain_styles_hd.png') });
+  console.log('Saved 10_curtain_styles_hd.png');
 
   await browser.close();
   console.log('All verification screenshots captured successfully!');

@@ -26,7 +26,7 @@ const furnishingItems: FurnishingItem[] = [
     id: 'linen-cushion',
     name: 'Stonewashed Moss Linen Cushion',
     category: 'Custom Cushions & Soft Furnishings',
-    description: 'Tailored with genuine French flax linen, piped edges, and hypoallergenic micro-down feather insert. Hand-stitched at our Nandanam atelier.',
+    description: 'Tailored with genuine French flax linen, piped edges, and hypoallergenic micro-down feather insert. Hand-stitched at our Anna Nagar atelier.',
     image: '/images/furnishings/cushion.webp',
     material: '100% Washed European Flax Linen',
     turnaround: '3 - 5 Business Days',
@@ -47,7 +47,7 @@ const furnishingItems: FurnishingItem[] = [
     description: 'Organic loomed merino wool blend in subtle oat and moss stripes. The ideal tactile accent draped over bespoke sofas and window benches.',
     image: '/images/furnishings/throw.webp',
     material: 'Merino Wool & Cashmere Blend',
-    turnaround: 'In Stock at Nandanam',
+    turnaround: 'In Stock at Anna Nagar',
   },
   {
     id: 'oak-stool',
@@ -85,10 +85,10 @@ export const BespokeSoftFurnishingsSection: React.FC = () => {
           </div>
 
           <Link
-            to="/services#sofa-refurbishing"
+            to="/services#upholstery-rework"
             className="text-xs uppercase tracking-luxury text-[#1E1D1B] font-semibold hover:text-[#C5A880] transition-colors self-start md:self-auto py-2"
           >
-            Explore Furniture Refurbishing →
+            Explore Upholstery Rework →
           </Link>
         </div>
 
@@ -105,6 +105,8 @@ export const BespokeSoftFurnishingsSection: React.FC = () => {
               <img
                 src={activeItem.image}
                 alt={activeItem.name}
+                loading="lazy"
+                decoding="async"
                 className="max-h-[380px] w-auto object-contain transition-all duration-700 ease-out group-hover:scale-105 filter drop-shadow-[0_25px_35px_rgba(0,0,0,0.18)]"
               />
             </div>
@@ -154,6 +156,8 @@ export const BespokeSoftFurnishingsSection: React.FC = () => {
                       <img
                         src={item.image}
                         alt={item.name}
+                        loading="lazy"
+                        decoding="async"
                         className="w-full h-full object-contain"
                       />
                     </button>
@@ -174,7 +178,7 @@ export const BespokeSoftFurnishingsSection: React.FC = () => {
 
               <a
                 href={`https://wa.me/919841134665?text=${encodeURIComponent(
-                  `Hello A-Decor Nandanam! I would like to order / inquire about the ${activeItem.name}.`
+                  `Hello A-Decor Anna Nagar! I would like to order / inquire about the ${activeItem.name}.`
                 )}`}
                 target="_blank"
                 rel="noopener noreferrer"
