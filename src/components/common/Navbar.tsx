@@ -57,14 +57,14 @@ export const Navbar: React.FC = () => {
           </Link>
 
           {/* Desktop Navigation Links */}
-          <nav className="hidden lg:flex items-center gap-3.5 xl:gap-5">
+          <nav className="hidden lg:flex items-center gap-3 xl:gap-4">
             {navLinks.map((link) => {
               const isActive = location.pathname === link.href;
               return (
                 <Link
                   key={link.href}
                   to={link.href}
-                  className={`text-[11px] xl:text-xs tracking-[0.14em] xl:tracking-[0.2em] uppercase font-medium transition-all relative py-1 whitespace-nowrap ${
+                  className={`text-[11px] tracking-[0.11em] xl:tracking-[0.15em] uppercase font-medium transition-all relative py-1 whitespace-nowrap ${
                     isActive
                       ? 'text-[#C5A880]'
                       : 'text-[#FAF8F5]/80 hover:text-white'
@@ -83,10 +83,19 @@ export const Navbar: React.FC = () => {
           </nav>
 
           {/* Right Header Actions */}
-          <div className="hidden sm:flex items-center gap-3 shrink-0">
+          <div className="hidden sm:flex items-center gap-2.5 shrink-0">
             <a
               href={`tel:${SITE_CONTENT.brand.phones[0]}`}
-              className="hidden xl:flex px-3.5 py-2 rounded-full border border-white/20 text-[#FAF8F5] hover:border-[#C5A880] hover:text-[#C5A880] text-xs tracking-wider transition-all items-center gap-2 whitespace-nowrap shrink-0"
+              aria-label={`Call ${SITE_CONTENT.brand.phones[0]}`}
+              title={`Call ${SITE_CONTENT.brand.phones[0]}`}
+              className="hidden xl:flex 2xl:hidden w-9 h-9 rounded-full border border-white/20 text-[#FAF8F5] hover:border-[#C5A880] hover:text-[#C5A880] transition-all items-center justify-center shrink-0"
+            >
+              <Phone className="w-3.5 h-3.5 text-[#C5A880] shrink-0" />
+            </a>
+
+            <a
+              href={`tel:${SITE_CONTENT.brand.phones[0]}`}
+              className="hidden 2xl:flex px-3.5 py-2 rounded-full border border-white/20 text-[#FAF8F5] hover:border-[#C5A880] hover:text-[#C5A880] text-xs tracking-wider transition-all items-center gap-2 whitespace-nowrap shrink-0"
             >
               <Phone className="w-3.5 h-3.5 text-[#C5A880] shrink-0" />
               <span className="font-mono text-[11px]">{SITE_CONTENT.brand.phones[0]}</span>
@@ -94,7 +103,7 @@ export const Navbar: React.FC = () => {
 
             <Link
               to="/contact"
-              className="px-4 xl:px-5 py-2.5 rounded-full bg-[#C5A880] hover:bg-[#FAF8F5] text-[#141312] font-semibold text-[11px] xl:text-xs tracking-[0.16em] xl:tracking-luxury uppercase transition-all shadow-glow-gold whitespace-nowrap shrink-0"
+              className="px-4 py-2 rounded-full bg-[#C5A880] hover:bg-[#FAF8F5] text-[#141312] font-semibold text-[11px] tracking-[0.14em] uppercase transition-all shadow-glow-gold whitespace-nowrap shrink-0"
             >
               Consultation
             </Link>
