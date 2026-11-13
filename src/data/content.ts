@@ -81,8 +81,8 @@ export const SITE_CONTENT = {
     phones: ["+919841134665"],
     whatsapp: "+919841134665",
     email: "adecorperfecthome@gmail.com",
-    website: "adecorperfecthome.vercel.app",
-    websiteUrl: "https://adecorperfecthome.vercel.app/",
+    website: "adecorfurnishings.vercel.app",
+    websiteUrl: "https://adecorfurnishings.vercel.app/",
     address: {
       street: "B-1, 201/C-34, NR dave Complex, 2nd Avenue, 11th Main Rd, Corner",
       area: "Anna Nagar",
@@ -108,7 +108,7 @@ export const SITE_CONTENT = {
       twitter: "https://twitter.com/adecorchennai",
       snapchat: "https://snapchat.com/add/adecorchennai"
     },
-    qrCodeImage: "/images/contact/qr_code.png?v=3"
+    qrCodeImage: "/images/contact/qr_code.png?v=4"
   },
 
   about: {

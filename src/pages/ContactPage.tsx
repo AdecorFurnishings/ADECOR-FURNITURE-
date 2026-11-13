@@ -439,7 +439,7 @@ export const ContactPage: React.FC = () => {
                 <div className="text-xs space-y-1">
                   <p className="text-white font-medium">Official Digital Card</p>
                   <p className="text-[11px] text-[#D3D0C9]">
-                    Scan with your smartphone to open adecorperfecthome.vercel.app.
+                    Scan with your smartphone to open adecorfurnishings.vercel.app.
                   </p>
                   <a
                     href="/images/contact/qr_code.png"

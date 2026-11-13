@@ -14,7 +14,7 @@ A premium, award-level, fully responsive web application crafted for **A-Decor**
 - **Flagship Showroom Address**: Old No. 457, New No. 726, Nandanam, Chennai - 600 035, Tamil Nadu, India (Near Anna Salai & CIT Nagar)
 - **Direct Showroom Phones**: `+91 98411 34665` / `+91 95009 33322`
 - **Email**: `adecorperfecthome@gmail.com`
-- **Website**: `www.adecorperfecthome.com`
+- **Website**: `https://adecorfurnishings.vercel.app/`
 - **Statewide Service Guarantee**: On-site design consultation and laser measuring service anywhere across Chennai, Coimbatore, Madurai, Trichy, and all of Tamil Nadu.
 - **Enterprise Clientele**: Hilton Hotels & Resorts, Apollo Hospitals, TVS, DLF Building India, Nippo, Vels University, Radisson, Ramada, Ideal.
 - **Atelier Services**:
