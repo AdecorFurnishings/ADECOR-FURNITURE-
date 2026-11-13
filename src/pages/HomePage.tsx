@@ -47,8 +47,8 @@ export const HomePage: React.FC = () => {
             </Link>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-7 items-stretch">
-            {SITE_CONTENT.gallery.slice(0, 3).map((item, idx) => (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-7 items-stretch">
+            {SITE_CONTENT.gallery.slice(0, 6).map((item, idx) => (
               <SpatialGalleryCard
                 key={item.id}
                 item={item}

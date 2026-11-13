@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef, useMemo } from 'react';
+import { createPortal } from 'react-dom';
 import {
   Sparkles,
   X,
@@ -50,19 +51,19 @@ const SpatialLightboxModal: React.FC<{
     return () => window.removeEventListener('keydown', onKeyDown);
   }, [onClose, onStep]);
 
-  return (
+  return createPortal(
     <div
-      className="fixed inset-0 z-50 bg-black/90 backdrop-blur-md flex items-center justify-center p-3 sm:p-6 lg:p-10 animate-fade-in"
+      className="fixed inset-0 z-[100] bg-black/95 backdrop-blur-2xl flex items-center justify-center p-2 sm:p-4 md:p-6 animate-fade-in overflow-y-auto"
       onClick={onClose}
     >
       <div
-        className="relative max-w-5xl w-full bg-[#FAF8F5] rounded-3xl overflow-hidden shadow-2xl border border-white/20 flex flex-col md:flex-row max-h-[92vh]"
+        className="relative max-w-5xl w-full bg-[#FAF8F5] rounded-2xl sm:rounded-3xl overflow-hidden shadow-2xl border border-white/20 flex flex-col md:flex-row my-auto h-[92vh] max-h-[760px]"
         onClick={(e) => e.stopPropagation()}
       >
         <button
           type="button"
           onClick={onClose}
-          className="absolute top-4 right-4 z-30 w-10 h-10 rounded-full bg-black/65 text-white flex items-center justify-center hover:bg-[#C5A880] hover:text-[#141312] transition-colors"
+          className="absolute top-3 right-3 sm:top-4 sm:right-4 z-30 w-10 h-10 rounded-full bg-black/80 text-white flex items-center justify-center hover:bg-[#C5A880] hover:text-[#141312] transition-colors border border-white/20 shadow-lg"
           aria-label="Close modal"
         >
           <X className="w-5 h-5" />
@@ -82,17 +83,24 @@ const SpatialLightboxModal: React.FC<{
             my.set(0);
             hover.set(0);
           }}
-          className="relative md:w-3/5 bg-[#141312] p-4 sm:p-8 flex items-center justify-center min-h-[280px] sm:min-h-[420px]"
+          className="relative w-full md:w-3/5 lg:w-2/3 bg-[#0D0C0B] p-3 sm:p-6 flex items-center justify-center h-[48vh] md:h-full overflow-hidden shrink-0 border-b md:border-b-0 md:border-r border-black/10"
         >
+          {/* Ambient blurred backdrop eliminates black void */}
+          <div
+            className="absolute inset-0 bg-cover bg-center opacity-25 blur-2xl scale-125 pointer-events-none"
+            style={{ backgroundImage: `url(${item.image})` }}
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#0D0C0B] via-transparent to-[#0D0C0B]/60 pointer-events-none" />
+
           <motion.div
             style={{ rotateX: tiltX, rotateY: tiltY, transformStyle: 'preserve-3d' }}
-            className="relative w-full h-full flex items-center justify-center"
+            className="relative z-10 w-full h-full flex items-center justify-center"
           >
             <img
               src={item.image}
               alt={item.title}
               draggable={false}
-              className="max-h-[62vh] md:max-h-[72vh] w-auto max-w-full object-contain rounded-xl shadow-2xl border border-white/10"
+              className="max-h-full max-w-full w-auto h-auto object-contain rounded-xl shadow-2xl border border-white/10"
             />
             <motion.div
               aria-hidden="true"
@@ -125,7 +133,7 @@ const SpatialLightboxModal: React.FC<{
         </div>
 
         {/* Right Caption & Specification Plaque */}
-        <div className="md:w-2/5 p-6 sm:p-8 flex flex-col justify-between overflow-y-auto">
+        <div className="w-full md:w-2/5 lg:w-1/3 p-6 sm:p-8 flex flex-col justify-between overflow-y-auto flex-1 md:h-full bg-[#FAF8F5]">
           <div className="space-y-4">
             <div className="flex items-center justify-between gap-2 pr-8">
               <span className="label-caps text-[#9A7A4F] text-[10px]">
@@ -172,7 +180,8 @@ const SpatialLightboxModal: React.FC<{
           </div>
         </div>
       </div>
-    </div>
+    </div>,
+    document.body
   );
 };
 

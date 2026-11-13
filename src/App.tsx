@@ -17,6 +17,7 @@ const ServicesPage = lazy(() => import('./pages/ServicesPage').then(m => ({ defa
 const CurtainStylesPage = lazy(() => import('./pages/CurtainStylesPage').then(m => ({ default: m.CurtainStylesPage })));
 const RomanBlindsPage = lazy(() => import('./pages/RomanBlindsPage').then(m => ({ default: m.RomanBlindsPage })));
 const WallPanelsWallpaperPage = lazy(() => import('./pages/WallPanelsWallpaperPage').then(m => ({ default: m.WallPanelsWallpaperPage })));
+const CurtainRodsFlooringPage = lazy(() => import('./pages/CurtainRodsFlooringPage').then(m => ({ default: m.CurtainRodsFlooringPage })));
 const GalleryPage = lazy(() => import('./pages/GalleryPage').then(m => ({ default: m.GalleryPage })));
 const ContactPage = lazy(() => import('./pages/ContactPage').then(m => ({ default: m.ContactPage })));
 
@@ -60,6 +61,11 @@ export function App() {
                   <Route path="/wall-panels" element={<Navigate to="/wall-panels-wallpaper" replace />} />
                   <Route path="/wallpaper" element={<Navigate to="/wall-panels-wallpaper" replace />} />
                   <Route path="/wallpanels" element={<Navigate to="/wall-panels-wallpaper" replace />} />
+                  <Route path="/curtain-rods-flooring" element={<CurtainRodsFlooringPage />} />
+                  <Route path="/curtain-rods" element={<Navigate to="/curtain-rods-flooring" replace />} />
+                  <Route path="/flooring" element={<Navigate to="/curtain-rods-flooring" replace />} />
+                  <Route path="/carpets" element={<Navigate to="/curtain-rods-flooring" replace />} />
+                  <Route path="/curtain-tracks" element={<Navigate to="/curtain-rods-flooring" replace />} />
                   <Route path="/gallery" element={<GalleryPage />} />
                   <Route path="/clients" element={<Navigate to="/contact#clients" replace />} />
                   <Route path="/contact" element={<ContactPage />} />

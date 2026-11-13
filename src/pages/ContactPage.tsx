@@ -399,9 +399,6 @@ export const ContactPage: React.FC = () => {
                     <a href={`tel:${SITE_CONTENT.brand.phones[0]}`} className="text-white hover:text-[#C5A880] font-mono transition-colors block">
                       +91 98411 34665
                     </a>
-                    <a href={`tel:${SITE_CONTENT.brand.phones[1]}`} className="text-white hover:text-[#C5A880] font-mono transition-colors block">
-                      +91 95009 33322
-                    </a>
                   </div>
                 </div>
 

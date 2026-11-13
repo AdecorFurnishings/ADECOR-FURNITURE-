@@ -33,6 +33,7 @@ export const Navbar: React.FC = () => {
     { label: 'Curtain Styles', href: '/curtain-styles' },
     { label: 'Roman Blinds', href: '/roman-blinds' },
     { label: 'Wall Panels & Wallpaper', href: '/wall-panels-wallpaper' },
+    { label: 'Rods & Flooring', href: '/curtain-rods-flooring' },
     { label: 'Gallery', href: '/gallery' },
     { label: 'Contact & Clients', href: '/contact' },
   ];
@@ -61,7 +62,7 @@ export const Navbar: React.FC = () => {
           </Link>
 
           {/* Desktop Navigation Links */}
-          <nav className="hidden lg:flex items-center gap-2 xl:gap-3.5 2xl:gap-4">
+          <nav className="hidden lg:flex items-center gap-1.5 xl:gap-2.5 2xl:gap-3.5">
             {navLinks.map((link) => {
               const isActive =
                 location.pathname === link.href ||
@@ -71,12 +72,19 @@ export const Navbar: React.FC = () => {
                   location.pathname === '/wall-panels' ||
                   location.pathname === '/wallpaper' ||
                   location.pathname === '/wallpanels'
+                )) ||
+                (link.href === '/curtain-rods-flooring' && (
+                  location.pathname === '/curtain-rods-flooring' ||
+                  location.pathname === '/curtain-rods' ||
+                  location.pathname === '/flooring' ||
+                  location.pathname === '/carpets' ||
+                  location.pathname === '/curtain-tracks'
                 ));
               return (
                 <Link
                   key={link.href}
                   to={link.href}
-                  className={`text-[10px] xl:text-[11px] tracking-[0.07em] xl:tracking-[0.12em] uppercase font-medium transition-all relative py-1 whitespace-nowrap ${
+                  className={`text-[9.5px] xl:text-[10.5px] 2xl:text-[11px] tracking-[0.05em] xl:tracking-[0.1em] uppercase font-medium transition-all relative py-1 whitespace-nowrap ${
                     isActive
                       ? 'text-[#C5A880]'
                       : 'text-[#FAF8F5]/80 hover:text-white'

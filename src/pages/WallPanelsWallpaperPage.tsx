@@ -1,4 +1,5 @@
 import React, { useState, useMemo, useRef, useCallback } from 'react';
+import { createPortal } from 'react-dom';
 import { Link } from 'react-router-dom';
 import {
   Sparkles,
@@ -703,32 +704,43 @@ const InspectorModal: React.FC<InspectorModalProps> = ({
     setZoomLevel((prev) => (prev === 1 ? 2.2 : 1));
   };
 
-  return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-black/90 backdrop-blur-xl animate-fade-in">
+  return createPortal(
+    <div
+      className="fixed inset-0 z-[100] flex items-center justify-center p-2 sm:p-4 md:p-6 bg-black/95 backdrop-blur-2xl animate-fade-in overflow-y-auto"
+      onClick={onClose}
+    >
       <div
-        className="relative w-full max-w-5xl max-h-[92vh] bg-[#141312] border border-[#C5A880]/40 rounded-3xl overflow-hidden shadow-2xl flex flex-col lg:flex-row text-[#FAF8F5]"
+        className="relative w-full max-w-5xl bg-[#141312] border border-[#C5A880]/40 rounded-2xl sm:rounded-3xl overflow-hidden shadow-2xl flex flex-col md:flex-row text-[#FAF8F5] my-auto h-[92vh] max-h-[760px]"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Close Button */}
         <button
           onClick={onClose}
-          className="absolute top-4 right-4 z-30 w-10 h-10 rounded-full bg-black/70 border border-white/20 text-white/80 hover:text-white hover:border-[#C5A880] flex items-center justify-center transition-all"
+          className="absolute top-3 right-3 sm:top-4 sm:right-4 z-30 w-10 h-10 rounded-full bg-black/80 backdrop-blur-md border border-white/20 text-white hover:bg-[#C5A880] hover:text-[#141312] hover:border-[#C5A880] flex items-center justify-center transition-all shadow-xl"
           aria-label="Close modal"
         >
           <X className="w-5 h-5" />
         </button>
 
-        {/* Left Column: Interactive Image Viewer with Zoom */}
-        <div className="lg:w-7/12 relative bg-[#0A0909] flex flex-col justify-between overflow-hidden min-h-[340px] sm:min-h-[460px]">
+        {/* Left Column: Pro Exhibition Image Stage */}
+        <div className="w-full md:w-3/5 lg:w-2/3 relative bg-[#0B0A0A] flex flex-col justify-between overflow-hidden h-[48vh] md:h-full shrink-0 border-b md:border-b-0 md:border-r border-white/10">
+          {/* Ambient blurred backdrop so there are zero harsh black voids */}
           <div
-            className="relative flex-1 w-full h-full overflow-hidden cursor-zoom-in"
+            className="absolute inset-0 bg-cover bg-center opacity-25 blur-3xl scale-125 pointer-events-none"
+            style={{ backgroundImage: `url(${piece.image})` }}
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#0B0A0A] via-transparent to-[#0B0A0A]/70 pointer-events-none" />
+
+          {/* Interactive Zoomable Image Stage */}
+          <div
+            className="relative flex-1 w-full h-full overflow-hidden cursor-zoom-in flex items-center justify-center p-3 sm:p-5 lg:p-7"
             onClick={toggleZoom}
             onMouseMove={handleImageMouseMove}
           >
             <img
               src={piece.image}
               alt={piece.title}
-              className="w-full h-full object-cover sm:object-contain transition-all duration-300"
+              className="relative z-10 max-w-full max-h-full w-auto h-auto object-contain rounded-xl shadow-2xl border border-white/10 transition-transform duration-200"
               style={{
                 transformOrigin: `${mousePos.x}% ${mousePos.y}%`,
                 transform: zoomLevel > 1 ? `scale(${zoomLevel})` : 'scale(1)',
@@ -737,17 +749,17 @@ const InspectorModal: React.FC<InspectorModalProps> = ({
 
             {/* Zoom helper label */}
             <div className="absolute bottom-3 left-3 z-20 pointer-events-none">
-              <span className="px-2.5 py-1 rounded-full bg-black/75 backdrop-blur-md text-[10px] font-mono text-[#C5A880] border border-white/10 flex items-center gap-1.5">
+              <span className="px-2.5 py-1 rounded-full bg-black/80 backdrop-blur-md text-[10px] font-mono text-[#C5A880] border border-white/15 flex items-center gap-1.5 shadow-md">
                 <ZoomIn className="w-3 h-3" />
-                <span>{zoomLevel > 1 ? 'Click to Reset' : 'Click to Zoom (2.2x)'}</span>
+                <span>{zoomLevel > 1 ? 'Click to Reset' : 'Zoom 2.2x'}</span>
               </span>
             </div>
           </div>
 
           {/* Bottom Info Bar inside modal */}
-          <div className="p-3 bg-[#181716] border-t border-white/10 flex items-center justify-between text-[11px] font-mono">
-            <span className="text-[#8A8782] uppercase tracking-wider">
-              {piece.category === 'panel' ? 'Acoustic Wall Panel' : 'Designer Wallpaper Mural'}
+          <div className="relative z-20 px-4 py-2 bg-[#141312]/95 backdrop-blur-md border-t border-white/10 flex items-center justify-between text-[10px] font-mono">
+            <span className="text-[#A5A19B] uppercase tracking-wider">
+              {piece.category === 'panel' ? 'Acoustic Fabric Wall Panel' : 'Designer Panoramic Wallpaper'}
             </span>
             <span className="text-[#C5A880] tracking-wider">
               Atelier Anna Nagar, Chennai
@@ -756,7 +768,7 @@ const InspectorModal: React.FC<InspectorModalProps> = ({
         </div>
 
         {/* Right Column: Pro-Designer Specifications & Inquiries */}
-        <div className="lg:w-5/12 p-6 sm:p-8 overflow-y-auto flex flex-col justify-between max-h-[50vh] lg:max-h-none">
+        <div className="w-full md:w-2/5 lg:w-1/3 p-5 sm:p-6 overflow-y-auto flex flex-col justify-between flex-1 md:h-full bg-[#141312]">
           <div>
             <div className="flex items-center gap-2 mb-2">
               <span className="px-2.5 py-0.5 rounded-full bg-[#C5A880]/15 text-[#C5A880] text-[10px] font-mono uppercase tracking-widest border border-[#C5A880]/30">
@@ -876,6 +888,7 @@ const InspectorModal: React.FC<InspectorModalProps> = ({
           </div>
         </div>
       </div>
-    </div>
+    </div>,
+    document.body
   );
 };

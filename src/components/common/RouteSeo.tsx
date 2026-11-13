@@ -49,6 +49,21 @@ const ROUTE_SEO: Record<string, SeoMeta> = {
     description:
       'Panoramic landscape murals, baroque embossed damasks, 3D strata stone reliefs, and gilded silk wallpapers tailored for luxury residences in Chennai.',
   },
+  '/curtain-rods-flooring': {
+    title: 'Architectural Curtain Rods & Luxury Flooring | A-Decor Chennai',
+    description:
+      'Explore heavy-duty architectural curtain rods, electroplated copper poles, extruded silent tracks, acoustic wall-to-wall carpets & modular office carpet tiles by A-Decor in Anna Nagar, Chennai.',
+  },
+  '/curtain-rods': {
+    title: 'Architectural Curtain Rods & Silent Tracks | A-Decor Chennai',
+    description:
+      'Noble 28mm aluminum rods, Style Copper electroplated poles, Ferro Rust vintage finials, and architectural heavy-duty curtain tracks crafted in Chennai.',
+  },
+  '/flooring': {
+    title: 'Luxury Carpets & Foundation Flooring | A-Decor Chennai',
+    description:
+      'Wall-to-wall acoustic plush carpeting, royal banquet jacquard carpets, modular commercial tiles, balcony turf, and European herringbone parquet in Chennai.',
+  },
   '/gallery': {
     title: 'Project Gallery | Completed Villas, Penthouses & Offices | A-Decor Chennai',
     description:

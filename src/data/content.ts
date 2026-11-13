@@ -77,8 +77,8 @@ export const SITE_CONTENT = {
     tagline: "Perfect Home For Your Precious Family!",
     foundedYear: 2004,
     establishedText: "Since 2004",
-    phoneDisplay: "+91 98411 34665 / 95009 33322",
-    phones: ["+919841134665", "+919500933322"],
+    phoneDisplay: "+91 98411 34665",
+    phones: ["+919841134665"],
     whatsapp: "+919841134665",
     email: "adecorperfecthome@gmail.com",
     website: "adecorperfecthome.vercel.app",
@@ -742,6 +742,28 @@ export const SITE_CONTENT = {
       description: "Floor-to-ceiling radial acoustic wall panels with warm halo cove lighting and carved velvet headboard."
     },
     {
+      id: "gal-12",
+      title: "Sculpted Bouclé Lounge Rebuild",
+      caption: "Chassis skeletal reinforcement to custom cream bouclé upholstery.",
+      materialSpec: "Solid Teak Plinth • Heavyweight Bouclé",
+      category: "sofa",
+      categoryLabel: "Upholstery Rework",
+      image: "/images/rework/rework_boucle_sofa_after.jpg",
+      aspect: "landscape",
+      description: "Full structural skeleton rebuild with curved arm contouring, 45+ HR cushioning, and textured cream bouclé upholstery."
+    },
+    {
+      id: "gal-13",
+      title: "Royal Peacock Chesterfield Chaise",
+      caption: "Workshop carcass restoration to royal tufted velvet chaise.",
+      materialSpec: "Diamond Tufting • Brass Nailheads • Teal Velvet",
+      category: "sofa",
+      categoryLabel: "Upholstery Rework",
+      image: "/images/rework/rework_chaise_velvet_after.jpg",
+      aspect: "landscape",
+      description: "Hand-tied coil suspension, deep diamond button tufting, and brass nailhead studding on antique cabriole frame."
+    },
+    {
       id: "gal-2",
       title: "Iridescent Plume Accent Mural",
       caption: "Sapphire, amber, and coral relief feather wall mural.",
@@ -854,6 +876,138 @@ export const SITE_CONTENT = {
       image: "/images/hd/upholstery_after.jpg",
       aspect: "landscape",
       description: "Full frame reinforcement, Pirelli webbing reset, 45 kg/m³ HR cushioning, and Forest Emerald velvet rework."
+    },
+    {
+      id: "gal-fl-1",
+      title: "Velvet Plush Acoustic Master Carpet",
+      caption: "High-tuft wall-to-wall acoustic comfort for luxury bedrooms.",
+      materialSpec: "ActionBac • Whisper-Quiet Softness",
+      category: "flooring",
+      categoryLabel: "Acoustic Carpet",
+      image: "/images/flooring/flooring_plush_acoustic_carpet.jpg",
+      aspect: "portrait",
+      description: "Deep cut-pile tufted acoustic carpet laid wall-to-wall with moisture-sealed cushioned underlay for master residences."
+    },
+    {
+      id: "gal-fl-2",
+      title: "Royal Blue Banquet & Hall Carpet",
+      caption: "Imperial cobalt woven jacquard with gold fleur-de-lis motifs.",
+      materialSpec: "Heavy-Traffic Woven • Gold Damask",
+      category: "flooring",
+      categoryLabel: "Hospitality Flooring",
+      image: "/images/flooring/flooring_royal_blue_banquet_carpet.jpg",
+      aspect: "portrait",
+      description: "Woven heavy-duty commercial banquet carpet featuring regal gold crests over deep sapphire, built for high footfall halls."
+    },
+    {
+      id: "gal-fl-3",
+      title: "Landscape Balcony Artificial Turf",
+      caption: "40mm high-density verdant lawn for private balconies and terraces.",
+      materialSpec: "40mm 4-Tone • Rapid Drainage",
+      category: "flooring",
+      categoryLabel: "Outdoor Lawn Turf",
+      image: "/images/flooring/flooring_balcony_artificial_turf.jpg",
+      aspect: "portrait",
+      description: "Perforated rapid-drain synthetic lawn with natural root thatch texture, UV-stabilized for Chennai tropical weather."
+    },
+    {
+      id: "gal-fl-4",
+      title: "Modular Charcoal Office Carpet Tiles",
+      caption: "50x50cm quarter-turned geometric acoustic loop weave.",
+      materialSpec: "Reinforced Bitumen • Anti-Static Loop",
+      category: "flooring",
+      categoryLabel: "Modular Carpet Tile",
+      image: "/images/flooring/flooring_modular_office_carpet_tile.jpg",
+      aspect: "portrait",
+      description: "Heavy-traffic modular acoustic carpet tiles laid in a quarter-turn parquet format for modern corporate and conference spaces."
+    },
+    {
+      id: "gal-wp-1",
+      title: "Diamond Tufted Velvet Wall Panel",
+      caption: "Ice-blue Belgian velvet diamond tufting with fluted border.",
+      materialSpec: "NRC 0.85 • Ice Blue Velvet",
+      category: "wall-panels",
+      categoryLabel: "Acoustic Wall Panels",
+      image: "/images/wall-panels/panel_diamond_tufted_iceblue.jpg",
+      aspect: "portrait",
+      description: "Architectural floor-to-ceiling bedroom headboard wall with crystal-button tufted velvet and fluted lacquer framing."
+    },
+    {
+      id: "gal-wp-2",
+      title: "Geometric Suede & Brass Lattice",
+      caption: "Charcoal acoustic micro-suede cut with PVD gold channels.",
+      materialSpec: "PVD Gold Reveal • Charcoal Suede",
+      category: "wall-panels",
+      categoryLabel: "Acoustic Wall Panels",
+      image: "/images/wall-panels/panel_charcoal_geometric_brass.jpg",
+      aspect: "portrait",
+      description: "Precision-milled chevron soundproofing wall panels featuring titanium-coated brass reveals and recessed cove lighting."
+    },
+    {
+      id: "gal-wp-3",
+      title: "Minimal Cashmere Flush-Door Grid",
+      caption: "Seamless acoustic greige cladding with integrated hidden pivot doors.",
+      materialSpec: "Concealed Pivot • Greige Suede",
+      category: "wall-panels",
+      categoryLabel: "Acoustic Wall Panels",
+      image: "/images/wall-panels/panel_modular_greige_flushdoor.jpg",
+      aspect: "landscape",
+      description: "Continuous modular wall-to-wall upholstery with secret flush pivot doors for uninterrupted minimalist interior lines."
+    },
+    {
+      id: "gal-wp-4",
+      title: "Petrol Teal Chevron Fluting",
+      caption: "Sculpted velvet vertical divider with diagonal brass inlays.",
+      materialSpec: "PVD Brass Reveal • Teal Velvet",
+      category: "wall-panels",
+      categoryLabel: "Acoustic Wall Panels",
+      image: "/images/wall-panels/panel_teal_chevron_brass.jpg",
+      aspect: "portrait",
+      description: "Deep jewel-tone plush velvet fluting accented with angular gold inlay channels and concealed backlighting."
+    },
+    {
+      id: "gal-wpr-1",
+      title: "Tropical Arch Scenic Vista",
+      caption: "Panoramic hand-painted botanical palms and alpine peaks.",
+      materialSpec: "Non-Woven Canvas • Zero Glare",
+      category: "wallpaper",
+      categoryLabel: "Mural Wallpaper",
+      image: "/images/wallpaper/wallpaper_tropical_arch_mural.jpg",
+      aspect: "portrait",
+      description: "Classical landscape panorama framed within architectural archways, printed with light-fast archival inks."
+    },
+    {
+      id: "gal-wpr-2",
+      title: "Heritage Baroque Damask Bronze",
+      caption: "Tactile high-relief baroque acanthus scroll in bronze & taupe.",
+      materialSpec: "Embossed Silk Vinyl • Scrubbable",
+      category: "wallpaper",
+      categoryLabel: "Luxury Wallpaper",
+      image: "/images/wallpaper/wallpaper_heritage_damask_bronze.jpg",
+      aspect: "portrait",
+      description: "European palace damask with woven-fabric relief embossing and pearl metallic sheens catching wall sconces."
+    },
+    {
+      id: "gal-wpr-3",
+      title: "Strata Mineral Stone 3D Relief",
+      caption: "Tactile split-face ashlar mineral brick without structural weight.",
+      materialSpec: "3D Split-Face Mineral • Travertine",
+      category: "wallpaper",
+      categoryLabel: "Textured Wallpaper",
+      image: "/images/wallpaper/wallpaper_textured_strata_stone.jpg",
+      aspect: "portrait",
+      description: "Realistic warm sandstone and travertine mineral relief creating organic architectural warmth."
+    },
+    {
+      id: "gal-wpr-4",
+      title: "Mughal Pavilion & Lotus Pond Mural",
+      caption: "Imperial Rajasthani jharokha with peacocks and lotus pool.",
+      materialSpec: "Gold Foil Inlay • Pistachio Silk",
+      category: "wallpaper",
+      categoryLabel: "Gilded Silk Mural",
+      image: "/images/wallpaper/wallpaper_royal_mughal_peacock.jpg",
+      aspect: "portrait",
+      description: "Royal miniature art illustration with hand-painted wildlife, soothing pistachio ground, and metallic gold foil leaf accents."
     }
   ] as GalleryItem[]
 };
