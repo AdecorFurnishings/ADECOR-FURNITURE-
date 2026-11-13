@@ -119,18 +119,18 @@ export const HeroCurtains: React.FC = () => {
         <div className="absolute inset-0 bg-gradient-to-t from-[#100F0E] via-black/50 to-black/40" />
 
         {/* Crisp Editorial Headline & Content */}
-        <div className="relative z-10 max-w-4xl mx-auto px-6 h-full flex flex-col justify-center items-center text-center text-white pt-12 pb-24">
+        <div className="relative z-35 max-w-4xl mx-auto px-4 sm:px-6 h-full flex flex-col justify-center items-center text-center text-white pt-24 sm:pt-28 md:pt-32 pb-24">
           {/* Open-Bottom Architectural Atelier Framing around Hero Stage Centerpiece */}
-          <div className="relative px-5 sm:px-12 py-8 sm:py-10 border-t border-l border-r border-[#D90B0B]/55 bg-black/25 backdrop-blur-[2px]">
-            <div aria-hidden="true" className="pointer-events-none absolute inset-2 border border-[#C5A880]/20" />
+          <div className="relative px-4 sm:px-12 pt-10 sm:pt-12 pb-8 sm:pb-10 border-t border-l border-r border-[#D90B0B]/55 bg-black/35 backdrop-blur-[4px]">
+            <div aria-hidden="true" className="pointer-events-none absolute inset-3 border border-[#C5A880]/20" />
 
             {/* Subtle Tag Badge with Crimson [A] Keystone */}
-            <div className="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-black/55 backdrop-blur-md border border-[#C5A880]/50 mb-4 animate-fade-in shadow-lg">
-              <span className="inline-flex items-center justify-center w-4 h-3.5 bg-[#D90B0B] text-white font-sans font-extrabold text-[9px] leading-none">
+            <div className="inline-flex items-center gap-2 sm:gap-2.5 px-3.5 sm:px-4 py-1.5 sm:py-2 rounded-full bg-[#141312]/95 backdrop-blur-md border border-[#C5A880] mb-5 animate-fade-in shadow-2xl relative z-20 max-w-full">
+              <span className="inline-flex items-center justify-center w-4 h-3.5 bg-[#D90B0B] text-white font-sans font-extrabold text-[9px] leading-none shrink-0 shadow-sm">
                 A
               </span>
-              <Sparkles className="w-3 h-3 text-[#C5A880]" />
-              <span className="label-caps text-[#FAF8F5] text-[10px] tracking-luxury">
+              <Sparkles className="w-3 sm:w-3.5 h-3 sm:h-3.5 text-[#C5A880] shrink-0" />
+              <span className="text-[9.5px] sm:text-[11px] font-mono tracking-widest uppercase text-[#FAF8F5] font-semibold whitespace-nowrap">
                 Anna Nagar, Chennai • Established 2004
               </span>
             </div>
