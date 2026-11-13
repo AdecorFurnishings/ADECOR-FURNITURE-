@@ -27,15 +27,15 @@ export const Navbar: React.FC = () => {
   }
 
   const navLinks = [
-    { label: 'Home', href: '/' },
-    { label: 'About Us', href: '/about' },
-    { label: 'Services', href: '/services' },
-    { label: 'Curtain Styles', href: '/curtain-styles' },
-    { label: 'Roman Blinds', href: '/roman-blinds' },
-    { label: 'Wall Panels & Wallpaper', href: '/wall-panels-wallpaper' },
-    { label: 'Rods & Flooring', href: '/curtain-rods-flooring' },
-    { label: 'Gallery', href: '/gallery' },
-    { label: 'Contact & Clients', href: '/contact' },
+    { label: 'Home', href: '/', shortLabel: 'Home' },
+    { label: 'About Us', href: '/about', shortLabel: 'About' },
+    { label: 'Services', href: '/services', shortLabel: 'Services' },
+    { label: 'Curtain Styles', href: '/curtain-styles', shortLabel: 'Curtains' },
+    { label: 'Roman Blinds', href: '/roman-blinds', shortLabel: 'Blinds' },
+    { label: 'Wall Panels & Wallpaper', href: '/wall-panels-wallpaper', shortLabel: 'Panels & Paper' },
+    { label: 'Rods & Flooring', href: '/curtain-rods-flooring', shortLabel: 'Rods & Floor' },
+    { label: 'Gallery', href: '/gallery', shortLabel: 'Gallery' },
+    { label: 'Contact & Clients', href: '/contact', shortLabel: 'Contact' },
   ];
 
   // Determine if navbar should have solid luxury dark background
@@ -51,13 +51,13 @@ export const Navbar: React.FC = () => {
             : 'bg-gradient-to-b from-black/80 via-black/40 to-transparent py-5 sm:py-6'
         }`}
       >
-        <div className="max-w-7xl mx-auto px-5 sm:px-6 flex items-center justify-between gap-4">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 flex items-center justify-between gap-2 lg:gap-3 xl:gap-4">
           
           {/* Brand Logo */}
-          <Link to="/" className="flex items-center gap-3 group shrink-0" aria-label="A Decor Furnishings Home">
+          <Link to="/" className="flex items-center gap-2 group shrink-0" aria-label="A Decor Furnishings Home">
             <ADecorLogo
               variant="obsidian"
-              className="h-9 sm:h-11 w-auto transition-transform duration-300 group-hover:scale-[1.03]"
+              className="h-8 sm:h-9 xl:h-11 w-auto transition-transform duration-300 group-hover:scale-[1.03]"
             />
           </Link>
 
@@ -84,13 +84,14 @@ export const Navbar: React.FC = () => {
                 <Link
                   key={link.href}
                   to={link.href}
-                  className={`text-[9.5px] xl:text-[10.5px] 2xl:text-[11px] tracking-[0.05em] xl:tracking-[0.1em] uppercase font-medium transition-all relative py-1 whitespace-nowrap ${
+                  className={`text-[9px] xl:text-[10.5px] 2xl:text-[11px] tracking-[0.04em] xl:tracking-[0.08em] uppercase font-medium transition-all relative py-1 whitespace-nowrap ${
                     isActive
                       ? 'text-[#C5A880]'
                       : 'text-[#FAF8F5]/80 hover:text-white'
                   }`}
                 >
-                  {link.label}
+                  <span className="hidden xl:inline">{link.label}</span>
+                  <span className="xl:hidden">{link.shortLabel}</span>
                   {isActive && (
                     <span className="absolute bottom-0 inset-x-0 flex items-center gap-1">
                       <span className="w-1.5 h-1.5 bg-[#D90B0B] shrink-0" />
@@ -103,40 +104,32 @@ export const Navbar: React.FC = () => {
           </nav>
 
           {/* Right Header Actions */}
-          <div className="hidden sm:flex items-center gap-2.5 shrink-0">
+          <div className="flex items-center gap-2 sm:gap-2.5 shrink-0">
             <a
               href={`tel:${SITE_CONTENT.brand.phones[0]}`}
               aria-label={`Call ${SITE_CONTENT.brand.phones[0]}`}
               title={`Call ${SITE_CONTENT.brand.phones[0]}`}
-              className="hidden xl:flex 2xl:hidden w-9 h-9 rounded-full border border-white/20 text-[#FAF8F5] hover:border-[#C5A880] hover:text-[#C5A880] transition-all items-center justify-center shrink-0"
+              className="hidden 2xl:flex w-9 h-9 rounded-full border border-white/20 text-[#FAF8F5] hover:border-[#C5A880] hover:text-[#C5A880] transition-all items-center justify-center shrink-0"
             >
               <Phone className="w-3.5 h-3.5 text-[#C5A880] shrink-0" />
-            </a>
-
-            <a
-              href={`tel:${SITE_CONTENT.brand.phones[0]}`}
-              className="hidden 2xl:flex px-3.5 py-2 rounded-full border border-white/20 text-[#FAF8F5] hover:border-[#C5A880] hover:text-[#C5A880] text-xs tracking-wider transition-all items-center gap-2 whitespace-nowrap shrink-0"
-            >
-              <Phone className="w-3.5 h-3.5 text-[#C5A880] shrink-0" />
-              <span className="font-mono text-[11px]">{SITE_CONTENT.brand.phones[0]}</span>
             </a>
 
             <Link
               to="/contact"
-              className="px-4 py-2 rounded-full bg-[#C5A880] hover:bg-[#FAF8F5] text-[#141312] font-semibold text-[11px] tracking-[0.14em] uppercase transition-all shadow-glow-gold whitespace-nowrap shrink-0"
+              className="px-3 sm:px-4 py-1.5 sm:py-2 rounded-full bg-[#C5A880] hover:bg-[#FAF8F5] text-[#141312] font-semibold text-[10px] sm:text-[11px] tracking-[0.1em] sm:tracking-[0.14em] uppercase transition-all shadow-glow-gold whitespace-nowrap shrink-0"
             >
               Consultation
             </Link>
-          </div>
 
-          {/* Mobile Menu Hamburger */}
-          <button
-            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            className="lg:hidden p-2 rounded-xl text-white hover:text-[#C5A880] transition-colors focus:outline-none"
-            aria-label="Toggle Navigation Menu"
-          >
-            {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-          </button>
+            {/* Mobile Menu Hamburger */}
+            <button
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+              className="lg:hidden p-1.5 sm:p-2 rounded-xl text-white hover:text-[#C5A880] transition-colors focus:outline-none shrink-0"
+              aria-label="Toggle Navigation Menu"
+            >
+              {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+            </button>
+          </div>
 
         </div>
       </header>
