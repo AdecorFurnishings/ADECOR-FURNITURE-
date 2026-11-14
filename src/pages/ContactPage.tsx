@@ -422,11 +422,11 @@ export const ContactPage: React.FC = () => {
               {/* QR Code for Business Card */}
               <div className="p-4 rounded-2xl bg-white/10 border border-white/10 flex items-center gap-4">
                 <a
-                  href="https://q.me-qr.com/uzdp79sj"
+                  href={SITE_CONTENT.brand.businessCardUrl}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="shrink-0 hover:scale-105 transition-transform"
-                  title="Scan to view A-Decor Furnishings Business Card"
+                  title="Scan or click to view A-Decor Furnishings Business Card"
                 >
                   <img
                     src={SITE_CONTENT.brand.qrCodeImage}

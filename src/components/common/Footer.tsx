@@ -120,11 +120,11 @@ export const Footer: React.FC = () => {
             {/* QR Code for A-Decor Digital Business Card */}
             <div className="pt-2 flex items-center gap-3">
               <a
-                href="https://q.me-qr.com/uzdp79sj"
+                href={SITE_CONTENT.brand.businessCardUrl}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-16 h-16 rounded-lg bg-white p-1 border border-white/20 shrink-0 hover:scale-105 transition-transform"
-                title="Scan to visit A-Decor Furnishings Business Card"
+                title="Scan or click to visit A-Decor Furnishings Business Card"
               >
                 <img
                   src={SITE_CONTENT.brand.qrCodeImage}
