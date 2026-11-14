@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Menu, X, Phone, MessageSquare, MapPin } from 'lucide-react';
 import { SITE_CONTENT } from '../../data/content';
-import { ADecorLogo } from './ADecorLogo';
 
 export const Navbar: React.FC = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -54,11 +53,14 @@ export const Navbar: React.FC = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 flex items-center justify-between gap-2 lg:gap-3 xl:gap-4">
           
           {/* Brand Logo */}
-          <Link to="/" className="flex items-center gap-2 group shrink-0" aria-label="A Decor Furnishings Home">
-            <ADecorLogo
-              variant="obsidian"
-              className="h-8 sm:h-9 xl:h-11 w-auto transition-transform duration-300 group-hover:scale-[1.03]"
-            />
+          <Link to="/" className="flex items-center group shrink-0" aria-label="A Decor Furnishings Home">
+            <div className="relative overflow-hidden rounded-lg border border-white/20 shadow-md bg-[#FAF8F5] transition-all duration-300 group-hover:scale-[1.03] group-hover:border-[#C5A880] group-hover:shadow-[0_4px_20px_rgba(197,168,128,0.3)]">
+              <img
+                src="/images/logo/adecor_official_logo.jpg"
+                alt="A Decor Furnishings"
+                className="h-7 sm:h-8 xl:h-9 w-auto block object-contain"
+              />
+            </div>
           </Link>
 
           {/* Desktop Navigation Links */}
@@ -139,7 +141,13 @@ export const Navbar: React.FC = () => {
         <div className="fixed inset-0 z-50 bg-[#141312] text-[#FAF8F5] flex flex-col justify-between p-8 overflow-y-auto animate-fade-in lg:hidden">
           {/* Top Bar */}
           <div className="flex items-center justify-between pb-6 border-b border-white/10">
-            <ADecorLogo variant="obsidian" className="h-10 w-auto" />
+            <div className="overflow-hidden rounded-lg border border-white/20 shadow-md bg-[#FAF8F5]">
+              <img
+                src="/images/logo/adecor_official_logo.jpg"
+                alt="A Decor Furnishings"
+                className="h-8 w-auto block object-contain"
+              />
+            </div>
 
             <button
               onClick={() => setIsMobileMenuOpen(false)}
