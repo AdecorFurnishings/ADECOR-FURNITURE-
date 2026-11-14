@@ -7,6 +7,8 @@ import {
   Lock,
   Columns,
   Split,
+  ChevronLeft,
+  ChevronRight,
 } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
@@ -39,17 +41,17 @@ interface ReworkProject {
 const REWORK_PROJECTS: ReworkProject[] = [
   {
     id: 'boucle-sofa',
-    name: 'Curved Bouclé Lounge Suite',
-    tagline: 'Bare Hardwood Chassis ➔ Modern Cream Bouclé',
+    name: 'Curved Boucle Lounge Suite',
+    tagline: 'Bare Hardwood Chassis ➔ Modern Cream Boucle',
     badge: 'Chassis Rebuild',
     beforeTitle: 'Before: Bare Hardwood Carcass & Skeleton',
-    afterTitle: 'After: Sculpted Cream Bouclé Masterpiece',
+    afterTitle: 'After: Sculpted Cream Boucle Masterpiece',
     beforeImage: '/images/rework/rework_boucle_frame_before.jpg',
     afterImage: '/images/rework/rework_boucle_sofa_after.jpg',
     compositeImage: '/images/rework/rework_boucle_composite.jpg',
     description:
-      'Full skeletal timber reinforcement. We reconstructed the curved arm profile, integrated high-density multi-layer cushioning, and custom-tailored heavy textured bouclé over sculpted walnut wing legs.',
-    specs: ['Kiln-Dried Hardwood Skeleton', '45+ Density HR Foam', 'Textured Italian Bouclé', 'Hand-Polished Teak Legs'],
+      'Full skeletal timber reinforcement. We reconstructed the curved arm profile, integrated high-density multi-layer cushioning, and custom-tailored heavy textured boucle over sculpted walnut wing legs.',
+    specs: ['Kiln-Dried Hardwood Skeleton', '45+ Density HR Foam', 'Textured Italian Boucle', 'Hand-Polished Teak Legs'],
     hotspots: [
       {
         id: 'curved-arms',
@@ -57,7 +59,7 @@ const REWORK_PROJECTS: ReworkProject[] = [
         xPercent: 18,
         yPercent: 48,
         beforeState: 'Precision CNC-cut ribbed structural wood with zero padding',
-        afterState: 'Seamlessly wrapped in curved high-density foam & tactile bouclé',
+        afterState: 'Seamlessly wrapped in curved high-density foam & tactile boucle',
       },
       {
         id: 'comfort-cushion',
@@ -214,11 +216,58 @@ const BeforeAfterStage: React.FC = memo(() => {
   const activeHotspot =
     activeProject.hotspots.find((h) => h.id === activeHotspotId) ?? null;
 
+  const handleNextProject = () => {
+    const currentIdx = REWORK_PROJECTS.findIndex((p) => p.id === activeProjectId);
+    const nextIdx = (currentIdx + 1) % REWORK_PROJECTS.length;
+    setActiveProjectId(REWORK_PROJECTS[nextIdx].id);
+    setActiveHotspotId(null);
+    setSliderPos(50);
+  };
+
+  const handlePrevProject = () => {
+    const currentIdx = REWORK_PROJECTS.findIndex((p) => p.id === activeProjectId);
+    const prevIdx = (currentIdx - 1 + REWORK_PROJECTS.length) % REWORK_PROJECTS.length;
+    setActiveProjectId(REWORK_PROJECTS[prevIdx].id);
+    setActiveHotspotId(null);
+    setSliderPos(50);
+  };
+
   return (
     <div className="mb-20">
+      {/* Mobile Top Left Navigation Hint & Project Counter */}
+      <div className="flex sm:hidden items-center justify-between w-full mb-3 px-1">
+        <div className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[#C5A880]/15 border border-[#C5A880]/40 text-[#C5A880] text-[11px] font-mono tracking-wider uppercase shadow-sm">
+          <span className="w-1.5 h-1.5 rounded-full bg-[#D90B0B] animate-ping" />
+          <span>Swipe Right ➔ for Projects 02 &amp; 03</span>
+        </div>
+        <div className="flex items-center gap-1.5">
+          <button
+            type="button"
+            onClick={handlePrevProject}
+            className="p-1.5 rounded-lg bg-white/10 hover:bg-[#C5A880] text-white hover:text-black transition-all"
+            aria-label="Previous project"
+            title="Previous project"
+          >
+            <ChevronLeft className="w-3.5 h-3.5" />
+          </button>
+          <span className="text-[11px] font-mono text-[#FAF8F5] font-semibold px-1">
+            0{REWORK_PROJECTS.findIndex((p) => p.id === activeProjectId) + 1}/0{REWORK_PROJECTS.length}
+          </span>
+          <button
+            type="button"
+            onClick={handleNextProject}
+            className="p-1.5 rounded-lg bg-white/10 hover:bg-[#C5A880] text-white hover:text-black transition-all"
+            aria-label="Next project"
+            title="Next project"
+          >
+            <ChevronRight className="w-3.5 h-3.5" />
+          </button>
+        </div>
+      </div>
+
       {/* 1. Project Selector Tabs */}
       <div className="flex flex-col sm:flex-row items-center justify-between gap-4 mb-6">
-        <div className="flex items-center gap-2 p-1.5 rounded-2xl bg-[#1C1B19] border border-white/10 w-full sm:w-auto overflow-x-auto">
+        <div className="flex items-center gap-2 p-1.5 rounded-2xl bg-[#1C1B19] border border-white/10 w-full sm:w-auto overflow-x-auto no-scrollbar scroll-smooth">
           {REWORK_PROJECTS.map((proj, idx) => {
             const isSelected = proj.id === activeProjectId;
             return (
@@ -230,7 +279,7 @@ const BeforeAfterStage: React.FC = memo(() => {
                   setActiveHotspotId(null);
                   setSliderPos(50);
                 }}
-                className={`px-4 py-2.5 rounded-xl text-xs font-syne uppercase tracking-wider transition-all whitespace-nowrap flex items-center gap-2 ${
+                className={`px-4 py-2.5 rounded-xl text-xs font-syne uppercase tracking-wider transition-all whitespace-nowrap flex items-center gap-2 shrink-0 ${
                   isSelected
                     ? 'bg-[#C5A880] text-[#100F0E] font-bold shadow-md'
                     : 'text-[#D3D0C9] hover:text-white hover:bg-white/5'
@@ -598,24 +647,31 @@ export const UpholsteryReworkSection: React.FC = () => {
             </p>
           </div>
 
-          <div className="flex flex-wrap items-center gap-4">
+          <div className="flex flex-wrap items-center gap-3">
             <Link
-              to="/contact?service=upholstery-rework"
-              className="px-8 py-4 rounded-full bg-[#C5A880] hover:bg-white text-[#100F0E] font-syne font-bold text-xs tracking-luxury uppercase flex items-center gap-2.5 transition-all shadow-glow-gold hover:scale-105"
+              to="/sofa-upholstery-rework"
+              className="px-7 py-3.5 rounded-full bg-[#C5A880] hover:bg-white text-[#100F0E] font-syne font-bold text-xs tracking-luxury uppercase flex items-center gap-2 transition-all shadow-glow-gold hover:scale-105"
             >
-              <span>Schedule Frame Audit</span>
+              <span>Explore All Sofa &amp; Rework Projects</span>
               <ArrowRight className="w-4 h-4" />
             </Link>
 
+            <Link
+              to="/contact?service=upholstery-rework"
+              className="px-6 py-3.5 rounded-full bg-white/10 hover:bg-white/20 border border-white/20 text-[#FAF8F5] text-xs font-syne font-semibold tracking-luxury uppercase transition-all"
+            >
+              Schedule Frame Audit
+            </Link>
+
             <a
-              href={`https://wa.me/919940498877?text=${encodeURIComponent(
+              href={`https://wa.me/919841134665?text=${encodeURIComponent(
                 'Hello A-Decor Anna Nagar! I would like an estimate for upholstery rework for my seating suite.',
               )}`}
               target="_blank"
               rel="noopener noreferrer"
-              className="px-7 py-4 rounded-full bg-white/10 hover:bg-white/20 border border-white/20 text-[#FAF8F5] text-xs font-syne font-semibold tracking-luxury uppercase transition-all"
+              className="px-6 py-3.5 rounded-full bg-[#25D366]/20 hover:bg-[#25D366] text-[#25D366] hover:text-white border border-[#25D366]/40 text-xs font-syne font-semibold tracking-luxury uppercase transition-all flex items-center gap-2"
             >
-              WhatsApp Photos for Quote
+              WhatsApp Photos
             </a>
           </div>
         </div>

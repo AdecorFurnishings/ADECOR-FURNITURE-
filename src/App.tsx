@@ -17,7 +17,9 @@ const ServicesPage = lazy(() => import('./pages/ServicesPage').then(m => ({ defa
 const CurtainStylesPage = lazy(() => import('./pages/CurtainStylesPage').then(m => ({ default: m.CurtainStylesPage })));
 const RomanBlindsPage = lazy(() => import('./pages/RomanBlindsPage').then(m => ({ default: m.RomanBlindsPage })));
 const WallPanelsWallpaperPage = lazy(() => import('./pages/WallPanelsWallpaperPage').then(m => ({ default: m.WallPanelsWallpaperPage })));
-const CurtainRodsFlooringPage = lazy(() => import('./pages/CurtainRodsFlooringPage').then(m => ({ default: m.CurtainRodsFlooringPage })));
+const FlooringPage = lazy(() => import('./pages/FlooringPage').then(m => ({ default: m.FlooringPage })));
+const SofaReupholsteryPage = lazy(() => import('./pages/SofaReupholsteryPage').then(m => ({ default: m.SofaReupholsteryPage })));
+const MattressPage = lazy(() => import('./pages/MattressPage').then(m => ({ default: m.MattressPage })));
 const GalleryPage = lazy(() => import('./pages/GalleryPage').then(m => ({ default: m.GalleryPage })));
 const ContactPage = lazy(() => import('./pages/ContactPage').then(m => ({ default: m.ContactPage })));
 
@@ -44,10 +46,10 @@ export function App() {
       <CustomCursor />
 
       {/* Main Luxury Layout */}
-      <div className="min-h-screen flex flex-col bg-[#FAF8F5] text-[#1E1D1B] selection:bg-[#C5A880]/30 selection:text-[#1E1D1B] relative">
+      <div className="min-h-screen flex flex-col bg-[#FAF8F5] text-[#1E1D1B] selection:bg-[#C5A880]/30 selection:text-[#1E1D1B] relative w-full max-w-full overflow-x-hidden">
         <Navbar />
 
-        <main className="flex-1 w-full">
+        <main className="flex-1 w-full max-w-full overflow-x-hidden">
           <AnimatePresence mode="wait">
             <PageTransition key={location.pathname}>
               <Suspense fallback={<PageFallback />}>
@@ -56,16 +58,28 @@ export function App() {
                   <Route path="/about" element={<AboutPage />} />
                   <Route path="/services" element={<ServicesPage />} />
                   <Route path="/curtain-styles" element={<CurtainStylesPage />} />
+                  <Route path="/curtains" element={<Navigate to="/curtain-styles" replace />} />
+                  <Route path="/curtain-rods" element={<Navigate to="/curtain-styles" replace />} />
+                  <Route path="/curtain-tracks" element={<Navigate to="/curtain-styles" replace />} />
+                  <Route path="/curtain-rods-flooring" element={<Navigate to="/curtain-styles" replace />} />
                   <Route path="/roman-blinds" element={<RomanBlindsPage />} />
                   <Route path="/wall-panels-wallpaper" element={<WallPanelsWallpaperPage />} />
                   <Route path="/wall-panels" element={<Navigate to="/wall-panels-wallpaper" replace />} />
                   <Route path="/wallpaper" element={<Navigate to="/wall-panels-wallpaper" replace />} />
                   <Route path="/wallpanels" element={<Navigate to="/wall-panels-wallpaper" replace />} />
-                  <Route path="/curtain-rods-flooring" element={<CurtainRodsFlooringPage />} />
-                  <Route path="/curtain-rods" element={<Navigate to="/curtain-rods-flooring" replace />} />
-                  <Route path="/flooring" element={<Navigate to="/curtain-rods-flooring" replace />} />
-                  <Route path="/carpets" element={<Navigate to="/curtain-rods-flooring" replace />} />
-                  <Route path="/curtain-tracks" element={<Navigate to="/curtain-rods-flooring" replace />} />
+                  <Route path="/headboards" element={<Navigate to="/wall-panels-wallpaper" replace />} />
+                  <Route path="/headboard" element={<Navigate to="/wall-panels-wallpaper" replace />} />
+                  <Route path="/flooring" element={<FlooringPage />} />
+                  <Route path="/carpets" element={<Navigate to="/flooring" replace />} />
+                  <Route path="/sofa-upholstery-rework" element={<SofaReupholsteryPage />} />
+                  <Route path="/sofa-rework" element={<Navigate to="/sofa-upholstery-rework" replace />} />
+                  <Route path="/upholstery-rework" element={<Navigate to="/sofa-upholstery-rework" replace />} />
+                  <Route path="/upholstery" element={<Navigate to="/sofa-upholstery-rework" replace />} />
+                  <Route path="/sofas" element={<Navigate to="/sofa-upholstery-rework" replace />} />
+                  <Route path="/mattress" element={<MattressPage />} />
+                  <Route path="/mattresses" element={<Navigate to="/mattress" replace />} />
+                  <Route path="/beds" element={<Navigate to="/mattress" replace />} />
+                  <Route path="/bed-suites" element={<Navigate to="/mattress" replace />} />
                   <Route path="/gallery" element={<GalleryPage />} />
                   <Route path="/clients" element={<Navigate to="/contact#clients" replace />} />
                   <Route path="/contact" element={<ContactPage />} />

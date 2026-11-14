@@ -186,7 +186,7 @@ export const RomanBlindsPage: React.FC = () => {
         </h1>
 
         <p className="blinds-hero-reveal mt-4 max-w-2xl mx-auto text-base sm:text-lg text-[#5E5C57] font-light leading-relaxed">
-          From sculpted Soft Roman pleats to architectural Timber, Bamboo, Cellular, and Solar shades. Pull the cord below or preview any style in motion.
+          From sculpted Soft Roman pleats to architectural Wooden Venetian, Printed Roller, Zebra, and Bamboo shades. Pull the cord below or preview any style in motion.
         </p>
 
         {/* Scroll-Animated Architectural Louver Slat Divider */}

@@ -42,6 +42,15 @@ export const HeroCurtains: React.FC = () => {
   // Curtains start 100% fully closed (isOpen = false), then smoothly glide open ("removing curtains")
   const [isOpen, setIsOpen] = useState(false);
   const [fabricIndex, setFabricIndex] = useState(0);
+  const [isMobileScreen, setIsMobileScreen] = useState(() =>
+    typeof window !== 'undefined' ? window.innerWidth < 640 : false
+  );
+
+  useEffect(() => {
+    const handleResize = () => setIsMobileScreen(window.innerWidth < 640);
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   // Cinematic opening sequence: guarantees closed frame paints first on BOTH PC & mobile, holds steady, then glides open
   useEffect(() => {
@@ -104,10 +113,10 @@ export const HeroCurtains: React.FC = () => {
   const currentFabric = vibrantFabrics[fabricIndex];
 
   return (
-    <section className="relative w-full min-h-[100svh] lg:min-h-screen overflow-hidden bg-[#100F0E] select-none flex items-center justify-center pt-20 touch-pan-y">
+    <section className="relative w-full max-w-full min-h-[100svh] lg:min-h-screen overflow-hidden bg-[#100F0E] select-none flex items-center justify-center pt-20 touch-pan-y [contain:paint]">
       
       {/* 1. Behind Curtains: Ultra High-Resolution Penthouse Living Room */}
-      <div className="absolute inset-0 overflow-hidden">
+      <div className="absolute inset-0 overflow-hidden max-w-full">
         <img
           src="/images/hd/hero_penthouse.jpg"
           alt="A-Decor Luxury Interior Anna Nagar Chennai"
@@ -119,47 +128,47 @@ export const HeroCurtains: React.FC = () => {
         <div className="absolute inset-0 bg-gradient-to-t from-[#100F0E] via-black/50 to-black/40" />
 
         {/* Crisp Editorial Headline & Content */}
-        <div className="relative z-35 max-w-4xl mx-auto px-4 sm:px-6 h-full flex flex-col justify-center items-center text-center text-white pt-24 sm:pt-28 md:pt-32 pb-24">
+        <div className="relative z-35 max-w-4xl mx-auto px-4 sm:px-6 h-full flex flex-col justify-center items-center text-center text-white pt-20 sm:pt-28 md:pt-32 pb-28 sm:pb-24">
           {/* Open-Bottom Architectural Atelier Framing around Hero Stage Centerpiece */}
-          <div className="relative px-4 sm:px-12 pt-10 sm:pt-12 pb-8 sm:pb-10 border-t border-l border-r border-[#D90B0B]/55 bg-black/35 backdrop-blur-[4px]">
-            <div aria-hidden="true" className="pointer-events-none absolute inset-3 border border-[#C5A880]/20" />
+          <div className="relative px-3 sm:px-12 pt-5 sm:pt-12 pb-5 sm:pb-10 border-t border-l border-r border-[#D90B0B]/55 bg-black/35 backdrop-blur-[4px] max-w-full">
+            <div aria-hidden="true" className="pointer-events-none absolute inset-2 sm:inset-3 border border-[#C5A880]/20" />
 
             {/* Subtle Tag Badge with Crimson [A] Keystone */}
-            <div className="inline-flex items-center gap-2 sm:gap-2.5 px-3.5 sm:px-4 py-1.5 sm:py-2 rounded-full bg-[#141312]/95 backdrop-blur-md border border-[#C5A880] mb-5 animate-fade-in shadow-2xl relative z-20 max-w-full">
+            <div className="inline-flex items-center gap-1.5 sm:gap-2.5 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full bg-[#141312]/95 backdrop-blur-md border border-[#C5A880] mb-3 sm:mb-5 animate-fade-in shadow-2xl relative z-20 max-w-full">
               <span className="inline-flex items-center justify-center w-4 h-3.5 bg-[#D90B0B] text-white font-sans font-extrabold text-[9px] leading-none shrink-0 shadow-sm">
                 A
               </span>
               <Sparkles className="w-3 sm:w-3.5 h-3 sm:h-3.5 text-[#C5A880] shrink-0" />
-              <span className="text-[9.5px] sm:text-[11px] font-mono tracking-widest uppercase text-[#FAF8F5] font-semibold whitespace-nowrap">
-                Anna Nagar, Chennai • Established 2004
+              <span className="text-[9px] sm:text-[11px] font-mono tracking-wider sm:tracking-widest uppercase text-[#FAF8F5] font-semibold whitespace-nowrap">
+                Anna Nagar, Chennai • Est. 2004
               </span>
             </div>
 
             {/* High-Impact Modern Luxury Headline */}
-            <h1 className="font-syne text-5xl sm:text-7xl md:text-8xl lg:text-9xl font-bold tracking-tight text-[#FAF8F5] leading-[0.92] uppercase drop-shadow-2xl">
+            <h1 className="font-syne text-4xl sm:text-7xl md:text-8xl lg:text-9xl font-bold tracking-tight text-[#FAF8F5] leading-[0.95] sm:leading-[0.92] uppercase drop-shadow-2xl">
               {SITE_CONTENT.brand.headline}
             </h1>
 
             {/* Official Signature Mark Accent */}
-            <div className="flex justify-center mt-4 mb-2">
-              <ADecorLogo variant="obsidian" className="h-9 sm:h-11 w-auto opacity-95" />
+            <div className="flex justify-center mt-3 sm:mt-4 mb-2">
+              <ADecorLogo variant="obsidian" className="h-8 sm:h-11 w-auto opacity-95" />
             </div>
 
             {/* Elegant Tagline */}
-            <p className="font-editorial italic text-2xl sm:text-3xl md:text-4xl text-[#DEC8AA] mt-2 mb-3 font-normal tracking-wide">
+            <p className="font-editorial italic text-xl sm:text-3xl md:text-4xl text-[#DEC8AA] mt-1.5 sm:mt-2 mb-2 sm:mb-3 font-normal tracking-wide">
               "{SITE_CONTENT.brand.tagline}"
             </p>
 
             {/* Crisp, Short Description */}
-            <p className="max-w-xl mx-auto text-sm sm:text-base text-[#D3D0C9] font-light leading-relaxed mb-7">
+            <p className="max-w-xl mx-auto text-xs sm:text-base text-[#D3D0C9] font-light leading-relaxed mb-4 sm:mb-7">
               Bespoke draperies, motorized Roman blinds, acoustic wall panels, and bespoke upholstery rework crafted for Tamil Nadu’s finest residences.
             </p>
 
             {/* Action CTAs */}
-            <div className="flex flex-wrap items-center justify-center gap-4 z-20">
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-2.5 sm:gap-4 z-20 w-full sm:w-auto">
               <Link
                 to="/curtain-styles"
-                className="px-8 py-4 rounded-full bg-[#C5A880] hover:bg-white text-[#100F0E] font-syne font-bold text-xs tracking-luxury uppercase flex items-center gap-2.5 transition-all duration-300 shadow-glow-gold hover:scale-105"
+                className="w-full sm:w-auto px-7 sm:px-8 py-3 sm:py-4 rounded-full bg-[#C5A880] hover:bg-white text-[#100F0E] font-syne font-bold text-xs tracking-luxury uppercase flex items-center justify-center gap-2.5 transition-all duration-300 shadow-glow-gold hover:scale-105"
               >
                 <span>Explore Collections</span>
                 <ArrowRight className="w-4 h-4" />
@@ -167,7 +176,7 @@ export const HeroCurtains: React.FC = () => {
 
               <Link
                 to="/contact"
-                className="px-8 py-4 rounded-full bg-white/10 hover:bg-white/20 backdrop-blur-md border border-white/30 text-[#FAF8F5] font-syne font-semibold text-xs tracking-luxury uppercase transition-all duration-300 flex items-center gap-2"
+                className="w-full sm:w-auto px-7 sm:px-8 py-3 sm:py-4 rounded-full bg-white/10 hover:bg-white/20 backdrop-blur-md border border-white/30 text-[#FAF8F5] font-syne font-semibold text-xs tracking-luxury uppercase transition-all duration-300 flex items-center justify-center gap-2 shadow-lg"
               >
                 <PhoneCall className="w-3.5 h-3.5 text-[#C5A880]" />
                 <span>Book Consultation</span>
@@ -193,13 +202,13 @@ export const HeroCurtains: React.FC = () => {
         <div className="absolute right-2 w-3.5 h-5 rounded-full bg-[#9E7A4A] shadow-lg" />
       </div>
 
-      {/* 3. The Left Vibrant Fabric Curtain (Width: 50.5%, slides from 0% when fully closed to -84% when opened) */}
+      {/* 3. The Left Vibrant Fabric Curtain (Width: 50.5%, slides from 0% when fully closed to -84% on desktop, -92% on mobile) */}
       <div
         onMouseEnter={handleCurtainHover}
         onClick={() => setIsOpen((prev) => !prev)}
         className="adecor-preserve-motion touch-pan-y absolute top-20 bottom-0 left-0 w-[50.5%] z-20 transition-transform duration-[2400ms] ease-[cubic-bezier(0.22,1,0.36,1)] origin-left shadow-[25px_0_50px_rgba(0,0,0,0.7)] cursor-pointer group will-change-transform"
         style={{
-          transform: isOpen ? 'translate3d(-84%, 0, 0)' : 'translate3d(0%, 0, 0)',
+          transform: isOpen ? (isMobileScreen ? 'translate3d(-92%, 0, 0)' : 'translate3d(-84%, 0, 0)') : 'translate3d(0%, 0, 0)',
           backfaceVisibility: 'hidden',
           background: currentFabric.gradient,
         }}
@@ -235,13 +244,13 @@ export const HeroCurtains: React.FC = () => {
         <div className="absolute bottom-0 inset-x-0 h-10 bg-black/40 border-t border-white/10" />
       </div>
 
-      {/* 4. The Right Vibrant Fabric Curtain (Width: 50.5%, slides from 0% when fully closed to 84% when opened) */}
+      {/* 4. The Right Vibrant Fabric Curtain (Width: 50.5%, slides from 0% when fully closed to 84% on desktop, 92% on mobile) */}
       <div
         onMouseEnter={handleCurtainHover}
         onClick={() => setIsOpen((prev) => !prev)}
         className="adecor-preserve-motion touch-pan-y absolute top-20 bottom-0 right-0 w-[50.5%] z-20 transition-transform duration-[2400ms] ease-[cubic-bezier(0.22,1,0.36,1)] origin-right shadow-[-25px_0_50px_rgba(0,0,0,0.7)] cursor-pointer group will-change-transform"
         style={{
-          transform: isOpen ? 'translate3d(84%, 0, 0)' : 'translate3d(0%, 0, 0)',
+          transform: isOpen ? (isMobileScreen ? 'translate3d(92%, 0, 0)' : 'translate3d(84%, 0, 0)') : 'translate3d(0%, 0, 0)',
           backfaceVisibility: 'hidden',
           background: currentFabric.gradient,
         }}
@@ -289,30 +298,31 @@ export const HeroCurtains: React.FC = () => {
         </div>
       )}
 
-      {/* 6. Interactive Floating Controls & Fabric Pill (Bottom) */}
-      <div className="absolute bottom-6 inset-x-0 z-30 flex flex-wrap items-center justify-center gap-3 px-4">
+      {/* 6. Interactive Floating Controls & Fabric Pill (Bottom - Sleek single row on mobile so it never covers Book Consultation) */}
+      <div className="absolute bottom-2.5 sm:bottom-6 inset-x-0 z-30 flex items-center justify-center gap-2 sm:gap-3 px-3 max-w-full">
         {/* Color Palette Display */}
-        <div className="px-4 py-2 rounded-full bg-[#100F0E]/85 backdrop-blur-md border border-[#C5A880]/40 text-[#FAF8F5] text-xs flex items-center gap-3 shadow-xl">
-          <Palette className="w-3.5 h-3.5 text-[#C5A880]" />
-          <span className="text-[11px] font-medium tracking-wide">
-            Curtain Shade: <strong className="text-[#C5A880]">{currentFabric.name}</strong>
+        <div className="h-9 sm:h-11 px-3 sm:px-4 rounded-full bg-[#100F0E]/92 backdrop-blur-md border border-[#C5A880]/40 text-[#FAF8F5] text-[10px] sm:text-xs flex items-center gap-1.5 sm:gap-3 shadow-xl max-w-full">
+          <Palette className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-[#C5A880] shrink-0" />
+          <span className="font-medium tracking-wide truncate">
+            <span className="hidden xs:inline">Shade: </span>
+            <strong className="text-[#C5A880]">{currentFabric.name}</strong>
           </span>
-          <span className="text-[10px] text-[#8A8782] hidden sm:inline">• Hover curtains to change color</span>
+          <span className="text-[10px] text-[#8A8782] hidden md:inline">• Hover curtains to change color</span>
         </div>
 
         {/* Interactive Draw Open / Close Curtains Button */}
         <button
           onClick={() => setIsOpen((prev) => !prev)}
-          className="px-4 py-2 rounded-full bg-black/75 hover:bg-[#C5A880] hover:text-[#100F0E] text-[#FAF8F5] backdrop-blur-md border border-white/30 text-xs font-syne uppercase tracking-wider flex items-center gap-2 transition-all duration-300 shadow-xl"
+          className="h-9 sm:h-11 px-3.5 sm:px-5 rounded-full bg-black/85 hover:bg-[#C5A880] hover:text-[#100F0E] text-[#FAF8F5] backdrop-blur-md border border-white/30 text-[10.5px] sm:text-xs font-syne uppercase tracking-wider flex items-center justify-center gap-1.5 sm:gap-2 transition-all duration-300 shadow-xl whitespace-nowrap"
         >
           {isOpen ? (
             <>
-              <EyeOff className="w-3.5 h-3.5" />
+              <EyeOff className="w-3 h-3 sm:w-3.5 sm:h-3.5" />
               <span>Close Curtains</span>
             </>
           ) : (
             <>
-              <Eye className="w-3.5 h-3.5 text-[#C5A880]" />
+              <Eye className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-[#C5A880]" />
               <span>Open Curtains</span>
             </>
           )}

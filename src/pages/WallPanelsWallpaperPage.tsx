@@ -12,15 +12,16 @@ import {
   MessageCircle,
   Phone,
   ZoomIn,
+  BedDouble,
 } from 'lucide-react';
 import { SITE_CONTENT } from '../data/content';
 
-type FilterCategory = 'all' | 'panel' | 'wallpaper';
+type FilterCategory = 'all' | 'panel' | 'wallpaper' | 'headboard';
 
 interface WallArtPiece {
   id: string;
   order: number;
-  category: 'panel' | 'wallpaper';
+  category: 'panel' | 'wallpaper' | 'headboard';
   title: string;
   subtitle: string;
   tag: string;
@@ -393,12 +394,108 @@ const WALL_COLLECTIONS: WallArtPiece[] = [
     ],
     features: ['Earthy heritage color palette', 'Subtle stucco fresco cracking effect', 'Calming bio-philic interior connection'],
   },
+
+  // ==========================================
+  // 3: BESPOKE UPHOLSTERED HEADBOARDS (9-11)
+  // ==========================================
+  {
+    id: 'headboard-cream-fluted-platform',
+    order: 9,
+    category: 'headboard',
+    title: 'Fluted Channel Upholstered Bed',
+    subtitle: 'Floor-standing fluted headboard with matching padded side rails and footboard',
+    tag: 'Custom Bed Frame',
+    finish: 'Warm Cream Linen & Boucle Texture',
+    keySpec: 'Vertical Channel Fluting',
+    acousticOrWashability: 'High-density 40D foam • Solid plywood frame',
+    substrate: 'Hardwood internal carcass with wrapped fabric rails',
+    recommendedRoom: 'Master Bedroom & Luxury Suite',
+    dimensions: 'Custom King / Queen sizes made-to-order',
+    image: '/images/headboards/headboard_cream_fluted_platform.jpg',
+    ambientHex: '#D9D0C3',
+    palette: [
+      { name: 'Warm Cream', hex: '#EAE3D6' },
+      { name: 'Natural Linen', hex: '#D5C8B4' },
+      { name: 'Soft Taupe', hex: '#A89985' },
+      { name: 'Charcoal Plinth', hex: '#2A2927' },
+    ],
+    features: [
+      'High-density padded vertical flutes',
+      'Fully upholstered matching perimeter base frame',
+      'Custom built to your exact mattress dimensions',
+    ],
+  },
+  {
+    id: 'headboard-blush-scallop-velvet',
+    order: 10,
+    category: 'headboard',
+    title: 'Scallop Arch Velvet Bed',
+    subtitle: 'Curved crown upholstered headboard with cushioned surround base frame',
+    tag: 'Velvet Headboard',
+    finish: 'Dusty Rose Plush Velvet',
+    keySpec: 'Graduated Scallop Arches',
+    acousticOrWashability: 'High-resilience foam • Soft velvet nap',
+    substrate: 'Precision-cut structural ply frame',
+    recommendedRoom: 'Guest Suite & Contemporary Bedroom',
+    dimensions: 'Custom Queen / King profile',
+    image: '/images/headboards/headboard_blush_scallop_velvet.jpg',
+    ambientHex: '#C2888D',
+    palette: [
+      { name: 'Blush Velvet', hex: '#C2888D' },
+      { name: 'Dusty Rose', hex: '#9E6A70' },
+      { name: 'Warm Wood Ply', hex: '#C89B6D' },
+      { name: 'Soft Pearl Tint', hex: '#EDE4E6' },
+    ],
+    features: [
+      'Individually padded arched petals',
+      'Padded wrap-around base frame',
+      'Durable stain-resistant velvet fabric',
+    ],
+  },
+  {
+    id: 'headboard-berry-scallop-bedroom',
+    order: 11,
+    category: 'headboard',
+    title: 'Royal Wine Scallop Platform',
+    subtitle: 'Curved arch headboard with upholstered platform box base and rounded corners',
+    tag: 'Platform Bed Suite',
+    finish: 'Deep Wine Matte Velvet',
+    keySpec: 'Arched Flutes & Rolled Base Edges',
+    acousticOrWashability: 'Commercial grade velvet • 40D foam',
+    substrate: 'Reinforced plywood box chassis',
+    recommendedRoom: 'Master Bedroom Suite',
+    dimensions: 'Custom King Size built-to-order',
+    image: '/images/headboards/headboard_berry_scallop_bedroom.jpg',
+    ambientHex: '#7E3A4B',
+    palette: [
+      { name: 'Wine Velvet', hex: '#7E3A4B' },
+      { name: 'Deep Crimson', hex: '#5E2230' },
+      { name: 'Matte Black Deck', hex: '#1C1C1E' },
+      { name: 'Aqua Accent', hex: '#63B0C7' },
+    ],
+    features: [
+      'Sculpted curved crest with cushioned vertical channels',
+      'Deep upholstered box base with rounded front corners',
+      'Engineered for long-lasting stability and comfort',
+    ],
+  },
 ];
 
 export const WallPanelsWallpaperPage: React.FC = () => {
   const [activeCategory, setActiveCategory] = useState<FilterCategory>('all');
   const [selectedPiece, setSelectedPiece] = useState<WallArtPiece | null>(null);
   const [copiedHex, setCopiedHex] = useState<string | null>(null);
+
+  React.useEffect(() => {
+    if (selectedPiece) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [selectedPiece]);
 
   // Filter items
   const filteredItems = useMemo(() => {
@@ -408,6 +505,7 @@ export const WallPanelsWallpaperPage: React.FC = () => {
 
   const countPanel = useMemo(() => WALL_COLLECTIONS.filter((i) => i.category === 'panel').length, []);
   const countWallpaper = useMemo(() => WALL_COLLECTIONS.filter((i) => i.category === 'wallpaper').length, []);
+  const countHeadboard = useMemo(() => WALL_COLLECTIONS.filter((i) => i.category === 'headboard').length, []);
 
   const handleCopyHex = (hex: string) => {
     navigator.clipboard.writeText(hex);
@@ -434,25 +532,24 @@ export const WallPanelsWallpaperPage: React.FC = () => {
           {/* Atelier Badge */}
           <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-[#C5A880]/30 bg-[#1E1D1B]/80 text-[#C5A880] text-[11px] font-mono tracking-widest uppercase mb-5 backdrop-blur-sm shadow-sm">
             <Sparkles className="w-3.5 h-3.5 text-[#C5A880]" />
-            <span>Atelier Architectural Surfaces • Anna Nagar, Chennai</span>
+            <span>Surfaces &amp; Headboards • Anna Nagar, Chennai</span>
           </div>
 
           <h1 className="font-editorial text-3xl sm:text-5xl lg:text-6xl text-[#FAF8F5] tracking-tight leading-[1.1] mb-4">
-            Acoustic Wall Panels <br className="hidden sm:inline" />
-            <span className="italic font-light text-[#C5A880]">&amp; Designer Wallpaper</span>
+            Wall Paper, Wall Panel <br className="hidden sm:inline" />
+            <span className="italic font-light text-[#C5A880]">&amp; Headboards</span>
           </h1>
 
           <p className="text-sm sm:text-base text-[#D3D0C9] max-w-2xl mx-auto font-light leading-relaxed">
-            Sculptural fabric geometry and bespoke panoramic murals. Handcrafted in Chennai with acoustic foam,
-            PVD brass reveals, and archival non-woven silk canvases.
+            Custom acoustic fabric wall panels, panoramic wallpaper murals, and handcrafted upholstered headboard suites tailored in Anna Nagar.
           </p>
         </section>
 
         {/* ========================================================= */}
         {/* 2. FILTER TABS: SMOOTH, RESPONSIVE, CRISP */}
         {/* ========================================================= */}
-        <section className="py-6 flex items-center justify-between flex-wrap gap-4 border-b border-white/10 mb-8">
-          <div className="flex items-center gap-2 p-1 rounded-2xl bg-[#1A1918] border border-white/10">
+        <section className="py-6 flex items-center justify-between flex-wrap gap-4 border-b border-white/10 mb-8 max-w-full">
+          <div className="flex items-center gap-1.5 sm:gap-2 p-1 rounded-2xl bg-[#1A1918] border border-white/10 overflow-x-auto max-w-full no-scrollbar py-1 shrink-0">
             <button
               onClick={() => setActiveCategory('all')}
               className={`px-4 py-2 rounded-xl text-xs uppercase tracking-wider font-medium transition-all ${
@@ -461,19 +558,7 @@ export const WallPanelsWallpaperPage: React.FC = () => {
                   : 'text-[#FAF8F5]/70 hover:text-white'
               }`}
             >
-              All Masterworks ({WALL_COLLECTIONS.length})
-            </button>
-
-            <button
-              onClick={() => setActiveCategory('panel')}
-              className={`px-4 py-2 rounded-xl text-xs uppercase tracking-wider font-medium transition-all flex items-center gap-1.5 ${
-                activeCategory === 'panel'
-                  ? 'bg-[#C5A880] text-[#141312] font-semibold shadow-md'
-                  : 'text-[#FAF8F5]/70 hover:text-white'
-              }`}
-            >
-              <Layers className="w-3.5 h-3.5" />
-              <span>Acoustic Panels ({countPanel})</span>
+              All Works ({WALL_COLLECTIONS.length})
             </button>
 
             <button
@@ -485,13 +570,37 @@ export const WallPanelsWallpaperPage: React.FC = () => {
               }`}
             >
               <Compass className="w-3.5 h-3.5" />
-              <span>Designer Wallpaper ({countWallpaper})</span>
+              <span>Wall Paper ({countWallpaper})</span>
+            </button>
+
+            <button
+              onClick={() => setActiveCategory('panel')}
+              className={`px-4 py-2 rounded-xl text-xs uppercase tracking-wider font-medium transition-all flex items-center gap-1.5 ${
+                activeCategory === 'panel'
+                  ? 'bg-[#C5A880] text-[#141312] font-semibold shadow-md'
+                  : 'text-[#FAF8F5]/70 hover:text-white'
+              }`}
+            >
+              <Layers className="w-3.5 h-3.5" />
+              <span>Wall Panels ({countPanel})</span>
+            </button>
+
+            <button
+              onClick={() => setActiveCategory('headboard')}
+              className={`px-4 py-2 rounded-xl text-xs uppercase tracking-wider font-medium transition-all flex items-center gap-1.5 ${
+                activeCategory === 'headboard'
+                  ? 'bg-[#C5A880] text-[#141312] font-semibold shadow-md'
+                  : 'text-[#FAF8F5]/70 hover:text-white'
+              }`}
+            >
+              <BedDouble className="w-3.5 h-3.5" />
+              <span>Headboards ({countHeadboard})</span>
             </button>
           </div>
 
           <div className="text-xs font-mono text-[#8A8782] hidden md:flex items-center gap-2">
             <span className="w-2 h-2 rounded-full bg-[#C5A880] animate-pulse" />
-            <span>First 4 Wall Panels • Next 4 Wallpaper Murals</span>
+            <span>4 Wall Paper • 4 Wall Panels • 3 Headboards</span>
           </div>
         </section>
 
@@ -648,7 +757,7 @@ const ArtPieceCard: React.FC<ArtPieceCardProps> = ({ piece, onInspect }) => {
         <div>
           <div className="flex items-center justify-between gap-2 mb-1">
             <span className="text-[10px] font-mono uppercase tracking-widest text-[#C5A880]">
-              {piece.category === 'panel' ? 'Acoustic Panel' : 'Mural Wallpaper'}
+              {piece.category === 'headboard' ? 'Custom Headboard' : piece.category === 'panel' ? 'Acoustic Panel' : 'Mural Wallpaper'}
             </span>
             <span className="text-[10px] font-mono text-[#8A8782]">{piece.keySpec}</span>
           </div>
@@ -713,17 +822,17 @@ const InspectorModal: React.FC<InspectorModalProps> = ({
         className="relative w-full max-w-5xl bg-[#141312] border border-[#C5A880]/40 rounded-2xl sm:rounded-3xl overflow-hidden shadow-2xl flex flex-col md:flex-row text-[#FAF8F5] my-auto h-[92vh] max-h-[760px]"
         onClick={(e) => e.stopPropagation()}
       >
-        {/* Close Button */}
+        {/* Close Button (Min 44x44px touch target) */}
         <button
           onClick={onClose}
-          className="absolute top-3 right-3 sm:top-4 sm:right-4 z-30 w-10 h-10 rounded-full bg-black/80 backdrop-blur-md border border-white/20 text-white hover:bg-[#C5A880] hover:text-[#141312] hover:border-[#C5A880] flex items-center justify-center transition-all shadow-xl"
+          className="absolute top-3 right-3 sm:top-4 sm:right-4 z-30 min-w-[44px] min-h-[44px] w-11 h-11 rounded-full bg-black/80 backdrop-blur-md border border-white/20 text-white hover:bg-[#C5A880] hover:text-[#141312] hover:border-[#C5A880] flex items-center justify-center transition-all shadow-xl"
           aria-label="Close modal"
         >
           <X className="w-5 h-5" />
         </button>
 
         {/* Left Column: Pro Exhibition Image Stage */}
-        <div className="w-full md:w-3/5 lg:w-2/3 relative bg-[#0B0A0A] flex flex-col justify-between overflow-hidden h-[48vh] md:h-full shrink-0 border-b md:border-b-0 md:border-r border-white/10">
+        <div className="w-full md:w-3/5 lg:w-2/3 relative bg-[#0B0A0A] flex flex-col justify-between overflow-hidden h-[38vh] sm:h-[44vh] md:h-full shrink-0 border-b md:border-b-0 md:border-r border-white/10">
           {/* Ambient blurred backdrop so there are zero harsh black voids */}
           <div
             className="absolute inset-0 bg-cover bg-center opacity-25 blur-3xl scale-125 pointer-events-none"
@@ -759,7 +868,11 @@ const InspectorModal: React.FC<InspectorModalProps> = ({
           {/* Bottom Info Bar inside modal */}
           <div className="relative z-20 px-4 py-2 bg-[#141312]/95 backdrop-blur-md border-t border-white/10 flex items-center justify-between text-[10px] font-mono">
             <span className="text-[#A5A19B] uppercase tracking-wider">
-              {piece.category === 'panel' ? 'Acoustic Fabric Wall Panel' : 'Designer Panoramic Wallpaper'}
+              {piece.category === 'headboard'
+                ? 'Bespoke Upholstered Headboard'
+                : piece.category === 'panel'
+                  ? 'Acoustic Fabric Wall Panel'
+                  : 'Designer Panoramic Wallpaper'}
             </span>
             <span className="text-[#C5A880] tracking-wider">
               Atelier Anna Nagar, Chennai
@@ -855,9 +968,13 @@ const InspectorModal: React.FC<InspectorModalProps> = ({
           {/* Action CTAs */}
           <div className="mt-6 pt-4 border-t border-white/10 space-y-2">
             <a
-              href={`https://wa.me/919940498877?text=${encodeURIComponent(
+              href={`https://wa.me/919841134665?text=${encodeURIComponent(
                 `Hello A-Decor, I would like to inquire about "${piece.title}" (${
-                  piece.category === 'panel' ? 'Acoustic Wall Panel' : 'Designer Wallpaper'
+                  piece.category === 'headboard'
+                    ? 'Bespoke Headboard'
+                    : piece.category === 'panel'
+                      ? 'Acoustic Wall Panel'
+                      : 'Designer Wallpaper'
                 }). Could we schedule an on-site inspection in Chennai?`
               )}`}
               target="_blank"

@@ -177,14 +177,46 @@ const ServiceShowcaseRow: React.FC<ServiceCardProps> = ({ service, index, isDark
             </Link>
           )}
 
+          {service.id === 'designer-headboards' && (
+            <div className="flex flex-wrap items-center gap-4">
+              <Link
+                to="/wall-panels-wallpaper"
+                className={`text-xs uppercase tracking-luxury font-semibold transition-colors py-2 ${
+                  isDarkTheme ? 'text-[#DEC8AA] hover:text-white' : 'text-[#1E1D1B] hover:text-[#C5A880]'
+                }`}
+              >
+                View Headboards →
+              </Link>
+              <Link
+                to="/mattress"
+                className={`text-xs uppercase tracking-luxury font-semibold transition-colors py-2 ${
+                  isDarkTheme ? 'text-[#DEC8AA] hover:text-white' : 'text-[#1E1D1B] hover:text-[#C5A880]'
+                }`}
+              >
+                Explore Luxury Mattresses →
+              </Link>
+            </div>
+          )}
+
           {service.id === 'flooring' && (
             <Link
-              to="/curtain-rods-flooring"
+              to="/flooring"
               className={`text-xs uppercase tracking-luxury font-semibold transition-colors py-2 ${
                 isDarkTheme ? 'text-[#DEC8AA] hover:text-white' : 'text-[#1E1D1B] hover:text-[#C5A880]'
               }`}
             >
-              Explore Flooring &amp; Curtain Rods →
+              Explore Flooring Solutions →
+            </Link>
+          )}
+
+          {service.id === 'upholstery-rework' && (
+            <Link
+              to="/sofa-upholstery-rework"
+              className={`text-xs uppercase tracking-luxury font-semibold transition-colors py-2 ${
+                isDarkTheme ? 'text-[#DEC8AA] hover:text-white' : 'text-[#1E1D1B] hover:text-[#C5A880]'
+              }`}
+            >
+              Explore Sofa &amp; Re-Upholstery Gallery →
             </Link>
           )}
         </div>

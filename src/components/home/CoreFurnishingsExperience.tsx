@@ -75,7 +75,7 @@ const CORE_DISCIPLINES: CoreDiscipline[] = [
     indexLabel: '05',
     name: 'Flooring',
     image: '/images/core/flooring.jpg',
-    link: '/curtain-rods-flooring',
+    link: '/flooring',
     ambientHex: '#A87B49',
     colSpanClass: 'lg:col-span-4',
     aspectClass: 'aspect-[5/4]',

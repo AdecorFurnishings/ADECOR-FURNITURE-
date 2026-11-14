@@ -159,11 +159,11 @@ export const ContactPage: React.FC = () => {
       </div>
 
       {/* 2. Main Consultation & Location Grid */}
-      <div id="consultation-form" className="max-w-7xl mx-auto px-6 mb-28 scroll-mt-28">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
+      <div id="consultation-form" className="max-w-7xl mx-auto px-4 sm:px-6 mb-28 scroll-mt-28">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12">
           
           {/* Left Column: Inquiry Form (7 cols) */}
-          <div className="lg:col-span-7 bg-white p-8 sm:p-12 rounded-3xl border border-[#D3D0C9] shadow-soft-luxury">
+          <div className="lg:col-span-7 bg-white p-5 sm:p-10 lg:p-12 rounded-3xl border border-[#D3D0C9] shadow-soft-luxury">
             <div className="mb-8">
               <span className="label-caps text-[#C5A880] text-xs">Direct Atelier Booking</span>
               <h2 className="font-editorial text-3xl sm:text-4xl text-[#1E1D1B] font-light mt-1">
@@ -339,10 +339,10 @@ export const ContactPage: React.FC = () => {
 
                 <button
                   type="submit"
-                  className="w-full py-4 rounded-full bg-[#1E1D1B] hover:bg-[#C5A880] text-white hover:text-[#1E1D1B] font-semibold text-xs tracking-luxury uppercase flex items-center justify-center gap-2.5 transition-all shadow-md group"
+                  className="w-full min-h-[48px] py-3.5 sm:py-4 px-4 rounded-full bg-[#1E1D1B] hover:bg-[#C5A880] text-white hover:text-[#1E1D1B] font-semibold text-[11px] sm:text-xs tracking-luxury uppercase flex items-center justify-center gap-2 transition-all shadow-md group"
                 >
-                  <Send className="w-4 h-4 transition-transform group-hover:translate-x-1" />
-                  <span>Send Inquiry & Open WhatsApp Confirmation</span>
+                  <Send className="w-4 h-4 transition-transform group-hover:translate-x-1 shrink-0" />
+                  <span className="text-center">Send Inquiry & Open WhatsApp Confirmation</span>
                 </button>
 
                 <p className="text-[11px] text-center text-[#8A8782]">
@@ -356,7 +356,7 @@ export const ContactPage: React.FC = () => {
           <div className="lg:col-span-5 space-y-8">
             
             {/* Atelier Address Card */}
-            <div className="p-8 rounded-3xl bg-[#141312] text-[#FAF8F5] shadow-elevated border border-white/10 space-y-6">
+            <div className="p-5 sm:p-8 rounded-3xl bg-[#141312] text-[#FAF8F5] shadow-elevated border border-white/10 space-y-6">
               
               {/* White Signature Plaque */}
               <div className="bg-white rounded-2xl px-5 py-4 flex items-center justify-between border border-white/80 shadow-inner">
@@ -378,9 +378,9 @@ export const ContactPage: React.FC = () => {
                   <MapPin className="w-4 h-4 text-[#C5A880] shrink-0 mt-0.5" />
                   <div className="leading-relaxed">
                     <strong className="text-white block font-medium">A-Decor Furnishings</strong>
-                    <p>{SITE_CONTENT.brand.address.street},</p>
-                    <p>{SITE_CONTENT.brand.address.landmark},</p>
-                    <p>{SITE_CONTENT.brand.address.area}, {SITE_CONTENT.brand.address.city} - {SITE_CONTENT.brand.address.pincode}</p>
+                    <p className="text-[#D3D0C9] font-light mt-1 leading-relaxed">
+                      B-1, 201/C-34, NR dave Complex, 2nd Avenue, 11th Main Rd, Corner, Anna Nagar, Chennai, Tamil Nadu 600040
+                    </p>
                     <a
                       href={SITE_CONTENT.brand.googleMapsUrl}
                       target="_blank"
@@ -419,31 +419,31 @@ export const ContactPage: React.FC = () => {
                 </div>
               </div>
 
-              {/* QR Code */}
+              {/* QR Code for Business Card */}
               <div className="p-4 rounded-2xl bg-white/10 border border-white/10 flex items-center gap-4">
                 <a
-                  href={SITE_CONTENT.brand.websiteUrl}
+                  href="https://q.me-qr.com/uzdp79sj"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="shrink-0 hover:scale-105 transition-transform"
-                  title="Open A-Decor Website"
+                  title="Scan to view A-Decor Furnishings Business Card"
                 >
                   <img
                     src={SITE_CONTENT.brand.qrCodeImage}
-                    alt="A-Decor Website QR Code"
+                    alt="A-Decor Furnishings Business Card QR Code"
                     loading="lazy"
                     decoding="async"
                     className="w-16 h-16 rounded-lg bg-white p-1"
                   />
                 </a>
                 <div className="text-xs space-y-1">
-                  <p className="text-white font-medium">Official Digital Card</p>
+                  <p className="text-white font-medium">A-Decor Furnishings Business Card</p>
                   <p className="text-[11px] text-[#D3D0C9]">
-                    Scan with your smartphone to open adecorfurnishings.vercel.app.
+                    Scan QR code to visit A-Decor Furnishings digital card.
                   </p>
                   <a
                     href="/images/contact/qr_code.png"
-                    download="A-Decor-Website-QR.png"
+                    download="adecorfurnishings-business-card-qr.png"
                     className="inline-block text-[10px] uppercase tracking-wider text-[#C5A880] hover:underline"
                   >
                     Download QR →

@@ -20,14 +20,29 @@ const ROUTE_SEO: Record<string, SeoMeta> = {
       'Discover A-Decor’s 20+ year Chennai heritage in custom tailoring, acoustic wall panels, architectural drapery, and bespoke soft furnishings across Tamil Nadu.',
   },
   '/services': {
-    title: 'Services | Curtains, Roman Blinds, Sofa Rework & Wall Panels | A-Decor Chennai',
+    title: 'Services | Curtains, Roman Blinds, Sofa & Re-Upholstery Work & Wall Panels | A-Decor Chennai',
     description:
       'Explore A-Decor’s complete suite: custom stitched curtains, motorized Roman blinds, sofa refurbishing & re-upholstery, upholstered headboards, wall panels, wallpaper & flooring.',
   },
-  '/curtain-styles': {
-    title: 'Bespoke Curtain Styles & Pleat Architecture | A-Decor Chennai',
+  '/sofa-upholstery-rework': {
+    title: 'Sofa & Re-Upholstery Work | Custom Furniture Atelier | A-Decor Chennai',
     description:
-      'Inspect pinch pleat, ripple fold, goblet, eyelet & wave curtain stitching with live fabric colour shifts crafted in Anna Nagar, Chennai.',
+      'Sofa restoration, 45+ HR foam replacement, frame rebuilding, custom fluted velvet sofas, daybed benches, and sofa beds in Anna Nagar, Chennai.',
+  },
+  '/sofa-rework': {
+    title: 'Sofa & Re-Upholstery Work | Custom Furniture Atelier | A-Decor Chennai',
+    description:
+      'Sofa restoration, 45+ HR foam replacement, frame rebuilding, custom fluted velvet sofas, daybed benches, and sofa beds in Anna Nagar, Chennai.',
+  },
+  '/upholstery-rework': {
+    title: 'Sofa & Re-Upholstery Work | Custom Furniture Atelier | A-Decor Chennai',
+    description:
+      'Sofa restoration, 45+ HR foam replacement, frame rebuilding, custom fluted velvet sofas, daybed benches, and sofa beds in Anna Nagar, Chennai.',
+  },
+  '/curtain-styles': {
+    title: 'Curtain Styles & Architectural Rods | A-Decor Chennai',
+    description:
+      'Inspect bespoke pinch pleat, wave, ripple fold curtains with live chameleon fabric shifts, paired with heavy-gauge architectural aluminum rods & electro-plated copper hardware.',
   },
   '/roman-blinds': {
     title: 'Motorized & Handcrafted Roman Blinds | A-Decor Chennai',
@@ -35,9 +50,24 @@ const ROUTE_SEO: Record<string, SeoMeta> = {
       'Preview flat, hobbled, relaxed, waterfall & motorized Roman blind styles with live draw controls crafted by A-Decor in Chennai.',
   },
   '/wall-panels-wallpaper': {
-    title: 'Acoustic Wall Panels & Designer Wallpaper Murals | A-Decor Chennai',
+    title: 'Wall Paper, Wall Panel & Headboards | A-Decor Chennai',
     description:
       'Sculptural acoustic fabric wall panels, 3D tufted velvet headboards, geometric brass reveals & panoramic wallpaper murals crafted by A-Decor in Anna Nagar, Chennai.',
+  },
+  '/mattress': {
+    title: 'Luxury Mattresses | Aerodream Sleep Systems | A-Decor Chennai',
+    description:
+      'Aerodream high-density orthopedic & energy booster mattresses with multi-layer comfort cores and targeted spinal alignment in Anna Nagar, Chennai.',
+  },
+  '/mattresses': {
+    title: 'Luxury Mattresses | Aerodream Sleep Systems | A-Decor Chennai',
+    description:
+      'Aerodream high-density orthopedic & energy booster mattresses with multi-layer comfort cores and targeted spinal alignment in Anna Nagar, Chennai.',
+  },
+  '/beds': {
+    title: 'Luxury Mattresses | Aerodream Sleep Systems | A-Decor Chennai',
+    description:
+      'Aerodream high-density orthopedic & energy booster mattresses with multi-layer comfort cores and targeted spinal alignment in Anna Nagar, Chennai.',
   },
   '/wall-panels': {
     title: 'Acoustic Fabric Wall Panels & Velvet Headboards | A-Decor Chennai',
@@ -57,7 +87,7 @@ const ROUTE_SEO: Record<string, SeoMeta> = {
   '/curtain-rods': {
     title: 'Architectural Curtain Rods & Silent Tracks | A-Decor Chennai',
     description:
-      'Noble 28mm aluminum rods, Style Copper electroplated poles, Ferro Rust vintage finials, and architectural heavy-duty curtain tracks crafted in Chennai.',
+      'Noble architectural aluminum rods, Style Copper electroplated poles, Ferro Rust vintage finials, and architectural heavy-duty curtain tracks crafted in Chennai.',
   },
   '/flooring': {
     title: 'Luxury Carpets & Foundation Flooring | A-Decor Chennai',

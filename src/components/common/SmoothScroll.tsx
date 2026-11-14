@@ -11,9 +11,10 @@ export const SmoothScroll: React.FC<{ children: React.ReactNode }> = ({ children
   const lenisRef = useRef<Lenis | null>(null);
 
   useEffect(() => {
-    const isCoarsePointer = window.matchMedia('(pointer: coarse)').matches;
-    // Mobile touchscreens already use native hardware 120Hz momentum scroll; Lenis wheel smoothing is for desktop pointers
-    if (isCoarsePointer) return;
+    const isMobileOrCoarse =
+      window.matchMedia('(pointer: coarse)').matches || window.innerWidth < 1024;
+    // Mobile touchscreens use native hardware 120Hz momentum scroll; Lenis wheel smoothing is for desktop pointers
+    if (isMobileOrCoarse) return;
 
     const lenis = new Lenis({
       duration: 1.15,

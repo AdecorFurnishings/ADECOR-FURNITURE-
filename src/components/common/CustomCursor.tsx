@@ -118,7 +118,7 @@ export const CustomCursor: React.FC = () => {
   if (isTouchDevice) return null;
 
   return (
-    <div aria-hidden="true" className="pointer-events-none fixed inset-0 z-50 overflow-hidden">
+    <div aria-hidden="true" className="pointer-events-none fixed inset-0 z-50 overflow-hidden hidden md:block">
       {/* Tiny sharp center dot (GPU-composited) */}
       <div
         ref={dotRef}

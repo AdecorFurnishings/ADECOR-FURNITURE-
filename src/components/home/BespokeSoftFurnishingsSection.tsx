@@ -15,11 +15,11 @@ interface FurnishingItem {
 const furnishingItems: FurnishingItem[] = [
   {
     id: 'boucle-armchair',
-    name: 'Bespoke Bouclé Lounge Chair',
+    name: 'Bespoke Boucle Lounge Chair',
     category: 'Re-Upholstery & Frame Restoration',
-    description: 'Master re-upholstered in premium Italian tactile cream bouclé with handcrafted solid oak tapered legs. Fully reinforced frame with high-density ergonomic foam.',
+    description: 'Master re-upholstered in premium Italian tactile cream boucle with handcrafted solid oak tapered legs. Fully reinforced frame with high-density ergonomic foam.',
     image: '/images/furnishings/hero-chair.webp',
-    material: 'Heavy Cream Bouclé & Solid Oak',
+    material: 'Heavy Cream Boucle & Solid Oak',
     turnaround: '7 - 10 Business Days',
   },
   {

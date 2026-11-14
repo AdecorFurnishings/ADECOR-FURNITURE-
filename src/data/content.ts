@@ -6,6 +6,7 @@ export interface BrandAddress {
   state: string;
   country: string;
   landmark: string;
+  full?: string;
 }
 
 export interface ServiceItem {
@@ -80,7 +81,7 @@ export const SITE_CONTENT = {
     phoneDisplay: "+91 98411 34665",
     phones: ["+919841134665"],
     whatsapp: "+919841134665",
-    email: "adecorperfecthome@gmail.com",
+    email: "adecorfurnishings@gmail.com",
     website: "adecorfurnishings.vercel.app",
     websiteUrl: "https://adecorfurnishings.vercel.app/",
     address: {
@@ -90,7 +91,8 @@ export const SITE_CONTENT = {
       pincode: "600040",
       state: "Tamil Nadu",
       country: "India",
-      landmark: "NR dave Complex · 2nd Avenue & 11th Main Rd Corner, Anna Nagar"
+      landmark: "2nd Avenue & 11th Main Rd Corner",
+      full: "B-1, 201/C-34, NR dave Complex, 2nd Avenue, 11th Main Rd, Corner, Anna Nagar, Chennai, Tamil Nadu 600040"
     } as BrandAddress,
     hours: {
       weekdays: "Monday – Saturday: 10:00 AM – 8:30 PM",
@@ -108,7 +110,7 @@ export const SITE_CONTENT = {
       twitter: "https://twitter.com/adecorchennai",
       snapchat: "https://snapchat.com/add/adecorchennai"
     },
-    qrCodeImage: "/images/contact/qr_code.png?v=4"
+    qrCodeImage: "/images/contact/qr_code.png?v=6"
   },
 
   about: {
@@ -123,9 +125,14 @@ export const SITE_CONTENT = {
       "Curtain Rods",
       "Curtains",
       "Blinds",
-      "Wallpaper",
+      "Wall Paper",
       "Wall Panel",
-      "Flooring"
+      "Flooring",
+      "Re Upholstery Work",
+      "Mattress",
+      "Head Boards",
+      "Curtains and Roman Blinds Tailoring",
+      "Curtains and Roman Blinds Washing"
     ],
     featuredClientIds: ["hilton", "apollo-hospitals", "tvs", "dlf", "radisson"]
   },
@@ -359,31 +366,31 @@ export const SITE_CONTENT = {
       stackStyle: "Crisp stepped fold"
     },
     {
-      id: "cellular-shade",
-      name: "Cellular Shade",
-      description: "Honeycomb insulating pockets engineered for tropical thermal comfort and quietness.",
-      image: "/images/blinds/shade_cellular.jpg",
-      bestFor: "West-facing bedrooms & nurseries",
-      fabricRecommendation: "Double-cell acoustic textile",
-      stackStyle: "Slim compressed header"
+      id: "wooden-venetian-blinds",
+      name: "Wooden Venetian Blinds",
+      description: "Rich Look: Adds a classic, premium, and natural elegance to your interiors. Great Light Control: Slats can be easily tilted to adjust sunlight and privacy. Durable: Strong and long-lasting with proper care.",
+      image: "/images/blinds/shade_wooden_venetian.jpg",
+      bestFor: "Living rooms, dining salons & executive studies",
+      fabricRecommendation: "Kiln-dried solid hardwood & rich timber slats",
+      stackStyle: "Precision tilting horizontal louver ladder"
     },
     {
-      id: "blackout-roller-shade",
-      name: "Blackout Roller Shade",
-      description: "Side-channeled light-seal roller crafted for restorative sleep and screening rooms.",
-      image: "/images/blinds/shade_blackout_roller.jpg",
-      bestFor: "Bedrooms & media lounges",
-      fabricRecommendation: "Opaque multi-layer blackout",
-      stackStyle: "Full-seal framed cassette"
+      id: "printed-roller-blinds",
+      name: "Printed Roller Blinds",
+      description: "Transform your space instantly with Printed Roller Blinds! They are the ultimate blend of style and function, bringing artistic flair and seamless light control.",
+      image: "/images/blinds/shade_printed_roller.jpg",
+      bestFor: "Artistic feature windows, bedrooms & designer lounges",
+      fabricRecommendation: "High-definition printed canvas & textured solar screen",
+      stackStyle: "Ultra-compact smooth-rolling cassette"
     },
     {
-      id: "pleated-shade",
-      name: "Pleated Shade",
-      description: "Crisp linear-creased textile casting warm architectural rhythm across daylight windows.",
-      image: "/images/blinds/shade_pleated.jpg",
-      bestFor: "Home offices & reading bays",
-      fabricRecommendation: "Heat-set earth-toned linen weave",
-      stackStyle: "Accordion linear compression"
+      id: "printed-zebra-blinds",
+      name: "Printed Zebra Blinds",
+      description: "Printed Zebra Blinds are modern window treatments featuring alternating sheer and solid fabric stripes. Adding a printed design brings unique patterns, textures, or artistic motifs across stripes, giving your windows a stylish, eye-catching look with effortless light and privacy control.",
+      image: "/images/blinds/shade_printed_zebra.jpg",
+      bestFor: "Statement living rooms, creative spaces & modern bedrooms",
+      fabricRecommendation: "Artistic loomed dual-band sheer & opaque stripes",
+      stackStyle: "Continuous loop dual-stripe cassette"
     },
     {
       id: "wooden-blind",
@@ -396,11 +403,11 @@ export const SITE_CONTENT = {
     },
     {
       id: "zebra-shade",
-      name: "Zebra Shade",
-      description: "Graphic dual-plane framing combining statement geometry with balanced privacy.",
+      name: "Zebra Blind",
+      description: "Alternating sheer and solid fabric stripes engineered for modern daylight modulation and privacy.",
       image: "/images/blinds/shade_zebra.jpg",
       bestFor: "Modern living rooms & design studios",
-      fabricRecommendation: "Geometric border jacquard",
+      fabricRecommendation: "Geometric border jacquard & sheer horizontal bands",
       stackStyle: "Structured fold & tape cassette"
     },
     {
@@ -743,25 +750,25 @@ export const SITE_CONTENT = {
     },
     {
       id: "gal-12",
-      title: "Sculpted Bouclé Lounge Rebuild",
-      caption: "Chassis skeletal reinforcement to custom cream bouclé upholstery.",
-      materialSpec: "Solid Teak Plinth • Heavyweight Bouclé",
+      title: "Curved Boucle Sofa (Before & After)",
+      caption: "Bare hardwood chassis skeleton transformed into textured cream boucle.",
+      materialSpec: "Hardwood Carcass • Cream Boucle Upholstery",
       category: "sofa",
       categoryLabel: "Upholstery Rework",
-      image: "/images/rework/rework_boucle_sofa_after.jpg",
-      aspect: "landscape",
-      description: "Full structural skeleton rebuild with curved arm contouring, 45+ HR cushioning, and textured cream bouclé upholstery."
+      image: "/images/rework/rework_boucle_composite.jpg",
+      aspect: "portrait",
+      description: "Full skeletal timber rebuild: bare chassis structure restored, 45+ HR cushioning, and seamless cream boucle tailoring."
     },
     {
       id: "gal-13",
-      title: "Royal Peacock Chesterfield Chaise",
-      caption: "Workshop carcass restoration to royal tufted velvet chaise.",
+      title: "Royal Peacock Chaise (Before & After)",
+      caption: "Workshop bentwood carcass restored to diamond-tufted peacock teal velvet.",
       materialSpec: "Diamond Tufting • Brass Nailheads • Teal Velvet",
       category: "sofa",
       categoryLabel: "Upholstery Rework",
-      image: "/images/rework/rework_chaise_velvet_after.jpg",
+      image: "/images/rework/rework_chaise_composite.jpg",
       aspect: "landscape",
-      description: "Hand-tied coil suspension, deep diamond button tufting, and brass nailhead studding on antique cabriole frame."
+      description: "Workshop carcass restoration: hand-tied coil spring suspension, deep diamond button tufting, and continuous brass nailhead studs on antique cabriole frame."
     },
     {
       id: "gal-2",

@@ -11,7 +11,7 @@ import {
   useAnimationFrame,
   useMotionValue,
 } from 'framer-motion';
-import { ArrowRight, MapPin, Building2 } from 'lucide-react';
+import { ArrowRight, Building2 } from 'lucide-react';
 import { SITE_CONTENT } from '../../data/content';
 
 gsap.registerPlugin(ScrollTrigger);
@@ -76,7 +76,6 @@ interface AboutScrollExperienceProps {
 export const AboutScrollExperience: React.FC<AboutScrollExperienceProps> = ({ mode }) => {
   const sectionRef = useRef<HTMLDivElement>(null);
   const heroPlateRef = useRef<HTMLDivElement>(null);
-  const [yearDisplay, setYearDisplay] = useState(2004);
   const [sheenCoords, setSheenCoords] = useState({ x: 50, y: 35, active: false });
 
   const isFullPage = mode === 'page';
@@ -188,21 +187,7 @@ export const AboutScrollExperience: React.FC<AboutScrollExperienceProps> = ({ mo
         },
       );
 
-      // 4. Smooth 2004 founding numeral roll counter
-      const yearObj = { val: 1998 };
-      gsap.to(yearObj, {
-        val: 2004,
-        duration: 1.0,
-        ease: 'power2.out',
-        scrollTrigger: {
-          trigger: '.about-year-trigger',
-          start: 'top 90%',
-          once: true,
-        },
-        onUpdate: () => setYearDisplay(Math.round(yearObj.val)),
-      });
-
-      // 6. Select clients staggered dark-stage veil entrance
+      // 5. Select clients staggered dark-stage veil entrance
       gsap.fromTo(
         '.about-client-tile',
         { y: 45, opacity: 0, scale: 0.95 },
@@ -259,7 +244,7 @@ export const AboutScrollExperience: React.FC<AboutScrollExperienceProps> = ({ mo
             {/* Ghosted Architectural "2004" Backdrop */}
             <span
               aria-hidden="true"
-              className="hidden sm:block absolute -top-10 -left-4 font-syne text-[7.5rem] lg:text-[9.5rem] font-bold text-[#EAE7E1] select-none pointer-events-none leading-none -z-10"
+              className="block absolute -top-6 -left-2 sm:-top-10 sm:-left-4 font-syne text-[4.8rem] sm:text-[7.5rem] lg:text-[9.5rem] font-bold text-[#EAE7E1] select-none pointer-events-none leading-none -z-10 opacity-70 sm:opacity-100"
             >
               2004
             </span>
@@ -289,7 +274,7 @@ export const AboutScrollExperience: React.FC<AboutScrollExperienceProps> = ({ mo
               <em className="italic font-normal text-[#1E1D1B]">comfortable and inspired</em>. Our service provision encompasses all aspects of{' '}
               <span className="font-normal">home/office</span> interiors, including{' '}
               <em className="italic font-normal text-[#1E1D1B]">
-                curtain rods, curtains, blinds, wallpaper, wall panel, and flooring
+                curtain rods, curtains, blinds, wall paper, wall panel, and flooring
               </em>
               .
             </p>
@@ -337,9 +322,9 @@ export const AboutScrollExperience: React.FC<AboutScrollExperienceProps> = ({ mo
             {/* Rotating Scroll-Driven Anna Nagar Craftsman Stamp */}
             <motion.div
               style={{ rotate: sealRotation }}
-              className="hidden sm:flex absolute -top-6 -right-3 lg:-right-6 z-20 w-28 h-28 rounded-full items-center justify-center pointer-events-none select-none"
+              className="flex absolute -top-4 -right-2 sm:-top-6 sm:-right-3 lg:-right-6 z-20 w-20 h-20 sm:w-28 sm:h-28 rounded-full items-center justify-center pointer-events-none select-none drop-shadow-md"
             >
-              <svg viewBox="0 0 120 120" className="w-full h-full">
+              <svg viewBox="0 0 120 120" className="w-full h-full animate-spin-slow">
                 <defs>
                   <path
                     id="aboutSealPath"
@@ -396,32 +381,13 @@ export const AboutScrollExperience: React.FC<AboutScrollExperienceProps> = ({ mo
                     background: `radial-gradient(circle 340px at ${sheenCoords.x}% ${sheenCoords.y}%, rgba(255, 240, 212, 0.85), transparent 70%)`,
                   }}
                 />
-
-                {/* Soft cinematic bottom shadow veil */}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/15 to-transparent pointer-events-none" />
-
-                {/* Minimal Architectural Caption & Animated 2004 Numeral */}
-                <div className="about-year-trigger absolute bottom-0 inset-x-0 p-6 sm:p-8 flex items-end justify-between text-white">
-                  <div>
-                    <span className="label-caps text-[#C5A880] text-[10px] block">
-                      Prime Location • Chennai
-                    </span>
-                    <p className="font-syne text-4xl sm:text-5xl font-bold tracking-tight mt-0.5 tabular-nums">
-                      {yearDisplay}
-                    </p>
-                  </div>
-                  <div className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-xs text-[#FAF8F5]">
-                    <MapPin className="w-3.5 h-3.5 text-[#C5A880]" />
-                    <span>Tamil Nadu</span>
-                  </div>
-                </div>
               </div>
             </motion.div>
 
             {/* Secondary Sheer Drape Overlay Plate floating at contrasting scroll depth */}
             <motion.div
               style={{ y: insetSheerY }}
-              className="hidden sm:block absolute -bottom-10 -left-8 z-20 w-48 aspect-[4/5] rounded-2xl overflow-hidden border-[3px] border-[#FAF8F5] shadow-2xl bg-[#1E1D1B] group"
+              className="block absolute -bottom-5 -left-2 sm:-bottom-10 sm:-left-8 z-20 w-28 sm:w-48 aspect-[4/5] rounded-xl sm:rounded-2xl overflow-hidden border-2 sm:border-[3px] border-[#FAF8F5] shadow-xl sm:shadow-2xl bg-[#1E1D1B] group"
             >
               <img
                 src="/images/hd/curtains_sheer.jpg"
@@ -430,8 +396,8 @@ export const AboutScrollExperience: React.FC<AboutScrollExperienceProps> = ({ mo
                 decoding="async"
                 className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-transparent to-transparent flex flex-col justify-end p-4">
-                <span className="font-editorial italic text-lg text-[#FAF8F5] leading-tight">
+              <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-transparent to-transparent flex flex-col justify-end p-2 sm:p-4">
+                <span className="font-editorial italic text-xs sm:text-lg text-[#FAF8F5] leading-tight">
                   Home / Office
                 </span>
               </div>

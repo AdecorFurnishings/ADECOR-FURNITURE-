@@ -43,10 +43,12 @@ export const Footer: React.FC = () => {
               <li><Link to="/" className="hover:text-white transition-colors">Home</Link></li>
               <li><Link to="/about" className="hover:text-white transition-colors">About Us</Link></li>
               <li><Link to="/services" className="hover:text-white transition-colors">Our Services</Link></li>
-              <li><Link to="/curtain-styles" className="hover:text-white transition-colors">Curtain Pleats</Link></li>
+              <li><Link to="/sofa-upholstery-rework" className="hover:text-white transition-colors">Sofa &amp; Re-Upholstery Work</Link></li>
+              <li><Link to="/curtain-styles" className="hover:text-white transition-colors">Curtain Styles &amp; Rods</Link></li>
               <li><Link to="/roman-blinds" className="hover:text-white transition-colors">Roman Blind Styles</Link></li>
-              <li><Link to="/wall-panels-wallpaper" className="hover:text-white transition-colors">Wall Panels &amp; Wallpaper</Link></li>
-              <li><Link to="/curtain-rods-flooring" className="hover:text-white transition-colors">Rods &amp; Flooring</Link></li>
+              <li><Link to="/wall-panels-wallpaper" className="hover:text-white transition-colors">Wall Paper, Wall Panel &amp; Headboards</Link></li>
+              <li><Link to="/mattress" className="hover:text-white transition-colors">Luxury Mattresses</Link></li>
+              <li><Link to="/flooring" className="hover:text-white transition-colors">Flooring Solutions</Link></li>
               <li><Link to="/gallery" className="hover:text-white transition-colors">Project Gallery</Link></li>
               <li><Link to="/contact" className="hover:text-white transition-colors">Contact & Clients</Link></li>
             </ul>
@@ -80,7 +82,7 @@ export const Footer: React.FC = () => {
               >
                 <MapPin className="w-4 h-4 text-[#C5A880] shrink-0 mt-0.5" />
                 <span>
-                  {SITE_CONTENT.brand.address.street}, {SITE_CONTENT.brand.address.area}, {SITE_CONTENT.brand.address.city}, {SITE_CONTENT.brand.address.state} {SITE_CONTENT.brand.address.pincode}
+                  {SITE_CONTENT.brand.address.full}
                   <span className="block text-[10px] uppercase tracking-wider text-[#C5A880] group-hover:text-white mt-1">
                     Open in Google Maps ↗
                   </span>
@@ -115,26 +117,26 @@ export const Footer: React.FC = () => {
               </div>
             </div>
 
-            {/* QR Code for Live Website */}
+            {/* QR Code for A-Decor Digital Business Card */}
             <div className="pt-2 flex items-center gap-3">
               <a
-                href={SITE_CONTENT.brand.websiteUrl}
+                href="https://q.me-qr.com/uzdp79sj"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-16 h-16 rounded-lg bg-white p-1 border border-white/20 shrink-0 hover:scale-105 transition-transform"
-                title="Open A-Decor Website"
+                title="Scan to visit A-Decor Furnishings Business Card"
               >
                 <img
                   src={SITE_CONTENT.brand.qrCodeImage}
-                  alt="A-Decor Website QR Code"
+                  alt="A-Decor Furnishings Business Card QR Code"
                   loading="lazy"
                   decoding="async"
                   className="w-full h-full object-contain"
                 />
               </a>
               <div className="text-[10px] text-[#8A8782] leading-tight space-y-0.5">
-                <p className="text-white font-medium">Scan for Digital Card</p>
-                <p>Scan QR to visit {SITE_CONTENT.brand.website} on mobile.</p>
+                <p className="text-white font-medium">A-Decor Furnishings Business Card</p>
+                <p>Scan QR code to visit our digital business card.</p>
               </div>
             </div>
 
