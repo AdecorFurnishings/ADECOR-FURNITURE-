@@ -110,7 +110,7 @@ export const SITE_CONTENT = {
       twitter: "https://twitter.com/adecorchennai",
       snapchat: "https://snapchat.com/add/adecorchennai"
     },
-    qrCodeImage: "/images/contact/qr_code.png?v=6"
+    qrCodeImage: "/images/contact/qr_code.png?v=7"
   },
 
   about: {
