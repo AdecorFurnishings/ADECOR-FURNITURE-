@@ -13,6 +13,24 @@ import {
 
 type FlooringCategory = 'all' | 'acoustic' | 'hospitality' | 'turf' | 'commercial';
 
+/**
+ * Computes calibrated blend opacities based on swatch luminance so colors
+ * tint the flooring & carpet fiber texture rich & realistic while keeping depth pure.
+ */
+function getSwatchBlend(hex: string, isOriginal: boolean) {
+  if (isOriginal) {
+    return { colorOpacity: 0, multiplyOpacity: 0 };
+  }
+  const cleanHex = hex.replace('#', '');
+  const r = parseInt(cleanHex.substring(0, 2), 16) || 0;
+  const g = parseInt(cleanHex.substring(2, 4), 16) || 0;
+  const b = parseInt(cleanHex.substring(4, 6), 16) || 0;
+  const lum = (0.299 * r + 0.587 * g + 0.114 * b) / 255;
+  const colorOpacity = Math.max(0.78, Math.min(0.95, 0.98 - lum * 0.15));
+  const multiplyOpacity = Math.max(0.18, Math.min(0.68, 0.76 - lum * 0.65));
+  return { colorOpacity, multiplyOpacity };
+}
+
 export interface FlooringArtPiece {
   id: string;
   order: number;
@@ -204,6 +222,8 @@ export const FlooringPage: React.FC = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-stretch">
           {filteredPieces.map((piece) => {
             const currentColor = activeColorForPiece(piece);
+            const activePaletteIdx = activePaletteIndex[piece.id] ?? 0;
+            const blend = getSwatchBlend(currentColor.hex, activePaletteIdx === 0);
 
             return (
               <div
@@ -221,6 +241,28 @@ export const FlooringPage: React.FC = () => {
                       className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                     />
 
+                    {/* Dynamic Tone Transformation Layer */}
+                    {activePaletteIdx > 0 && (
+                      <>
+                        <div
+                          className="absolute inset-0 pointer-events-none mix-blend-color transition-all duration-500 ease-out"
+                          style={{
+                            backgroundColor: currentColor.hex,
+                            opacity: blend.colorOpacity,
+                          }}
+                        />
+                        {blend.multiplyOpacity > 0 && (
+                          <div
+                            className="absolute inset-0 pointer-events-none mix-blend-multiply transition-all duration-500 ease-out"
+                            style={{
+                              backgroundColor: currentColor.hex,
+                              opacity: blend.multiplyOpacity,
+                            }}
+                          />
+                        )}
+                      </>
+                    )}
+
                     {/* Gradient Overlay */}
                     <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent pointer-events-none" />
 
@@ -228,6 +270,14 @@ export const FlooringPage: React.FC = () => {
                     <div className="absolute top-4 left-4 inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/90 backdrop-blur-md border border-white/20 text-[10px] font-syne font-bold uppercase tracking-wider text-[#1E1D1B]">
                       <span>{piece.tag}</span>
                     </div>
+
+                    {/* Active Tone Indicator Badge */}
+                    {activePaletteIdx > 0 && (
+                      <div className="absolute top-4 left-36 inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-black/80 backdrop-blur-md border border-white/20 text-[10px] font-syne font-medium uppercase tracking-wider text-white shadow-md animate-fade-in">
+                        <span className="w-2 h-2 rounded-full" style={{ backgroundColor: currentColor.hex }} />
+                        <span>Tone: {currentColor.name}</span>
+                      </div>
+                    )}
 
                     {/* Inspect Button */}
                     <button
@@ -314,7 +364,7 @@ export const FlooringPage: React.FC = () => {
 
                   <a
                     href={`https://wa.me/919841134665?text=${encodeURIComponent(
-                      `Hello A-Decor, I am interested in ${piece.title} (${piece.tag}) for on-site consultation.`,
+                      `Hello A-Decor, I am interested in ${piece.title} (${piece.tag}) in ${currentColor.name} tone for on-site consultation.`,
                     )}`}
                     target="_blank"
                     rel="noopener noreferrer"
@@ -383,11 +433,35 @@ export const FlooringPage: React.FC = () => {
 
               {/* Modal Image Section */}
               <div className="lg:w-3/5 bg-black/40 flex items-center justify-center p-4 sm:p-6 min-h-[300px] lg:min-h-[500px]">
-                <img
-                  src={selectedPiece.image}
-                  alt={selectedPiece.title}
-                  className="max-h-[75vh] w-auto max-w-full object-contain rounded-xl shadow-2xl"
-                />
+                <div className="relative max-h-[75vh] w-auto max-w-full overflow-hidden rounded-xl shadow-2xl flex items-center justify-center">
+                  <img
+                    src={selectedPiece.image}
+                    alt={selectedPiece.title}
+                    className="max-h-[75vh] w-auto max-w-full object-contain rounded-xl"
+                  />
+
+                  {/* Dynamic Color Tone Transformation in Modal */}
+                  {(activePaletteIndex[selectedPiece.id] ?? 0) > 0 && (
+                    <>
+                      <div
+                        className="absolute inset-0 pointer-events-none mix-blend-color transition-all duration-500 ease-out"
+                        style={{
+                          backgroundColor: activeColorForPiece(selectedPiece).hex,
+                          opacity: getSwatchBlend(activeColorForPiece(selectedPiece).hex, false).colorOpacity,
+                        }}
+                      />
+                      {getSwatchBlend(activeColorForPiece(selectedPiece).hex, false).multiplyOpacity > 0 && (
+                        <div
+                          className="absolute inset-0 pointer-events-none mix-blend-multiply transition-all duration-500 ease-out"
+                          style={{
+                            backgroundColor: activeColorForPiece(selectedPiece).hex,
+                            opacity: getSwatchBlend(activeColorForPiece(selectedPiece).hex, false).multiplyOpacity,
+                          }}
+                        />
+                      )}
+                    </>
+                  )}
+                </div>
               </div>
 
               {/* Modal Specs Section */}
@@ -403,6 +477,34 @@ export const FlooringPage: React.FC = () => {
                     <p className="text-xs text-[#D3D0C9] mt-1 font-light leading-relaxed">
                       {selectedPiece.subtitle}
                     </p>
+                  </div>
+
+                  {/* Interactive Modal Color Palette */}
+                  <div className="p-3 rounded-2xl bg-white/5 border border-white/10">
+                    <span className="text-[10px] uppercase tracking-wider text-[#C5A880] block mb-2 font-syne font-bold">
+                      Fabric / Pile Tone: <span className="text-white font-normal">{activeColorForPiece(selectedPiece).name}</span>
+                    </span>
+                    <div className="flex items-center gap-2.5">
+                      {selectedPiece.palette.map((swatch, idx) => {
+                        const isCurrentActive = (activePaletteIndex[selectedPiece.id] ?? 0) === idx;
+                        return (
+                          <button
+                            key={swatch.name}
+                            type="button"
+                            onClick={() =>
+                              setActivePaletteIndex((prev) => ({ ...prev, [selectedPiece.id]: idx }))
+                            }
+                            className={`w-7 h-7 rounded-full border transition-all ${
+                              isCurrentActive
+                                ? 'scale-125 border-white ring-2 ring-[#C5A880]'
+                                : 'border-white/30 hover:scale-110'
+                            }`}
+                            style={{ backgroundColor: swatch.hex }}
+                            title={swatch.name}
+                          />
+                        );
+                      })}
+                    </div>
                   </div>
 
                   <div className="space-y-3 pt-3 border-t border-white/10 text-xs">
@@ -440,7 +542,7 @@ export const FlooringPage: React.FC = () => {
                 <div className="space-y-3 pt-4 border-t border-white/10">
                   <a
                     href={`https://wa.me/919841134665?text=${encodeURIComponent(
-                      `Hello A-Decor, I would like to schedule a site consultation for ${selectedPiece.title} (${selectedPiece.tag}).`,
+                      `Hello A-Decor, I would like to schedule a site consultation for ${selectedPiece.title} (${selectedPiece.tag}) in ${activeColorForPiece(selectedPiece).name} tone.`,
                     )}`}
                     target="_blank"
                     rel="noopener noreferrer"
