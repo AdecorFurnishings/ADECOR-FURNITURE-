@@ -20,22 +20,22 @@ const ROUTE_SEO: Record<string, SeoMeta> = {
       'Discover A-Decor’s 20+ year Chennai heritage in custom tailoring, acoustic wall panels, architectural drapery, and bespoke soft furnishings across Tamil Nadu.',
   },
   '/services': {
-    title: 'Services | Curtains, Roman Blinds, Sofa & Re-Upholstery Work & Wall Panels | A-Decor Chennai',
+    title: 'Services | Curtains, Roman Blinds, Sofa Reupholstery Work & Wall Panels | A-Decor Chennai',
     description:
       'Explore A-Decor’s complete suite: custom stitched curtains, motorized Roman blinds, sofa refurbishing & re-upholstery, upholstered headboards, wall panels, wallpaper & flooring.',
   },
   '/sofa-upholstery-rework': {
-    title: 'Sofa & Re-Upholstery Work | Custom Furniture Atelier | A-Decor Chennai',
+    title: 'Sofa Reupholstery Work | Custom Furniture Atelier | A-Decor Chennai',
     description:
       'Sofa restoration, 45+ HR foam replacement, frame rebuilding, custom fluted velvet sofas, daybed benches, and sofa beds in Anna Nagar, Chennai.',
   },
   '/sofa-rework': {
-    title: 'Sofa & Re-Upholstery Work | Custom Furniture Atelier | A-Decor Chennai',
+    title: 'Sofa Reupholstery Work | Custom Furniture Atelier | A-Decor Chennai',
     description:
       'Sofa restoration, 45+ HR foam replacement, frame rebuilding, custom fluted velvet sofas, daybed benches, and sofa beds in Anna Nagar, Chennai.',
   },
   '/upholstery-rework': {
-    title: 'Sofa & Re-Upholstery Work | Custom Furniture Atelier | A-Decor Chennai',
+    title: 'Sofa Reupholstery Work | Custom Furniture Atelier | A-Decor Chennai',
     description:
       'Sofa restoration, 45+ HR foam replacement, frame rebuilding, custom fluted velvet sofas, daybed benches, and sofa beds in Anna Nagar, Chennai.',
   },

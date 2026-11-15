@@ -216,7 +216,7 @@ const ServiceShowcaseRow: React.FC<ServiceCardProps> = ({ service, index, isDark
                 isDarkTheme ? 'text-[#DEC8AA] hover:text-white' : 'text-[#1E1D1B] hover:text-[#C5A880]'
               }`}
             >
-              Explore Sofa &amp; Re-Upholstery Gallery →
+              Explore Sofa Reupholstery Gallery →
             </Link>
           )}
         </div>

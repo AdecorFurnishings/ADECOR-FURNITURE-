@@ -42,7 +42,7 @@ export const Navbar: React.FC = () => {
     { label: 'Home', href: '/' },
     { label: 'About Us', href: '/about' },
     { label: 'Services', href: '/services' },
-    { label: 'Sofa & Re-Upholstery Work', href: '/sofa-upholstery-rework' },
+    { label: 'Sofa Reupholstery Work', href: '/sofa-upholstery-rework' },
     { label: 'Curtain Styles & Rods', href: '/curtain-styles' },
     { label: 'Roman Blinds', href: '/roman-blinds' },
     { label: 'Wall Paper, Wall Panel & Headboards', href: '/wall-panels-wallpaper' },

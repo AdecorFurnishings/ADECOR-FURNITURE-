@@ -67,7 +67,7 @@ export const HomePage: React.FC = () => {
       {/* 10. Call to Action Banner */}
       <section className="py-20 bg-[#100F0E] text-[#FAF8F5] relative overflow-hidden">
         <div className="max-w-4xl mx-auto px-6 relative z-10">
-          <AtelierFrameBox bottomLabel="A DECOR FURNISHINGS • ANNA NAGAR" variant="dark">
+          <AtelierFrameBox bottomLabel="A DECOR FURNISHINGS • ANNA NAGAR" variant="dark" showKeystone={false}>
             <div className="text-center space-y-5">
               <div className="flex justify-center">
                 <ADecorLogo variant="obsidian" className="h-12 sm:h-14 w-auto" />

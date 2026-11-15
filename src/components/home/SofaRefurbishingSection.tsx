@@ -652,7 +652,7 @@ export const UpholsteryReworkSection: React.FC = () => {
               to="/sofa-upholstery-rework"
               className="px-7 py-3.5 rounded-full bg-[#C5A880] hover:bg-white text-[#100F0E] font-syne font-bold text-xs tracking-luxury uppercase flex items-center gap-2 transition-all shadow-glow-gold hover:scale-105"
             >
-              <span>Explore All Sofa &amp; Rework Projects</span>
+              <span>Explore All Sofa Reupholstery Projects</span>
               <ArrowRight className="w-4 h-4" />
             </Link>
 

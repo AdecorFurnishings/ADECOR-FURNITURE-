@@ -505,7 +505,7 @@ export const ContactPage: React.FC = () => {
 
         {/* 9 Clients Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {SITE_CONTENT.clients.map((client, idx) => (
+          {SITE_CONTENT.clients.map((client) => (
             <div
               key={client.id}
               className="p-8 rounded-3xl bg-white border border-[#D3D0C9] shadow-soft-luxury hover:shadow-elevated hover:border-[#C5A880] transition-all duration-300 flex flex-col justify-between group"
@@ -539,7 +539,6 @@ export const ContactPage: React.FC = () => {
                   <CheckCircle2 className="w-3.5 h-3.5 text-[#C5A880]" />
                   <span>Contract Verified</span>
                 </span>
-                <span className="font-mono text-[#8A8782]">Ref: AD-0{idx + 1}</span>
               </div>
             </div>
           ))}

@@ -43,7 +43,7 @@ export const Footer: React.FC = () => {
               <li><Link to="/" className="hover:text-white transition-colors">Home</Link></li>
               <li><Link to="/about" className="hover:text-white transition-colors">About Us</Link></li>
               <li><Link to="/services" className="hover:text-white transition-colors">Our Services</Link></li>
-              <li><Link to="/sofa-upholstery-rework" className="hover:text-white transition-colors">Sofa &amp; Re-Upholstery Work</Link></li>
+              <li><Link to="/sofa-upholstery-rework" className="hover:text-white transition-colors">Sofa Reupholstery Work</Link></li>
               <li><Link to="/curtain-styles" className="hover:text-white transition-colors">Curtain Styles &amp; Rods</Link></li>
               <li><Link to="/roman-blinds" className="hover:text-white transition-colors">Roman Blind Styles</Link></li>
               <li><Link to="/wall-panels-wallpaper" className="hover:text-white transition-colors">Wall Paper, Wall Panel &amp; Headboards</Link></li>

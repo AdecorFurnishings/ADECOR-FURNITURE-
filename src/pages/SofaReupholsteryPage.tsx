@@ -317,7 +317,7 @@ export const SofaReupholsteryPage: React.FC = () => {
         </div>
 
         <h1 className="font-syne text-4xl sm:text-6xl lg:text-7xl font-bold uppercase tracking-tight leading-[1.05]">
-          Sofa &amp; Re-Upholstery Work
+          Sofa Reupholstery Work
         </h1>
 
         <p className="mt-4 max-w-2xl mx-auto text-base sm:text-lg text-[#5E5C57] font-light leading-relaxed">

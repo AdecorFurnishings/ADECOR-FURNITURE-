@@ -29,7 +29,7 @@ const CORE_DISCIPLINES: CoreDiscipline[] = [
   {
     id: 'curtains',
     indexLabel: '01',
-    name: 'Curtains',
+    name: 'Curtain Styles & Rods',
     image: '/images/core/curtains.jpg',
     link: '/curtain-styles',
     ambientHex: '#9E825E',
@@ -49,37 +49,48 @@ const CORE_DISCIPLINES: CoreDiscipline[] = [
     parallaxDirection: 1,
   },
   {
-    id: 'wallpaper',
+    id: 'wall-panels-wallpaper',
     indexLabel: '03',
-    name: 'Wallpaper',
-    image: '/images/core/wallpaper.jpg',
+    name: 'Wall Paper, Wall Panel & Headboards',
+    image: '/images/core/wall_panel.jpg',
     link: '/wall-panels-wallpaper',
     ambientHex: '#8B755E',
-    colSpanClass: 'lg:col-span-4',
-    aspectClass: 'aspect-[5/4]',
+    colSpanClass: 'lg:col-span-6',
+    aspectClass: 'aspect-[4/3] lg:aspect-[16/10]',
     parallaxDirection: -1,
   },
   {
-    id: 'wall-panels',
+    id: 'sofa-reupholstery',
     indexLabel: '04',
-    name: 'Wall Panel',
-    image: '/images/core/wall_panel.jpg',
-    link: '/wall-panels-wallpaper',
-    ambientHex: '#635B52',
-    colSpanClass: 'lg:col-span-4',
-    aspectClass: 'aspect-[5/4]',
+    name: 'Sofa Reupholstery Work',
+    image: '/images/rework/rework_chaise_velvet_after.jpg',
+    link: '/sofa-upholstery-rework',
+    ambientHex: '#4A6B62',
+    colSpanClass: 'lg:col-span-6',
+    aspectClass: 'aspect-[4/3] lg:aspect-[16/10]',
     parallaxDirection: 1,
   },
   {
-    id: 'flooring',
+    id: 'mattress',
     indexLabel: '05',
+    name: 'Mattress',
+    image: '/images/mattress/tiara_channel_hero.jpg',
+    link: '/mattress',
+    ambientHex: '#8B7355',
+    colSpanClass: 'lg:col-span-6',
+    aspectClass: 'aspect-[4/3] lg:aspect-[16/10]',
+    parallaxDirection: -1,
+  },
+  {
+    id: 'flooring',
+    indexLabel: '06',
     name: 'Flooring',
     image: '/images/core/flooring.jpg',
     link: '/flooring',
     ambientHex: '#A87B49',
-    colSpanClass: 'lg:col-span-4',
-    aspectClass: 'aspect-[5/4]',
-    parallaxDirection: -1,
+    colSpanClass: 'lg:col-span-6',
+    aspectClass: 'aspect-[4/3] lg:aspect-[16/10]',
+    parallaxDirection: 1,
   },
 ];
 
@@ -348,7 +359,7 @@ export const CoreFurnishingsExperience: React.FC = () => {
           })}
         </div>
 
-        {/* Asymmetric 5-Bay Full-Bleed Architectural Exhibition */}
+        {/* Architectural Exhibition Bays */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-7 lg:gap-8 items-stretch">
           {CORE_DISCIPLINES.map((item) => (
             <SpatialDisciplinePlate
