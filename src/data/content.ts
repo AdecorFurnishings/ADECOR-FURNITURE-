@@ -110,8 +110,8 @@ export const SITE_CONTENT = {
       twitter: "https://twitter.com/adecorchennai",
       snapchat: "https://snapchat.com/add/adecorchennai"
     },
-    businessCardUrl: "https://qrfy.io/p/9GbfR3kpcV?utm_source=qrcode&utm_medium=images&utm_campaign=60422004",
-    qrCodeImage: "/images/contact/qr_code.png?v=8"
+    businessCardUrl: "https://qrfy.io/p/z4HauTXZRA?utm_source=qrcode&utm_medium=images&utm_campaign=60428530",
+    qrCodeImage: "/images/contact/qr_code.png?v=9"
   },
 
   about: {
