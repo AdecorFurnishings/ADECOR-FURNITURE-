@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useCallback } from 'react';
+import React, { useState, useMemo } from 'react';
 import { createPortal } from 'react-dom';
 import { Link } from 'react-router-dom';
 import {
@@ -17,24 +17,6 @@ import {
 } from 'lucide-react';
 
 type ReworkCategory = 'all' | 'rework' | 'sofas' | 'chairs' | 'sofabeds';
-
-/**
- * Computes calibrated blend opacities based on swatch luminance so colors
- * tint sofa upholstery fabrics rich & realistic while keeping seams & texture sharp.
- */
-function getSwatchBlend(hex: string, isOriginal: boolean) {
-  if (isOriginal) {
-    return { colorOpacity: 0, multiplyOpacity: 0 };
-  }
-  const cleanHex = hex.replace('#', '');
-  const r = parseInt(cleanHex.substring(0, 2), 16) || 0;
-  const g = parseInt(cleanHex.substring(2, 4), 16) || 0;
-  const b = parseInt(cleanHex.substring(4, 6), 16) || 0;
-  const lum = (0.299 * r + 0.587 * g + 0.114 * b) / 255;
-  const colorOpacity = Math.max(0.78, Math.min(0.95, 0.98 - lum * 0.15));
-  const multiplyOpacity = Math.max(0.18, Math.min(0.68, 0.76 - lum * 0.65));
-  return { colorOpacity, multiplyOpacity };
-}
 
 export interface SofaProject {
   id: string;
@@ -295,7 +277,6 @@ const SOFA_COLLECTIONS: SofaProject[] = [
 export const SofaReupholsteryPage: React.FC = () => {
   const [activeCategory, setActiveCategory] = useState<ReworkCategory>('all');
   const [selectedPiece, setSelectedPiece] = useState<SofaProject | null>(null);
-  const [activePaletteIndex, setActivePaletteIndex] = useState<{ [key: string]: number }>({});
   const [showBeforeAfterMode, setShowBeforeAfterMode] = useState<{ [key: string]: 'before' | 'after' }>({});
 
   const filteredPieces = useMemo(() => {
@@ -307,14 +288,6 @@ export const SofaReupholsteryPage: React.FC = () => {
   const countSofas = useMemo(() => SOFA_COLLECTIONS.filter((p) => p.category === 'sofas').length, []);
   const countChairs = useMemo(() => SOFA_COLLECTIONS.filter((p) => p.category === 'chairs').length, []);
   const countSofaBeds = useMemo(() => SOFA_COLLECTIONS.filter((p) => p.category === 'sofabeds').length, []);
-
-  const activeColorForPiece = useCallback(
-    (piece: SofaProject) => {
-      const idx = activePaletteIndex[piece.id] ?? 0;
-      return piece.palette[idx] || piece.palette[0];
-    },
-    [activePaletteIndex],
-  );
 
   const toggleBeforeAfter = (id: string) => {
     setShowBeforeAfterMode((prev) => ({
@@ -390,9 +363,6 @@ export const SofaReupholsteryPage: React.FC = () => {
       <div className="max-w-7xl mx-auto px-6">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 items-stretch">
           {filteredPieces.map((piece) => {
-            const currentColor = activeColorForPiece(piece);
-            const activePaletteIdx = activePaletteIndex[piece.id] ?? 0;
-            const blend = getSwatchBlend(currentColor.hex, activePaletteIdx === 0);
             const isRework = piece.category === 'rework' && piece.beforeImage && piece.afterImage;
             const currentMode = showBeforeAfterMode[piece.id] || 'after';
             const displayImage = isRework
@@ -417,42 +387,12 @@ export const SofaReupholsteryPage: React.FC = () => {
                       className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                     />
 
-                    {/* Dynamic Fabric Tone Transformation Layer (Active on upholstered/after view) */}
-                    {currentMode !== 'before' && activePaletteIdx > 0 && (
-                      <>
-                        <div
-                          className="absolute inset-0 pointer-events-none mix-blend-color transition-all duration-500 ease-out"
-                          style={{
-                            backgroundColor: currentColor.hex,
-                            opacity: blend.colorOpacity,
-                          }}
-                        />
-                        {blend.multiplyOpacity > 0 && (
-                          <div
-                            className="absolute inset-0 pointer-events-none mix-blend-multiply transition-all duration-500 ease-out"
-                            style={{
-                              backgroundColor: currentColor.hex,
-                              opacity: blend.multiplyOpacity,
-                            }}
-                          />
-                        )}
-                      </>
-                    )}
-
                     <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/15 to-transparent pointer-events-none" />
 
                     {/* Tag Badge */}
                     <div className="absolute top-3.5 left-3.5 inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/90 backdrop-blur-md border border-white/20 text-[10px] font-syne font-bold uppercase tracking-wider text-[#1E1D1B]">
                       <span>{piece.tag}</span>
                     </div>
-
-                    {/* Active Tone Indicator Badge */}
-                    {currentMode !== 'before' && activePaletteIdx > 0 && (
-                      <div className="absolute top-12 left-3.5 inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-black/80 backdrop-blur-md border border-white/20 text-[10px] font-syne font-medium uppercase tracking-wider text-white shadow-md animate-fade-in">
-                        <span className="w-2 h-2 rounded-full" style={{ backgroundColor: currentColor.hex }} />
-                        <span>Fabric: {currentColor.name}</span>
-                      </div>
-                    )}
 
                     {/* Interactive Before/After Toggle if Rework project */}
                     {isRework && (
@@ -512,34 +452,6 @@ export const SofaReupholsteryPage: React.FC = () => {
                         <span className="font-medium text-[#1E1D1B] truncate block">{piece.foamSpec}</span>
                       </div>
                     </div>
-
-                    {/* Color Swatches */}
-                    <div className="pt-1">
-                      <span className="text-[10px] uppercase tracking-wider text-[#8A8782] block mb-1.5">
-                        Fabric Tone: <strong className="text-[#1E1D1B]">{currentColor.name}</strong>
-                      </span>
-                      <div className="flex items-center gap-2">
-                        {piece.palette.map((swatch, idx) => {
-                          const isActive = (activePaletteIndex[piece.id] ?? 0) === idx;
-                          return (
-                            <button
-                              key={swatch.name}
-                              type="button"
-                              onClick={() =>
-                                setActivePaletteIndex((prev) => ({ ...prev, [piece.id]: idx }))
-                              }
-                              className={`w-6 h-6 rounded-full border transition-all ${
-                                isActive
-                                  ? 'scale-125 border-[#1E1D1B] ring-2 ring-[#C5A880]'
-                                  : 'border-black/20 hover:scale-110'
-                              }`}
-                              style={{ backgroundColor: swatch.hex }}
-                              title={swatch.name}
-                            />
-                          );
-                        })}
-                      </div>
-                    </div>
                   </div>
                 </div>
 
@@ -555,7 +467,7 @@ export const SofaReupholsteryPage: React.FC = () => {
 
                   <a
                     href={`https://wa.me/919841134665?text=${encodeURIComponent(
-                      `Hello A-Decor, I would like to inquire about ${piece.title} (${piece.tag}) in ${currentColor.name} fabric tone. Could you share fabric options and quotation?`,
+                      `Hello A-Decor, I would like to inquire about ${piece.title} (${piece.tag}). Could you share fabric options and quotation?`,
                     )}`}
                     target="_blank"
                     rel="noopener noreferrer"
@@ -623,35 +535,11 @@ export const SofaReupholsteryPage: React.FC = () => {
 
               {/* Modal Image Section */}
               <div className="lg:w-3/5 bg-black/40 flex items-center justify-center p-4 sm:p-6 min-h-[300px] lg:min-h-[500px]">
-                <div className="relative max-h-[75vh] w-auto max-w-full overflow-hidden rounded-xl shadow-2xl flex items-center justify-center">
-                  <img
-                    src={selectedPiece.compositeImage || selectedPiece.image}
-                    alt={selectedPiece.title}
-                    className="max-h-[75vh] w-auto max-w-full object-contain rounded-xl"
-                  />
-
-                  {/* Dynamic Fabric Tone Transformation in Modal */}
-                  {(activePaletteIndex[selectedPiece.id] ?? 0) > 0 && (
-                    <>
-                      <div
-                        className="absolute inset-0 pointer-events-none mix-blend-color transition-all duration-500 ease-out"
-                        style={{
-                          backgroundColor: activeColorForPiece(selectedPiece).hex,
-                          opacity: getSwatchBlend(activeColorForPiece(selectedPiece).hex, false).colorOpacity,
-                        }}
-                      />
-                      {getSwatchBlend(activeColorForPiece(selectedPiece).hex, false).multiplyOpacity > 0 && (
-                        <div
-                          className="absolute inset-0 pointer-events-none mix-blend-multiply transition-all duration-500 ease-out"
-                          style={{
-                            backgroundColor: activeColorForPiece(selectedPiece).hex,
-                            opacity: getSwatchBlend(activeColorForPiece(selectedPiece).hex, false).multiplyOpacity,
-                          }}
-                        />
-                      )}
-                    </>
-                  )}
-                </div>
+                <img
+                  src={selectedPiece.compositeImage || selectedPiece.image}
+                  alt={selectedPiece.title}
+                  className="max-h-[75vh] w-auto max-w-full object-contain rounded-xl shadow-2xl"
+                />
               </div>
 
               {/* Modal Specs Section */}
@@ -667,34 +555,6 @@ export const SofaReupholsteryPage: React.FC = () => {
                     <p className="text-xs text-[#D3D0C9] mt-1 font-light leading-relaxed">
                       {selectedPiece.subtitle}
                     </p>
-                  </div>
-
-                  {/* Interactive Modal Fabric Swatch Selector */}
-                  <div className="p-3 rounded-2xl bg-white/5 border border-white/10">
-                    <span className="text-[10px] uppercase tracking-wider text-[#C5A880] block mb-2 font-syne font-bold">
-                      Fabric Tone: <span className="text-white font-normal">{activeColorForPiece(selectedPiece).name}</span>
-                    </span>
-                    <div className="flex items-center gap-2.5">
-                      {selectedPiece.palette.map((swatch, idx) => {
-                        const isCurrentActive = (activePaletteIndex[selectedPiece.id] ?? 0) === idx;
-                        return (
-                          <button
-                            key={swatch.name}
-                            type="button"
-                            onClick={() =>
-                              setActivePaletteIndex((prev) => ({ ...prev, [selectedPiece.id]: idx }))
-                            }
-                            className={`w-7 h-7 rounded-full border transition-all ${
-                              isCurrentActive
-                                ? 'scale-125 border-white ring-2 ring-[#C5A880]'
-                                : 'border-white/30 hover:scale-110'
-                            }`}
-                            style={{ backgroundColor: swatch.hex }}
-                            title={swatch.name}
-                          />
-                        );
-                      })}
-                    </div>
                   </div>
 
                   <div className="space-y-3 pt-3 border-t border-white/10 text-xs">
@@ -732,7 +592,7 @@ export const SofaReupholsteryPage: React.FC = () => {
                 <div className="space-y-3 pt-4 border-t border-white/10">
                   <a
                     href={`https://wa.me/919841134665?text=${encodeURIComponent(
-                      `Hello A-Decor, I would like to order or get a quote for ${selectedPiece.title} (${selectedPiece.tag}) in ${activeColorForPiece(selectedPiece).name} fabric tone.`,
+                      `Hello A-Decor, I would like to order or get a quote for ${selectedPiece.title} (${selectedPiece.tag}).`,
                     )}`}
                     target="_blank"
                     rel="noopener noreferrer"

@@ -16,47 +16,12 @@ interface BlindCardProps {
   onPreview: (style: RomanBlindStyle) => void;
 }
 
-export interface BlindFabricTone {
-  name: string;
-  hex: string;
-}
-
-const DEFAULT_BLIND_TONES: BlindFabricTone[] = [
-  { name: 'Architectural Natural', hex: '#D8CCA8' },
-  { name: 'Warm Camel Linen', hex: '#C5A880' },
-  { name: 'Slate Charcoal Blackout', hex: '#3B484F' },
-  { name: 'Olive Sage Weave', hex: '#758770' },
-  { name: 'Terracotta Rust Damask', hex: '#A25942' },
-];
-
-/**
- * Computes calibrated blend opacities based on swatch luminance so colors
- * tint roman blinds and shade fabric textures rich & realistic while keeping folds sharp.
- */
-function getSwatchBlend(hex: string, isOriginal: boolean) {
-  if (isOriginal) {
-    return { colorOpacity: 0, multiplyOpacity: 0 };
-  }
-  const cleanHex = hex.replace('#', '');
-  const r = parseInt(cleanHex.substring(0, 2), 16) || 0;
-  const g = parseInt(cleanHex.substring(2, 4), 16) || 0;
-  const b = parseInt(cleanHex.substring(4, 6), 16) || 0;
-  const lum = (0.299 * r + 0.587 * g + 0.114 * b) / 255;
-  const colorOpacity = Math.max(0.78, Math.min(0.95, 0.98 - lum * 0.15));
-  const multiplyOpacity = Math.max(0.18, Math.min(0.68, 0.76 - lum * 0.65));
-  return { colorOpacity, multiplyOpacity };
-}
-
-/** GPU-composited architectural blind card — silky 60fps scroll with hover solar glint & live fabric tone switching */
+/** GPU-composited architectural blind card — silky 60fps scroll with hover solar glint */
 const BlindArchitectureCard: React.FC<BlindCardProps> = ({
   styleItem,
   aspectClass,
   onPreview,
 }) => {
-  const [activePaletteIdx, setActivePaletteIdx] = useState<number>(0);
-  const currentTone = DEFAULT_BLIND_TONES[activePaletteIdx] || DEFAULT_BLIND_TONES[0];
-  const blend = getSwatchBlend(currentTone.hex, activePaletteIdx === 0);
-
   const handlePointerMove = (e: React.PointerEvent<HTMLDivElement>) => {
     const rect = e.currentTarget.getBoundingClientRect();
     const x = ((e.clientX - rect.left) / Math.max(1, rect.width)) * 100;
@@ -82,36 +47,6 @@ const BlindArchitectureCard: React.FC<BlindCardProps> = ({
             className="w-full h-full object-cover object-top transition-transform duration-500 ease-out group-hover:scale-[1.03]"
           />
 
-          {/* Dynamic Blind Fabric Tone Transformation Layer */}
-          {activePaletteIdx > 0 && (
-            <>
-              <div
-                className="absolute inset-0 pointer-events-none mix-blend-color transition-all duration-500 ease-out"
-                style={{
-                  backgroundColor: currentTone.hex,
-                  opacity: blend.colorOpacity,
-                }}
-              />
-              {blend.multiplyOpacity > 0 && (
-                <div
-                  className="absolute inset-0 pointer-events-none mix-blend-multiply transition-all duration-500 ease-out"
-                  style={{
-                    backgroundColor: currentTone.hex,
-                    opacity: blend.multiplyOpacity,
-                  }}
-                />
-              )}
-            </>
-          )}
-
-          {/* Active Tone Indicator Badge */}
-          {activePaletteIdx > 0 && (
-            <div className="absolute top-3 left-3 inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-black/80 backdrop-blur-md border border-white/20 text-[10px] font-syne font-medium uppercase tracking-wider text-white shadow-md animate-fade-in z-10">
-              <span className="w-2 h-2 rounded-full" style={{ backgroundColor: currentTone.hex }} />
-              <span>Tone: {currentTone.name}</span>
-            </div>
-          )}
-
           {/* Directional Warm Sunbeam Glint on Hover */}
           <div
             aria-hidden="true"
@@ -136,15 +71,15 @@ const BlindArchitectureCard: React.FC<BlindCardProps> = ({
           <button
             type="button"
             onClick={() => onPreview(styleItem)}
-            className="absolute bottom-3 right-3 px-3 py-1.5 rounded-full bg-[#1E1D1B]/85 hover:bg-[#C5A880] text-[#FAF8F5] hover:text-[#1E1D1B] text-[10px] font-semibold uppercase tracking-wider flex items-center gap-1.5 opacity-0 translate-y-1 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300 shadow-md z-10"
+            className="absolute bottom-3 right-3 px-3 py-1.5 rounded-full bg-[#1E1D1B]/85 hover:bg-[#C5A880] text-[#FAF8F5] hover:text-[#1E1D1B] text-[10px] font-semibold uppercase tracking-wider flex items-center gap-1.5 opacity-0 translate-y-1 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300 shadow-md"
           >
             <Eye className="w-3 h-3" />
             <span>Preview Fold</span>
           </button>
         </div>
 
-        {/* Clean Title & Concise Copy */}
-        <div className="p-5 sm:p-6 space-y-3">
+        {/* Clean Title & Concise Copy Only (No Ideal Placement / Finish & Texture) */}
+        <div className="p-5 sm:p-6 space-y-2">
           <div className="flex items-start justify-between gap-2">
             <h3 className="font-editorial text-2xl text-[#1E1D1B] group-hover:text-[#C5A880] transition-colors leading-tight">
               {styleItem.name}
@@ -155,40 +90,13 @@ const BlindArchitectureCard: React.FC<BlindCardProps> = ({
           <p className="text-xs text-[#5E5C57] leading-relaxed">
             {styleItem.description}
           </p>
-
-          {/* Interactive Fabric Tone Palette */}
-          <div className="pt-2 border-t border-[#EAE7E1]">
-            <span className="text-[10px] uppercase tracking-wider text-[#8A8782] block mb-1.5">
-              Fabric Tone: <strong className="text-[#1E1D1B]">{currentTone.name}</strong>
-            </span>
-            <div className="flex items-center gap-2">
-              {DEFAULT_BLIND_TONES.map((swatch, idx) => {
-                const isActive = activePaletteIdx === idx;
-                return (
-                  <button
-                    key={swatch.name}
-                    type="button"
-                    onClick={() => setActivePaletteIdx(idx)}
-                    className={`w-6 h-6 rounded-full border transition-all ${
-                      isActive
-                        ? 'scale-125 border-[#1E1D1B] ring-2 ring-[#C5A880]'
-                        : 'border-black/20 hover:scale-110'
-                    }`}
-                    style={{ backgroundColor: swatch.hex }}
-                    title={swatch.name}
-                    aria-label={`Select ${swatch.name} fabric tone`}
-                  />
-                );
-              })}
-            </div>
-          </div>
         </div>
       </div>
 
       {/* Direct Enquiry Action */}
       <div className="p-5 sm:p-6 pt-0">
         <Link
-          to={`/contact?blind=${encodeURIComponent(styleItem.name)}&tone=${encodeURIComponent(currentTone.name)}`}
+          to={`/contact?blind=${encodeURIComponent(styleItem.name)}`}
           className="w-full py-2.5 px-4 rounded-xl bg-[#FAF8F5] group-hover:bg-[#1E1D1B] border border-[#D3D0C9] group-hover:border-[#1E1D1B] text-[#1E1D1B] group-hover:text-white text-xs font-semibold tracking-wider uppercase flex items-center justify-center gap-2 transition-colors duration-300"
         >
           <span>Enquire for {styleItem.name}</span>

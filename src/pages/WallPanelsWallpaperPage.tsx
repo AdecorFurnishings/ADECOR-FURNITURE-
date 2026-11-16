@@ -18,24 +18,6 @@ import { SITE_CONTENT } from '../data/content';
 
 type FilterCategory = 'all' | 'panel' | 'wallpaper' | 'headboard';
 
-/**
- * Computes calibrated blend opacities based on swatch luminance so colors
- * tint headboards and upholstered wall panels rich & realistic while keeping textures pure.
- */
-function getSwatchBlend(hex: string, isOriginal: boolean) {
-  if (isOriginal) {
-    return { colorOpacity: 0, multiplyOpacity: 0 };
-  }
-  const cleanHex = hex.replace('#', '');
-  const r = parseInt(cleanHex.substring(0, 2), 16) || 0;
-  const g = parseInt(cleanHex.substring(2, 4), 16) || 0;
-  const b = parseInt(cleanHex.substring(4, 6), 16) || 0;
-  const lum = (0.299 * r + 0.587 * g + 0.114 * b) / 255;
-  const colorOpacity = Math.max(0.78, Math.min(0.95, 0.98 - lum * 0.15));
-  const multiplyOpacity = Math.max(0.18, Math.min(0.68, 0.76 - lum * 0.65));
-  return { colorOpacity, multiplyOpacity };
-}
-
 interface WallArtPiece {
   id: string;
   order: number;
@@ -502,7 +484,6 @@ const WALL_COLLECTIONS: WallArtPiece[] = [
 export const WallPanelsWallpaperPage: React.FC = () => {
   const [activeCategory, setActiveCategory] = useState<FilterCategory>('all');
   const [selectedPiece, setSelectedPiece] = useState<WallArtPiece | null>(null);
-  const [activePaletteIndex, setActivePaletteIndex] = useState<{ [key: string]: number }>({});
   const [copiedHex, setCopiedHex] = useState<string | null>(null);
 
   React.useEffect(() => {
@@ -631,10 +612,6 @@ export const WallPanelsWallpaperPage: React.FC = () => {
             <ArtPieceCard
               key={piece.id}
               piece={piece}
-              activePaletteIdx={activePaletteIndex[piece.id] ?? 0}
-              onSelectPalette={(idx) =>
-                setActivePaletteIndex((prev) => ({ ...prev, [piece.id]: idx }))
-              }
               onInspect={() => setSelectedPiece(piece)}
             />
           ))}
@@ -693,10 +670,6 @@ export const WallPanelsWallpaperPage: React.FC = () => {
       {selectedPiece && (
         <InspectorModal
           piece={selectedPiece}
-          activePaletteIdx={activePaletteIndex[selectedPiece.id] ?? 0}
-          onSelectPalette={(idx) =>
-            setActivePaletteIndex((prev) => ({ ...prev, [selectedPiece.id]: idx }))
-          }
           copiedHex={copiedHex}
           onCopyHex={handleCopyHex}
           onClose={() => setSelectedPiece(null)}
@@ -711,25 +684,12 @@ export const WallPanelsWallpaperPage: React.FC = () => {
 // =========================================================================
 interface ArtPieceCardProps {
   piece: WallArtPiece;
-  activePaletteIdx: number;
-  onSelectPalette: (idx: number) => void;
   onInspect: () => void;
 }
 
-const ArtPieceCard: React.FC<ArtPieceCardProps> = ({
-  piece,
-  activePaletteIdx,
-  onSelectPalette,
-  onInspect,
-}) => {
+const ArtPieceCard: React.FC<ArtPieceCardProps> = ({ piece, onInspect }) => {
   const cardRef = useRef<HTMLDivElement>(null);
   const [sheenPos, setSheenPos] = useState<{ x: number; y: number; opacity: number }>({ x: 50, y: 50, opacity: 0 });
-
-  const isColorChangeable = piece.category === 'headboard' || piece.category === 'panel';
-  const currentColor = isColorChangeable && piece.palette[activePaletteIdx]
-    ? piece.palette[activePaletteIdx]
-    : piece.palette[0];
-  const blend = getSwatchBlend(currentColor.hex, !isColorChangeable || activePaletteIdx === 0);
 
   const handleMouseMove = useCallback((e: React.MouseEvent<HTMLDivElement>) => {
     if (!cardRef.current) return;
@@ -769,30 +729,8 @@ const ArtPieceCard: React.FC<ArtPieceCardProps> = ({
           className="w-full h-full object-cover transition-all duration-700 ease-out group-hover:scale-105"
         />
 
-        {/* Dynamic Tone Transformation Layer (Headboard & Wall Panel ONLY, never wallpaper) */}
-        {isColorChangeable && activePaletteIdx > 0 && (
-          <>
-            <div
-              className="absolute inset-0 pointer-events-none mix-blend-color transition-all duration-500 ease-out z-10"
-              style={{
-                backgroundColor: currentColor.hex,
-                opacity: blend.colorOpacity,
-              }}
-            />
-            {blend.multiplyOpacity > 0 && (
-              <div
-                className="absolute inset-0 pointer-events-none mix-blend-multiply transition-all duration-500 ease-out z-10"
-                style={{
-                  backgroundColor: currentColor.hex,
-                  opacity: blend.multiplyOpacity,
-                }}
-              />
-            )}
-          </>
-        )}
-
         {/* Ambient Tone Bottom Vignette */}
-        <div className="absolute inset-0 bg-gradient-to-t from-[#161514] via-[#161514]/20 to-transparent pointer-events-none" />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#161514] via-[#161514]/20 to-transparent" />
 
         {/* Top Floating Badges */}
         <div className="absolute top-3.5 inset-x-3.5 flex items-center justify-between z-10 pointer-events-none">
@@ -804,14 +742,6 @@ const ArtPieceCard: React.FC<ArtPieceCardProps> = ({
             {piece.tag}
           </span>
         </div>
-
-        {/* Active Tone Indicator Badge */}
-        {isColorChangeable && activePaletteIdx > 0 && (
-          <div className="absolute top-12 left-3.5 inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-black/85 backdrop-blur-md border border-white/20 text-[10px] font-mono tracking-wider uppercase text-white shadow-md z-20 animate-fade-in pointer-events-none">
-            <span className="w-2 h-2 rounded-full" style={{ backgroundColor: currentColor.hex }} />
-            <span>Tone: {currentColor.name}</span>
-          </div>
-        )}
 
         {/* Hover Center Inspect Pill */}
         <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10 pointer-events-none">
@@ -837,41 +767,6 @@ const ArtPieceCard: React.FC<ArtPieceCardProps> = ({
           </h3>
 
           <p className="text-xs text-[#D3D0C9] mt-1 font-light line-clamp-1">{piece.subtitle}</p>
-
-          {/* Interactive Fabric Tone Swatches (Headboard & Panel Only) */}
-          {isColorChangeable && (
-            <div
-              className="mt-3 pt-3 border-t border-white/10"
-              onClick={(e) => e.stopPropagation()}
-            >
-              <span className="text-[10px] uppercase font-mono tracking-wider text-[#8A8782] block mb-1.5">
-                Fabric Tone: <strong className="text-white">{currentColor.name}</strong>
-              </span>
-              <div className="flex items-center gap-2">
-                {piece.palette.map((swatch, idx) => {
-                  const isActive = activePaletteIdx === idx;
-                  return (
-                    <button
-                      key={swatch.hex}
-                      type="button"
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        onSelectPalette(idx);
-                      }}
-                      className={`w-6 h-6 rounded-full border transition-all ${
-                        isActive
-                          ? 'scale-125 border-white ring-2 ring-[#C5A880]'
-                          : 'border-white/20 hover:scale-110'
-                      }`}
-                      style={{ backgroundColor: swatch.hex }}
-                      title={swatch.name}
-                      aria-label={`Select ${swatch.name} tone`}
-                    />
-                  );
-                })}
-              </div>
-            </div>
-          )}
         </div>
 
         {/* Crisp Specs Bar */}
@@ -892,8 +787,6 @@ const ArtPieceCard: React.FC<ArtPieceCardProps> = ({
 // =========================================================================
 interface InspectorModalProps {
   piece: WallArtPiece;
-  activePaletteIdx: number;
-  onSelectPalette: (idx: number) => void;
   copiedHex: string | null;
   onCopyHex: (hex: string) => void;
   onClose: () => void;
@@ -901,20 +794,12 @@ interface InspectorModalProps {
 
 const InspectorModal: React.FC<InspectorModalProps> = ({
   piece,
-  activePaletteIdx,
-  onSelectPalette,
   copiedHex,
   onCopyHex,
   onClose,
 }) => {
   const [zoomLevel, setZoomLevel] = useState<number>(1);
   const [mousePos, setMousePos] = useState<{ x: number; y: number }>({ x: 50, y: 50 });
-
-  const isColorChangeable = piece.category === 'headboard' || piece.category === 'panel';
-  const currentColor = isColorChangeable && piece.palette[activePaletteIdx]
-    ? piece.palette[activePaletteIdx]
-    : piece.palette[0];
-  const blend = getSwatchBlend(currentColor.hex, !isColorChangeable || activePaletteIdx === 0);
 
   const handleImageMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
     if (zoomLevel === 1) return;
@@ -961,46 +846,18 @@ const InspectorModal: React.FC<InspectorModalProps> = ({
             onClick={toggleZoom}
             onMouseMove={handleImageMouseMove}
           >
-            <div className="relative max-w-full max-h-full flex items-center justify-center">
-              <img
-                src={piece.image}
-                alt={piece.title}
-                className="relative z-10 max-w-full max-h-full w-auto h-auto object-contain rounded-xl shadow-2xl border border-white/10 transition-transform duration-200"
-                style={{
-                  transformOrigin: `${mousePos.x}% ${mousePos.y}%`,
-                  transform: zoomLevel > 1 ? `scale(${zoomLevel})` : 'scale(1)',
-                }}
-              />
-
-              {/* Dynamic Color Tone Transformation in Modal (Headboards & Wall Panels ONLY) */}
-              {isColorChangeable && activePaletteIdx > 0 && (
-                <>
-                  <div
-                    className="absolute inset-0 pointer-events-none mix-blend-color transition-all duration-500 ease-out z-20 rounded-xl"
-                    style={{
-                      backgroundColor: currentColor.hex,
-                      opacity: blend.colorOpacity,
-                      transformOrigin: `${mousePos.x}% ${mousePos.y}%`,
-                      transform: zoomLevel > 1 ? `scale(${zoomLevel})` : 'scale(1)',
-                    }}
-                  />
-                  {blend.multiplyOpacity > 0 && (
-                    <div
-                      className="absolute inset-0 pointer-events-none mix-blend-multiply transition-all duration-500 ease-out z-20 rounded-xl"
-                      style={{
-                        backgroundColor: currentColor.hex,
-                        opacity: blend.multiplyOpacity,
-                        transformOrigin: `${mousePos.x}% ${mousePos.y}%`,
-                        transform: zoomLevel > 1 ? `scale(${zoomLevel})` : 'scale(1)',
-                      }}
-                    />
-                  )}
-                </>
-              )}
-            </div>
+            <img
+              src={piece.image}
+              alt={piece.title}
+              className="relative z-10 max-w-full max-h-full w-auto h-auto object-contain rounded-xl shadow-2xl border border-white/10 transition-transform duration-200"
+              style={{
+                transformOrigin: `${mousePos.x}% ${mousePos.y}%`,
+                transform: zoomLevel > 1 ? `scale(${zoomLevel})` : 'scale(1)',
+              }}
+            />
 
             {/* Zoom helper label */}
-            <div className="absolute bottom-3 left-3 z-30 pointer-events-none">
+            <div className="absolute bottom-3 left-3 z-20 pointer-events-none">
               <span className="px-2.5 py-1 rounded-full bg-black/80 backdrop-blur-md text-[10px] font-mono text-[#C5A880] border border-white/15 flex items-center gap-1.5 shadow-md">
                 <ZoomIn className="w-3 h-3" />
                 <span>{zoomLevel > 1 ? 'Click to Reset' : 'Zoom 2.2x'}</span>
@@ -1039,46 +896,34 @@ const InspectorModal: React.FC<InspectorModalProps> = ({
 
             <p className="text-xs sm:text-sm text-[#D3D0C9] mt-1 font-light">{piece.subtitle}</p>
 
-            {/* Interactive Swatch Color Palette */}
+            {/* Extracted Swatch Color Palette */}
             <div className="mt-5 p-3.5 rounded-2xl bg-[#1A1918] border border-white/5">
               <div className="flex items-center justify-between text-[10px] font-mono uppercase tracking-wider text-[#C5A880] mb-2.5">
-                <span>{isColorChangeable ? 'Interactive Material Tone' : 'Material Tone Palette'}</span>
-                <span className="text-white font-semibold">{isColorChangeable ? currentColor.name : 'Click to Copy Hex'}</span>
+                <span>Material Tone Palette</span>
+                <span>Click to Copy Hex</span>
               </div>
               <div className="grid grid-cols-4 gap-2">
-                {piece.palette.map((swatch, idx) => {
-                  const isCurrentActive = isColorChangeable && activePaletteIdx === idx;
-                  return (
-                    <button
-                      key={swatch.hex}
-                      onClick={() => {
-                        if (isColorChangeable) {
-                          onSelectPalette(idx);
-                        }
-                        onCopyHex(swatch.hex);
-                      }}
-                      className={`group/swatch text-left p-1 rounded-xl transition-all relative ${
-                        isCurrentActive ? 'bg-white/10 ring-1 ring-[#C5A880]' : 'hover:bg-white/5'
-                      }`}
-                      title={`Select / Copy ${swatch.name} (${swatch.hex})`}
+                {piece.palette.map((swatch) => (
+                  <button
+                    key={swatch.hex}
+                    onClick={() => onCopyHex(swatch.hex)}
+                    className="group/swatch text-left p-1 rounded-xl hover:bg-white/5 transition-colors relative"
+                    title={`Copy ${swatch.name} (${swatch.hex})`}
+                  >
+                    <div
+                      className="w-full h-8 rounded-lg border border-white/20 shadow-sm relative overflow-hidden"
+                      style={{ backgroundColor: swatch.hex }}
                     >
-                      <div
-                        className={`w-full h-8 rounded-lg border shadow-sm relative overflow-hidden transition-transform ${
-                          isCurrentActive ? 'scale-105 border-white ring-2 ring-[#C5A880]' : 'border-white/20'
-                        }`}
-                        style={{ backgroundColor: swatch.hex }}
-                      >
-                        {(isCurrentActive || copiedHex === swatch.hex) && (
-                          <div className="absolute inset-0 bg-black/60 flex items-center justify-center">
-                            <Check className="w-3.5 h-3.5 text-[#C5A880]" />
-                          </div>
-                        )}
-                      </div>
-                      <p className="text-[10px] font-mono text-[#8A8782] truncate mt-1">{swatch.hex}</p>
-                      <p className="text-[9px] text-white/70 truncate">{swatch.name}</p>
-                    </button>
-                  );
-                })}
+                      {copiedHex === swatch.hex && (
+                        <div className="absolute inset-0 bg-black/70 flex items-center justify-center">
+                          <Check className="w-3.5 h-3.5 text-[#C5A880]" />
+                        </div>
+                      )}
+                    </div>
+                    <p className="text-[10px] font-mono text-[#8A8782] truncate mt-1">{swatch.hex}</p>
+                    <p className="text-[9px] text-white/70 truncate">{swatch.name}</p>
+                  </button>
+                ))}
               </div>
             </div>
 
@@ -1130,7 +975,7 @@ const InspectorModal: React.FC<InspectorModalProps> = ({
                     : piece.category === 'panel'
                       ? 'Acoustic Wall Panel'
                       : 'Designer Wallpaper'
-                })${isColorChangeable && activePaletteIdx > 0 ? ` in ${currentColor.name} tone` : ''}. Could we schedule an on-site inspection in Chennai?`
+                }). Could we schedule an on-site inspection in Chennai?`
               )}`}
               target="_blank"
               rel="noopener noreferrer"

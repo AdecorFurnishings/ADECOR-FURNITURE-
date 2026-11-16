@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useCallback } from 'react';
+import React, { useState, useMemo } from 'react';
 import { createPortal } from 'react-dom';
 import { Link } from 'react-router-dom';
 import {
@@ -19,24 +19,6 @@ import {
 
 type BedCategory = 'all' | 'storage' | 'tufted' | 'channel' | 'plaid';
 type ViewMode = 'bed' | 'poster' | 'swatches';
-
-/**
- * Computes calibrated blend opacities based on swatch luminance so colors
- * tint the bed & headboard fabric rich & realistic while keeping white sheets pure.
- */
-function getSwatchBlend(hex: string, isOriginal: boolean) {
-  if (isOriginal) {
-    return { colorOpacity: 0, multiplyOpacity: 0 };
-  }
-  const cleanHex = hex.replace('#', '');
-  const r = parseInt(cleanHex.substring(0, 2), 16) || 0;
-  const g = parseInt(cleanHex.substring(2, 4), 16) || 0;
-  const b = parseInt(cleanHex.substring(4, 6), 16) || 0;
-  const lum = (0.299 * r + 0.587 * g + 0.114 * b) / 255;
-  const colorOpacity = Math.max(0.72, Math.min(0.92, 0.95 - lum * 0.22));
-  const multiplyOpacity = lum < 0.4 ? 0.16 : lum < 0.65 ? 0.08 : 0.02;
-  return { colorOpacity, multiplyOpacity };
-}
 
 export interface MattressSuite {
   id: string;
@@ -305,7 +287,6 @@ export const MattressPage: React.FC = () => {
   const [activeCategory, setActiveCategory] = useState<BedCategory>('all');
   const [selectedSuite, setSelectedSuite] = useState<MattressSuite | null>(null);
   const [viewModes, setViewModes] = useState<{ [key: string]: ViewMode }>({});
-  const [activePaletteIndex, setActivePaletteIndex] = useState<{ [key: string]: number }>({});
   const [modalViewMode, setModalViewMode] = useState<ViewMode>('bed');
 
   React.useEffect(() => {
@@ -339,14 +320,6 @@ export const MattressPage: React.FC = () => {
   const countPlaid = useMemo(
     () => MATTRESS_SUITES.filter((s) => s.category.includes('plaid')).length,
     [],
-  );
-
-  const activeColorForSuite = useCallback(
-    (suite: MattressSuite) => {
-      const idx = activePaletteIndex[suite.id] ?? 0;
-      return suite.palette[idx] || suite.palette[0];
-    },
-    [activePaletteIndex],
   );
 
   const setViewModeForSuite = (id: string, mode: ViewMode) => {
@@ -437,9 +410,6 @@ export const MattressPage: React.FC = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 items-stretch">
           {filteredSuites.map((suite) => {
             const currentMode = viewModes[suite.id] || 'bed';
-            const currentColor = activeColorForSuite(suite);
-            const activePaletteIdx = activePaletteIndex[suite.id] ?? 0;
-            const blend = getSwatchBlend(currentColor.hex, activePaletteIdx === 0);
 
             return (
               <div
@@ -447,38 +417,15 @@ export const MattressPage: React.FC = () => {
                 className="group rounded-3xl bg-white border border-[#D3D0C9] hover:border-[#C5A880] shadow-soft-luxury hover:shadow-elevated transition-all duration-300 overflow-hidden flex flex-col justify-between"
               >
                 <div>
-                  {/* Image Plate with 3-Mode View Switcher & Live Fabric Tone Shifts */}
+                  {/* Image Plate with 3-Mode View Switcher */}
                   <div className="relative aspect-[4/3] overflow-hidden bg-[#F2EFE9]">
                     {currentMode === 'bed' && (
-                      <div className="relative w-full h-full flex items-center justify-center p-2">
-                        <img
-                          src={suite.bedOnlyImage}
-                          alt={`${suite.title} in ${currentColor.name}`}
-                          loading="lazy"
-                          className="w-full h-full object-contain transition-transform duration-700 group-hover:scale-105"
-                        />
-                        {/* Dynamic Fabric Tone Transformation Layer */}
-                        {activePaletteIdx > 0 && (
-                          <>
-                            <div
-                              className="absolute inset-2 pointer-events-none mix-blend-color transition-all duration-500 ease-out"
-                              style={{
-                                backgroundColor: currentColor.hex,
-                                opacity: blend.colorOpacity,
-                              }}
-                            />
-                            {blend.multiplyOpacity > 0 && (
-                              <div
-                                className="absolute inset-2 pointer-events-none mix-blend-multiply transition-all duration-500 ease-out"
-                                style={{
-                                  backgroundColor: currentColor.hex,
-                                  opacity: blend.multiplyOpacity,
-                                }}
-                              />
-                            )}
-                          </>
-                        )}
-                      </div>
+                      <img
+                        src={suite.bedOnlyImage}
+                        alt={suite.title}
+                        loading="lazy"
+                        className="w-full h-full object-contain p-2 transition-transform duration-700 group-hover:scale-105"
+                      />
                     )}
 
                     {currentMode === 'poster' && (
@@ -517,17 +464,6 @@ export const MattressPage: React.FC = () => {
                       <Sparkles className="w-3.5 h-3.5 text-[#C5A880]" />
                       <span>{suite.badge}</span>
                     </div>
-
-                    {/* Active Custom Tone Badge on Image */}
-                    {activePaletteIdx > 0 && currentMode === 'bed' && (
-                      <div className="absolute bottom-12 left-3 inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-black/80 backdrop-blur-md border border-white/20 text-[9px] font-mono text-white shadow-md z-10 pointer-events-none">
-                        <span
-                          className="w-2 h-2 rounded-full ring-1 ring-white/60"
-                          style={{ backgroundColor: currentColor.hex }}
-                        />
-                        <span>{currentColor.name}</span>
-                      </div>
-                    )}
 
                     {/* View Mode Toggle Controls */}
                     <div className="absolute top-3 right-3 flex items-center gap-1 bg-black/70 backdrop-blur-md p-1 rounded-full border border-white/20 shadow-md">
@@ -651,38 +587,6 @@ export const MattressPage: React.FC = () => {
                         </span>
                       </div>
                     </div>
-
-                    {/* Color Swatches */}
-                    <div className="pt-1">
-                      <span className="text-[10px] uppercase tracking-wider text-[#8A8782] block mb-1.5">
-                        Fabric Tone: <strong className="text-[#1E1D1B]">{currentColor.name}</strong>
-                      </span>
-                      <div className="flex items-center gap-2">
-                        {suite.palette.map((swatch, idx) => {
-                          const isActive = (activePaletteIndex[suite.id] ?? 0) === idx;
-                          return (
-                            <button
-                              key={swatch.name}
-                              type="button"
-                              onClick={() => {
-                                setActivePaletteIndex((prev) => ({ ...prev, [suite.id]: idx }));
-                                if (currentMode !== 'bed') {
-                                  setViewModeForSuite(suite.id, 'bed');
-                                }
-                              }}
-                              className={`w-6 h-6 rounded-full border transition-all ${
-                                isActive
-                                  ? 'scale-125 border-[#1E1D1B] ring-2 ring-[#C5A880] shadow-md'
-                                  : 'border-black/20 hover:scale-110 opacity-80 hover:opacity-100'
-                              }`}
-                              style={{ backgroundColor: swatch.hex }}
-                              title={`Switch to ${swatch.name}`}
-                              aria-label={`Select ${swatch.name} tone`}
-                            />
-                          );
-                        })}
-                      </div>
-                    </div>
                   </div>
                 </div>
 
@@ -698,7 +602,7 @@ export const MattressPage: React.FC = () => {
 
                   <a
                     href={`https://wa.me/919841134665?text=${encodeURIComponent(
-                      `Hello A-Decor, I would like to inquire about the ${suite.title} in ${currentColor.name} fabric tone. Could you share pricing for King/Queen size and customization options?`,
+                      `Hello A-Decor, I would like to inquire about the ${suite.title}. Could you share pricing for King/Queen size and customization options?`,
                     )}`}
                     target="_blank"
                     rel="noopener noreferrer"
@@ -805,33 +709,11 @@ export const MattressPage: React.FC = () => {
 
                 <div className="flex-1 flex items-center justify-center w-full">
                   {modalViewMode === 'bed' && (
-                    <div className="relative flex items-center justify-center max-h-[55vh] max-w-full">
-                      <img
-                        src={selectedSuite.bedOnlyImage}
-                        alt={`${selectedSuite.title} in ${activeColorForSuite(selectedSuite).name}`}
-                        className="max-h-[55vh] w-auto max-w-full object-contain rounded-xl shadow-2xl"
-                      />
-                      {(activePaletteIndex[selectedSuite.id] ?? 0) > 0 && (
-                        <>
-                          <div
-                            className="absolute inset-0 pointer-events-none mix-blend-color rounded-xl transition-all duration-500 ease-out"
-                            style={{
-                              backgroundColor: activeColorForSuite(selectedSuite).hex,
-                              opacity: getSwatchBlend(activeColorForSuite(selectedSuite).hex, false).colorOpacity,
-                            }}
-                          />
-                          {getSwatchBlend(activeColorForSuite(selectedSuite).hex, false).multiplyOpacity > 0 && (
-                            <div
-                              className="absolute inset-0 pointer-events-none mix-blend-multiply rounded-xl transition-all duration-500 ease-out"
-                              style={{
-                                backgroundColor: activeColorForSuite(selectedSuite).hex,
-                                opacity: getSwatchBlend(activeColorForSuite(selectedSuite).hex, false).multiplyOpacity,
-                              }}
-                            />
-                          )}
-                        </>
-                      )}
-                    </div>
+                    <img
+                      src={selectedSuite.bedOnlyImage}
+                      alt={selectedSuite.title}
+                      className="max-h-[55vh] w-auto max-w-full object-contain rounded-xl shadow-2xl"
+                    />
                   )}
 
                   {modalViewMode === 'poster' && (
@@ -931,50 +813,6 @@ export const MattressPage: React.FC = () => {
                     </div>
                   </div>
 
-                  {/* Interactive Fabric Tone Selector in Modal */}
-                  <div className="pt-3 border-t border-white/10">
-                    <div className="flex items-center justify-between mb-2">
-                      <span className="text-[10px] uppercase text-[#8A8782] font-mono">
-                        Select Fabric Tone
-                      </span>
-                      <span className="text-xs font-semibold text-white flex items-center gap-1.5">
-                        <span
-                          className="w-2.5 h-2.5 rounded-full ring-1 ring-white/50"
-                          style={{ backgroundColor: activeColorForSuite(selectedSuite).hex }}
-                        />
-                        {activeColorForSuite(selectedSuite).name}
-                      </span>
-                    </div>
-                    <div className="flex items-center gap-2.5">
-                      {selectedSuite.palette.map((swatch, idx) => {
-                        const isActive = (activePaletteIndex[selectedSuite.id] ?? 0) === idx;
-                        return (
-                          <button
-                            key={swatch.name}
-                            type="button"
-                            onClick={() => {
-                              setActivePaletteIndex((prev) => ({
-                                ...prev,
-                                [selectedSuite.id]: idx,
-                              }));
-                              if (modalViewMode !== 'bed') {
-                                setModalViewMode('bed');
-                              }
-                            }}
-                            className={`w-7 h-7 rounded-full border transition-all ${
-                              isActive
-                                ? 'scale-125 border-white ring-2 ring-[#C5A880] shadow-glow-gold'
-                                : 'border-white/20 hover:scale-110 opacity-70 hover:opacity-100'
-                            }`}
-                            style={{ backgroundColor: swatch.hex }}
-                            title={`Switch to ${swatch.name}`}
-                            aria-label={`Select ${swatch.name}`}
-                          />
-                        );
-                      })}
-                    </div>
-                  </div>
-
                   <div className="pt-3 border-t border-white/10">
                     <span className="text-[10px] uppercase text-[#8A8782] block mb-2 font-mono">
                       Craft Highlights
@@ -993,7 +831,7 @@ export const MattressPage: React.FC = () => {
                 <div className="space-y-3 pt-4 border-t border-white/10">
                   <a
                     href={`https://wa.me/919841134665?text=${encodeURIComponent(
-                      `Hello A-Decor, I would like to order or get a quote for ${selectedSuite.title} in ${activeColorForSuite(selectedSuite).name} fabric tone (${selectedSuite.badge}). Could you share pricing and available fabric options?`,
+                      `Hello A-Decor, I would like to order or get a quote for ${selectedSuite.title} (${selectedSuite.badge}). Could you share pricing and available fabric options?`,
                     )}`}
                     target="_blank"
                     rel="noopener noreferrer"
